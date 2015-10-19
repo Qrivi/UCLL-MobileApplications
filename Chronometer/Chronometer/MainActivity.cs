@@ -23,6 +23,7 @@ namespace Chronometer
 
 		Handler timeHandler;
 		int count = 0;
+		bool isRunning = false;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -40,9 +41,12 @@ namespace Chronometer
 			timeView = FindViewById<TextView> (Resource.Id.timeView);
 			startStopButton = FindViewById<Button> (Resource.Id.startStopButton);
 			resetButton = FindViewById<Button> (Resource.Id.resetButton);
+
+			timeView.Text = "0:00:00";
+			startStopButton.Text = "Start";
 			
 			startStopButton.Click += (sender, e) => StartStopHandler();
-			resetButton.Click += (sender, e) => StartStopHandler();
+			resetButton.Click += (sender, e) => ResetHandler();
 
 			timeHandler = new Handler ();
 		}
@@ -83,17 +87,31 @@ namespace Chronometer
 			ShowCount();
 		}
 
+		private void ResetHandler(){
+			count = 0;
+			ShowCount ();
+		}
+
 		private void StartStopHandler(){
 			Log.Info ("Chronometer", "startStopHandler()");
-			GenerateDelayedTick ();
+
+			if (!isRunning) {
+				startStopButton.Text = "Stop";
+				isRunning = true;
+				GenerateDelayedTick ();
+			} else {
+				isRunning = false;
+				startStopButton.Text = "Start";
+			}
+
+				
 			//Increment ();
 		}
 
 		private void GenerateDelayedTick(){
-			timeHandler.PostDelayed (OnTick, 1000);
+			if(isRunning) timeHandler.PostDelayed (OnTick, 1);
 		}
 		private void OnTick(){
-			Log.Info ("Chronometer", "TICK");
 			Increment ();
 			GenerateDelayedTick ();
 		}
