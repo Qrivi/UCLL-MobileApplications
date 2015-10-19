@@ -17,9 +17,12 @@ namespace Chronometer
 		TextView timeView;
 		Button startStopButton;
 		Button resetButton;
-		int count = 0;
+
 		ISharedPreferences data;
 		ISharedPreferencesEditor editor;
+
+		Handler timeHandler;
+		int count = 0;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -40,24 +43,26 @@ namespace Chronometer
 			
 			startStopButton.Click += (sender, e) => StartStopHandler();
 			resetButton.Click += (sender, e) => StartStopHandler();
+
+			timeHandler = new Handler ();
 		}
 
-		private void ShowCount(){
-			timeView.Text = count.ToString();
-		}
-
-		private void Increment(){
-			count++;
-		}
-
-		private void StartStopHandler(){
-			Log.Info ("Chronometer", "startStopHandler()");
-			Console.WriteLine (timeView);
-			Increment ();
+		protected override void OnResume(){
+			base.OnResume ();
+			count = data.GetInt ("Count", 0 );
 			ShowCount ();
 		}
-		/*
-		protected override void OnSaveInstanceState(Bundle outState) {
+
+		protected override void OnPause(){
+			base.OnPause ();
+			editor.PutInt ("Count", count );
+			editor.Apply ();
+
+			//Log.Info ("yolo", count.ToString() );
+			//Log.Info ( "swag", data.GetInt ("Count", 69).ToString() );
+		}
+
+		/* protected override void OnSaveInstanceState(Bundle outState) {
 			base.OnSaveInstanceState (outState);
 			outState.PutInt ("count", count );
 
@@ -69,21 +74,28 @@ namespace Chronometer
 			ShowCount ();
 		}*/
 
-		protected override void OnResume(){
-			base.OnResume ();
-			count = data.GetInt ("Count", 0 );
-			ShowCount ();
+		private void ShowCount(){
+			timeView.Text = count.ToString();
 		}
-			
-		protected override void OnPause(){
-			base.OnPause ();
-			editor.PutInt ("Count", count );
-			editor.Apply ();
 
-			Log.Info ("yolo", count.ToString() );
-			Log.Info ( "swag", data.GetInt ("Count", 69).ToString() );
+		private void Increment(){
+			count++;
+			ShowCount();
+		}
+
+		private void StartStopHandler(){
+			Log.Info ("Chronometer", "startStopHandler()");
+			GenerateDelayedTick ();
+			//Increment ();
+		}
+
+		private void GenerateDelayedTick(){
+			timeHandler.PostDelayed (OnTick, 1000);
+		}
+		private void OnTick(){
+			Log.Info ("Chronometer", "TICK");
+			Increment ();
+			GenerateDelayedTick ();
 		}
 	}
 }
-
-

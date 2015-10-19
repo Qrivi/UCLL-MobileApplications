@@ -2,9 +2,9 @@
 
 namespace Chronometer
 {
-	public class EmptyClass
+	public class Timer
 	{
-		public EmptyClass ()
+		public Timer ()
 		{
 		}
 	}
