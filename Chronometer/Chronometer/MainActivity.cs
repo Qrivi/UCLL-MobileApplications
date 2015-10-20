@@ -22,7 +22,7 @@ namespace Chronometer
 		ISharedPreferencesEditor editor;
 
 		Handler timeHandler;
-		DateTime start;
+		DateTime startTime;
 		TimeSpan accumulatedTime;
 
 		bool isRunning = false;
@@ -50,7 +50,7 @@ namespace Chronometer
 			resetButton.Click += (sender, e) => ResetHandler();
 
 			timeHandler = new Handler ();
-			start = new DateTime ();
+			startTime = new DateTime ();
 			accumulatedTime = new TimeSpan ();
 		}
 
@@ -58,7 +58,7 @@ namespace Chronometer
 			base.OnResume ();
 
 			//accumulatedTime = TimeSpan.Parse(data.GetString ("count", "0" ));
-			updateTimeView ();
+			//updateTimeView ();
 		}
 
 		protected override void OnPause(){
@@ -83,39 +83,38 @@ namespace Chronometer
 			ShowCount ();
 		}*/
 
-		private void updateTimeView(){
-			timeView.Text = accumulatedTime.ToString();
-		}
-
-		private void Increment(){
-			accumulatedTime = accumulatedTime.Add (TimeSpan.FromMilliseconds (500));
-			updateTimeView();
-		}
-
 		private void ResetHandler(){
+			startTime = new DateTime();
 			accumulatedTime = new TimeSpan ();
-			updateTimeView ();
+			timeView.Text = accumulatedTime.ToString(@"mm\:ss\,fff");
 		}
 
 		private void StartStopHandler(){
 			Log.Info ("Chronometer", "startStopHandler()");
 
-			if (!isRunning) {
-				startStopButton.Text = GetString (Resource.String.stop);
-				isRunning = true;
-				GenerateDelayedTick ();
-			} else {
+			if (isRunning) {
 				isRunning = false;
+				resetButton.Enabled = true;
 				startStopButton.Text = GetString (Resource.String.start);
+			} else {
+				isRunning = true;
+				resetButton.Enabled = false;
+				startStopButton.Text = GetString (Resource.String.stop);
+
+				if (startTime == DateTime.MinValue)
+					startTime = DateTime.Now;
+				TriggerUpdate ();
 			}
 		}
 
-		private void GenerateDelayedTick(){
-			if(isRunning) timeHandler.PostDelayed (OnTick, 1);
+		private void TriggerUpdate(){
+			if(isRunning) timeHandler.PostDelayed (Update, 1);
 		}
-		private void OnTick(){
-			Increment ();
-			GenerateDelayedTick ();
+		private void Update(){
+			accumulatedTime = DateTime.Now.Subtract( startTime );
+			timeView.Text = accumulatedTime.ToString(@"mm\:ss\,fff");
+
+			TriggerUpdate ();
 		}
 	}
 }

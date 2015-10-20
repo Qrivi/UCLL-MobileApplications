@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="40sp"
-        android:text="0:00:00" />
+        android:text="00:00,000" />
     <Button
         android:id="@+id/startStopButton"
         android:layout_width="match_parent"
