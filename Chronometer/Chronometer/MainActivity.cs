@@ -97,6 +97,7 @@ namespace Chronometer
 			startTime = new DateTime();
 			accumulatedTime = new TimeSpan ();
 			timeView.Text = accumulatedTime.ToString(@"mm\:ss\.fff");
+			Log.Info ("DEBUG", accumulatedTime.ToString(@"mm\:ss\.fff"));
 		}
 
 		private void PauseHandler(){
@@ -115,9 +116,9 @@ namespace Chronometer
 				resetButton.Enabled = false;
 				startStopButton.Text = GetString (Resource.String.stop);
 
-				if (startTime == DateTime.MinValue)
+				if (startTime == DateTime.MinValue) {
 					startTime = DateTime.Now;
-				if (stopTime != DateTime.MinValue) {
+				}else if (stopTime != DateTime.MinValue) {
 					startTime = startTime.Add( DateTime.Now.Subtract (stopTime) );
 					accumulatedTime = accumulatedTime.Subtract (accumulatedStoppedTime);
 					stopTime = new DateTime();
