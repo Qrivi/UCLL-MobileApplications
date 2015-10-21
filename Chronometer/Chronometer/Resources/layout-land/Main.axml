@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1"
     android:padding="8dp"
     android:background="#FEFEFE">
     <TextView
         android:id="@+id/timeView"
         android:gravity="center"
-        android:textSize="65sp"
+        android:textSize="85sp"
         android:text="00:00.000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:textColor="#9E9E9E" />
-    <Button
-        android:id="@+id/startStopButton"
-        android:text="@string/start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:weightSum="2">
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent">
+        <Button
+            android:id="@+id/startStopButton"
+            android:text="@string/start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
         <Button
             android:id="@+id/pauseButton"
             android:text="@string/pause"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
         <Button
             android:id="@+id/resetButton"
             android:text="@string/reset"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
