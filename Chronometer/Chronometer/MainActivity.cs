@@ -28,10 +28,8 @@ namespace Chronometer
 		TimeSpan accumulatedTime,
 			accumulatedStoppedTime;
 
-		int state = 0; 	
-		// 0: stopped
-		// 1: started
-		// 2: paused
+		enum State{ Stopped, Started, Paused }
+		State currentState;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -58,6 +56,7 @@ namespace Chronometer
 			resetButton.Click += (sender, e) => ResetHandler();
 
 			pauseButton.Enabled = false;
+			currentState = State.Stopped;
 
 			timeHandler = new Handler ();
 			startTime = stopTime = new DateTime ();
@@ -67,21 +66,38 @@ namespace Chronometer
 		protected override void OnResume(){
 			base.OnResume ();
 
-			//accumulatedTime = TimeSpan.Parse(data.GetString ("count", "0" ));
-			//updateTimeView ();
+			currentState = (State)data.GetInt ("CurrentState", 0);
+			startTime = DateTime.Parse( data.GetString("StartTime", startTime.ToString()) );
+			stopTime = DateTime.Parse( data.GetString("StopTime", stopTime.ToString()) );
+			timeView.Text = data.GetString ("Counter", "00:00.000");
+
+			switch (currentState) {
+			case State.Started:
+				startStopButton.Text = GetString (Resource.String.stop);
+				pauseButton.Enabled = true;
+				resetButton.Enabled = false;
+
+				TriggerUpdate ();
+				break;
+			case State.Paused:
+				pauseButton.Enabled = false;
+				resetButton.Enabled = false;
+				break;
+			}
 		}
 
 		protected override void OnPause(){
 			base.OnPause ();
 
-			//isRunning = true;
-			//StartStopHandler ();
-
-			//editor.PutString ("count", accumulatedTime.ToString() );
-			//editor.Apply ();
+			editor.PutInt ("CurrentState", (int)currentState );
+			editor.PutString ("StartTime", startTime.ToString() );
+			editor.PutString ("StopTime", stopTime.ToString() );
+			editor.PutString ("Counter", timeView.Text);
+			editor.Apply ();
 		}
 
-		/* protected override void OnSaveInstanceState(Bundle outState) {
+		/* 
+		protected override void OnSaveInstanceState(Bundle outState) {
 			base.OnSaveInstanceState (outState);
 			outState.PutInt ("count", count );
 
@@ -91,27 +107,27 @@ namespace Chronometer
 			base.OnRestoreInstanceState (savedInstanceState);
 			count = (int) savedInstanceState.Get ("count");
 			ShowCount ();
-		}*/
+		}
+		*/
 
 		private void ResetHandler(){
 			startTime = new DateTime();
 			accumulatedTime = new TimeSpan ();
 			timeView.Text = accumulatedTime.ToString(@"mm\:ss\.fff");
-			Log.Info ("DEBUG", accumulatedTime.ToString(@"mm\:ss\.fff"));
 		}
 
 		private void PauseHandler(){
-			state = 2; // now paused
+			currentState = State.Paused;
 			pauseButton.Enabled = false;
 			resetButton.Enabled = false;
 			startStopButton.Text = GetString (Resource.String.start);
 		}
 
 		private void StartStopHandler(){
-			switch (state) {
-			case 0:
-			case 2:
-				state = 1; // now resumed/started
+			switch (currentState) {
+			case State.Stopped:
+			case State.Paused:
+				currentState = State.Started;
 				pauseButton.Enabled = true;
 				resetButton.Enabled = false;
 				startStopButton.Text = GetString (Resource.String.stop);
@@ -126,8 +142,8 @@ namespace Chronometer
 
 				TriggerUpdate ();
 				break;
-			case 1:
-				state = 0; // now stopped
+			case State.Started:
+				currentState = State.Stopped;
 				pauseButton.Enabled = false;
 				resetButton.Enabled = true;
 				startStopButton.Text = GetString (Resource.String.start);
@@ -144,7 +160,7 @@ namespace Chronometer
 			accumulatedTime = DateTime.Now.Subtract( startTime );
 			timeView.Text = accumulatedTime.ToString(@"mm\:ss\.fff");
 
-			if(state == 1) TriggerUpdate ();
+			if(currentState == State.Started) TriggerUpdate ();
 		}
 	}
 }
