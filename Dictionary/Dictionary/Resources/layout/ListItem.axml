@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+    <TextView
+        android:id="@+id/dictionary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="The Collaborative International Dictionary of English v.0.44" />
+    <TextView
+        android:id="@+id/definition"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:padding="12dp"
+        android:textColor="@android:color/darker_gray"
+        android:text="Waffle \Waffle\, n. [D. wafel. See {Wafer}.] 1. A thin cake baked and then rolled; a wafer. [1913 Webster] 2. A soft indented cake cooked in a waffle iron. [1913 Webster] {Waffle iron}, an iron utensil or mold made in two parts shutting together, -- used for cooking waffles over a fire. [1913 Webster]" />
+</LinearLayout>
