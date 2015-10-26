@@ -1,5 +1,11 @@
-# README #
+# Qrivi / MobileApplications #
 
-Xamarin solution for the first assignment of the Mobile Applications course at UC Leuven-Limburg.
+> This repo contains my Xamarin solutions for the Mobile Applications course at UC Leuven-Limburg.
 
-Assignment can be found [here](http://alexander.khleuven.be/courses/mobile/labs/chronometer/assignment.html).
+
+## Projects
+
+Project name  | Type | Assignment sheet
+------------- | ---- | ----------------
+Chronometer   | Xamarin Android Application | [alexander.khleuven.be/...](http://alexander.khleuven.be/courses/mobile/labs/chronometer/assignment.html)
+Dictionary    | Xamarin Android Application | [alexander.khleuven.be/...](http://alexander.khleuven.be/courses/mobile/labs/dictionary/assignment.html)
