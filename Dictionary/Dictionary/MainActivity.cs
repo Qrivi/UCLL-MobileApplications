@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using System.Net;
 using System.Collections.Specialized;
+using System.Xml;
 
 namespace Dictionary
 {
@@ -22,6 +23,7 @@ namespace Dictionary
 		WebClient client;
 		Uri uri;
 		NameValueCollection parameters;
+		XmlDocument response;
 
 		String[] test = { "yolo", "swag", "wafa", "jan" };
 
@@ -42,7 +44,7 @@ namespace Dictionary
 
 			parameters.Add ("word", "waffle");
 
-			client.UploadValuesCompleted += (sender, e) => populateWordList();
+			client.UploadValuesCompleted += populateWordList;
 			client.UploadValuesAsync (uri, parameters);
 
 
@@ -50,8 +52,14 @@ namespace Dictionary
 			//wordList.Adapter = adapter;
 		}
 
-		private void populateWordList(){
-			Console.WriteLine ("tis gelukt");
+		private void populateWordList( object sender, UploadValuesCompletedEventArgs e){
+			if (e.Error == null) {
+				 
+				response = new XmlDocument ();
+				response.Load (e.Result);
+			} else {
+				Console.WriteLine ("Bush did 9/11");
+			}
 		}
 
 	}
