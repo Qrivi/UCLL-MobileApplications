@@ -25,8 +25,7 @@ namespace Chronometer
 		Handler timeHandler;
 		DateTime startTime, 
 			stopTime;
-		TimeSpan accumulatedTime,
-			accumulatedStoppedTime;
+		TimeSpan accumulatedTime;
 
 		enum State{ Stopped, Started, Paused }
 		State currentState;
@@ -60,7 +59,7 @@ namespace Chronometer
 
 			timeHandler = new Handler ();
 			startTime = stopTime = new DateTime ();
-			accumulatedTime = accumulatedStoppedTime = new TimeSpan ();
+			accumulatedTime = new TimeSpan ();
 		}
 
 		protected override void OnResume(){
@@ -112,6 +111,7 @@ namespace Chronometer
 
 		private void ResetHandler(){
 			startTime = new DateTime();
+			stopTime = new DateTime();
 			accumulatedTime = new TimeSpan ();
 			timeView.Text = accumulatedTime.ToString(@"mm\:ss\.fff");
 		}
@@ -136,8 +136,6 @@ namespace Chronometer
 					startTime = DateTime.Now;
 				}else if (stopTime != DateTime.MinValue) {
 					startTime = startTime.Add( DateTime.Now.Subtract (stopTime) );
-					accumulatedTime = accumulatedTime.Subtract (accumulatedStoppedTime);
-					stopTime = new DateTime();
 				}
 
 				TriggerUpdate ();
