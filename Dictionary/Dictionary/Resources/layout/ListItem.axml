@@ -5,17 +5,17 @@
     android:layout_height="wrap_content"
     android:padding="12dp">
     <TextView
-        android:id="@+id/dictionary"
+        android:id="@+id/Dictionary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16dp"
-        android:text="The Collaborative International Dictionary of English v.0.44" />
+        android:text="Dictionary of Awesomeness" />
     <TextView
-        android:id="@+id/definition"
+        android:id="@+id/Definition"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="10dp"
         android:padding="12dp"
         android:textColor="@android:color/darker_gray"
-        android:text="Waffle \Waffle\, n. [D. wafel. See {Wafer}.] 1. A thin cake baked and then rolled; a wafer. [1913 Webster] 2. A soft indented cake cooked in a waffle iron. [1913 Webster] {Waffle iron}, an iron utensil or mold made in two parts shutting together, -- used for cooking waffles over a fire. [1913 Webster]" />
+        android:text="This is dummy data. As an end user you should never be capable of seeing this." />
 </LinearLayout>

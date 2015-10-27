@@ -8,20 +8,26 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/searchField"
+            android:id="@+id/SearchField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="Look up a word"
+            android:hint="What do you want to look up?"
             android:inputType="text" />
         <ImageButton
-            android:id="@+id/searchButton"
+            android:id="@+id/SearchButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_menu_search" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/SearchInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:padding="11dp" />
     <ListView
-        android:id="@+id/wordList"
+        android:id="@+id/WordList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
