@@ -7,21 +7,21 @@ using Android.Util;
 
 namespace Dictionary
 {
-	public class WordListAdapter : BaseAdapter 
+	public class MainResultAdapter : BaseAdapter 
 	{
-		Activity activity;
-		List<SearchResult> results;
+		Activity Activity;
+		List<SearchResult> Results;
 
-		public WordListAdapter( Activity a, List<SearchResult> r )
+		public MainResultAdapter( Activity a, List<SearchResult> r )
 		{
 			Log.Info ("WordListAdapter", "Initialized - results to show: " + r.Count);
 			
-			activity = a;
-			results = r;
+			Activity = a;
+			Results = r;
 		}
 
 		public override int Count {
-			get { return results.Count; }
+			get { return Results.Count; }
 		}
 
 		public override Java.Lang.Object GetItem (int position) {
@@ -31,18 +31,18 @@ namespace Dictionary
 		}
 
 		public override long GetItemId (int position) {
-			return results [position].Id;
+			return Results [position].Id;
 		}
 
 		public override View GetView (int position, View convertView, ViewGroup parent)
 		{
-			var view = convertView ?? activity.LayoutInflater.Inflate (
-				Resource.Layout.ListItem, parent, false);
+			var view = convertView ?? Activity.LayoutInflater.Inflate (
+				Resource.Layout.ResultItem, parent, false);
 			var dictionary = view.FindViewById<TextView> (Resource.Id.Dictionary);
 			var definition = view.FindViewById<TextView> (Resource.Id.Definition);
 
-			dictionary.Text = results [position].Dictionary;
-			definition.Text = results [position].Definition;
+			dictionary.Text = Results [position].Dictionary;
+			definition.Text = Results [position].Definition;
 
 			return view;
 		}

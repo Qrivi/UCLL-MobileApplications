@@ -21,11 +21,11 @@ namespace Dictionary
 	{
 
 		EditText SearchField;
-		ImageButton SearchButton;
+		ImageButton SearchButton, FilterButton, ShareButton;
 		TextView SearchInfo;
 		ListView WordList;
 
-		WordListAdapter Adapter;
+		MainResultAdapter Adapter;
 
 		WebClient Client;
 		Uri Uri;
@@ -38,19 +38,22 @@ namespace Dictionary
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
+			Client = new WebClient();
+			Uri = new Uri ("http://services.aonaware.com/DictService/DictService.asmx/Define");
+
 			SearchField = FindViewById<EditText> (Resource.Id.SearchField);
 			SearchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
+			FilterButton = FindViewById<ImageButton> (Resource.Id.FilterButton);
+			ShareButton = FindViewById<ImageButton> (Resource.Id.ShareButton);
 			SearchInfo = FindViewById<TextView> (Resource.Id.SearchInfo);
 			WordList = FindViewById<ListView> (Resource.Id.WordList);
 
-			SearchButton.Enabled = false;
+			SearchButton.Enabled = ShareButton.Enabled = false;
 
 			SearchField.AfterTextChanged += (sender, e) => SearchHandler();
 			SearchButton.Click += (sender, e) => SearchHandler();
-
-			Client = new WebClient();
-
-			Uri = new Uri ("http://services.aonaware.com/DictService/DictService.asmx/Define");
+			FilterButton.Click += (sender, e) => FilterHandler();
+			ShareButton.Click += (sender, e) => ShareHandler();
 		}
 
 		private void PopulateWordList( object sender, UploadValuesCompletedEventArgs e){
@@ -59,29 +62,30 @@ namespace Dictionary
 			if (SearchQuery != "") {
 				if (e.Error == null) {
 					 
-					List<SearchResult> Results = new List<SearchResult> ();
+					List<WordResult> Results = new List<WordResult> ();
 					XmlDocument Response = new XmlDocument ();
 
 					Response.Load (new MemoryStream (e.Result));
 				
 					XmlNodeList Definitions = Response.GetElementsByTagName ("Definition");
 
-					SearchInfo.Text = Definitions.Count + " definitions for “" + SearchQuery + "”.";
+					SearchInfo.Text = Definitions.Count + " definitions in X dictionaries for “" + SearchQuery + "”.";
 					if(Definitions.Count == 1 )
-						SearchInfo.Text = Definitions.Count + " definition for “" + SearchQuery + "”.";
+						SearchInfo.Text = Definitions.Count + " definition in 1 dictionary for “" + SearchQuery + "”.";
 
 					foreach (XmlNode d in Definitions) {
 						//String dictionary = definition["Dictionary"]["Name"].InnerText;
 						//String worddefinition = definition["WordDefinition"].InnerText;
 						//Console.WriteLine ("Element: " + dictionary + " " + worddefinition);
-						Results.Add (new SearchResult {
+						Results.Add (new WordResult {
 							Id = Results.Count,
+							DictId = d ["Dictionary"] ["Id"].InnerText,
 							Dictionary = d ["Dictionary"] ["Name"].InnerText,
 							Definition = d ["WordDefinition"].InnerText
 						});
 					}
 
-					Adapter = new WordListAdapter (this, Results);
+					Adapter = new MainResultAdapter (this, Results);
 					WordList.Adapter = Adapter;
 
 				} else {
@@ -95,7 +99,7 @@ namespace Dictionary
 		private void SearchHandler(){
 			Log.Info ("Dictionary", "SearchHandler()");
 
-			SearchButton.Enabled = ( SearchField.Text.Trim() == "" ) ? false : true;
+			SearchButton.Enabled = ShareButton.Enabled = ( SearchField.Text.Trim() == "" ) ? false : true;
 
 			NameValueCollection Parameters = new NameValueCollection();
 
@@ -107,15 +111,28 @@ namespace Dictionary
 				Client.UploadValuesAsync (Uri, Parameters);
 			}catch(Exception e){
 				// fuck the police
-				Log.Info ("MainActivity", "SearchHandler() -> EXCEPTION CAUGHT");
+				Log.Info ("MainActivity", "UploadValuesAsync() -> EXCEPTION :(" );
 			}
+		}
+
+		private void FilterHandler(){
+			Log.Info ("Dictionary", "FilterHandler()");
+
+			var intent = new Intent(this, typeof(DictionaryPickerActivity));
+			//intent.PutStringArrayListExtra("phone_numbers", phoneNumbers);
+			StartActivity(intent);
+		}
+
+		private void ShareHandler(){
+			Log.Info ("Dictionary", "ShareHandler()");
 		}
 	
 	}
 
-	public class SearchResult{
+	public class WordResult{
 		public long Id{ get; set;}
-		public String Dictionary{ get; set;}
-		public String Definition{ get; set;}
+		public String DictId{ get; set; }
+		public String Dictionary{ get; set; }
+		public String Definition{ get; set; }
 	}
 }
