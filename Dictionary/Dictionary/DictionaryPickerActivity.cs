@@ -17,6 +17,8 @@ namespace Dictionary
 	{
 		ListView DictionaryList;
 
+		DictionaryListAdapter Adapter;
+
 		WebClient Client;
 		Uri Uri;
 
@@ -45,18 +47,17 @@ namespace Dictionary
 			XmlNodeList Dictionaries = Response.GetElementsByTagName ("Dictionary");
 
 			foreach (XmlNode d in Dictionaries) {
-				//String dictionary = definition["Dictionary"]["Name"].InnerText;
-				//String worddefinition = definition["WordDefinition"].InnerText;
-				//Console.WriteLine ("Element: " + dictionary + " " + worddefinition);
 				Results.Add (new DictionaryResult {
 					Id = Results.Count,
-					Dictionary = d ["Dictionary"] ["Name"].InnerText,
+					DictId = d ["Id"].InnerText,
+					Name = d ["Name"].InnerText,
 				    Enabled = true
 				});
 			}
-
-			Adapter = new MainResultAdapter (this, Results);
-			WordList.Adapter = Adapter;
+				
+			// TODO eerst nog de List filteren met de dictionary list van wordresult om dicts die niet voorkomen uit te grayen
+			Adapter = new DictionaryListAdapter (this, Results);
+			DictionaryList.Adapter = Adapter;
 		}
 
 		private void LoadDictionaries(){

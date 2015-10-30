@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16dp"
-        android:text="Dictionary of Awesomeness" />
+        android:text="[Placeholder for dictionary name]" />
     <TextView
         android:id="@+id/Definition"
         android:layout_width="fill_parent"
@@ -17,5 +17,5 @@
         android:textSize="10dp"
         android:padding="12dp"
         android:textColor="@android:color/darker_gray"
-        android:text="This is dummy data. As an end user you should never be capable of seeing this." />
+        android:text="[Placeholder for dicitonary definition]" />
 </LinearLayout>

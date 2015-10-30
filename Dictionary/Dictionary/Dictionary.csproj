@@ -49,12 +49,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DictionaryPickerActivity.cs" />
     <Compile Include="MainResultAdapter.cs" />
+    <Compile Include="DictionaryListAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="DictionaryListAdapter.cs.bak" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

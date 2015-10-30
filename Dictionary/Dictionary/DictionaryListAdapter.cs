@@ -10,9 +10,9 @@ namespace Dictionary
 	public class DictionaryListAdapter : BaseAdapter 
 	{
 		Activity Activity;
-		List<String> Dictionaries;
+		List<DictionaryResult> Dictionaries;
 
-		public DictionaryListAdapter( Activity a, List<String> d )
+		public DictionaryListAdapter( Activity a, List<DictionaryResult> d )
 		{
 			Log.Info ("DictionaryListAdapter", "Initialized - results to show: " + d.Count);
 			
@@ -37,12 +37,10 @@ namespace Dictionary
 		public override View GetView (int position, View convertView, ViewGroup parent)
 		{
 			var view = convertView ?? Activity.LayoutInflater.Inflate (
-				Resource.Layout.ListItem, parent, false);
-			var dictionary = view.FindViewById<TextView> (Resource.Id.Dictionary);
-			var definition = view.FindViewById<TextView> (Resource.Id.Definition);
+				Resource.Layout.DictionaryItem, parent, false);
+			var dictionaryName = view.FindViewById<TextView> (Resource.Id.DictionaryName);
 
-			dictionary.Text = Dictionaries [position].Dictionary;
-			definition.Text = Dictionaries [position].Definition;
+			dictionaryName.Text = Dictionaries [position].Name;
 
 			return view;
 		}

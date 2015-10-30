@@ -10,9 +10,9 @@ namespace Dictionary
 	public class MainResultAdapter : BaseAdapter 
 	{
 		Activity Activity;
-		List<SearchResult> Results;
+		List<WordResult> Results;
 
-		public MainResultAdapter( Activity a, List<SearchResult> r )
+		public MainResultAdapter( Activity a, List<WordResult> r )
 		{
 			Log.Info ("WordListAdapter", "Initialized - results to show: " + r.Count);
 			
