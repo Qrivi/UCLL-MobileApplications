@@ -1,15 +1,45 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Plutus.LoginView">
-	<ContentPage.Content>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Plutus.LoginView"
+    BackgroundColor="#E00049">
+      
+    <ContentPage.Content>
 
 		<StackLayout 
 			VerticalOptions="Center">
-
-			<Label 
-				Text="Hello World"  
-				HorizontalOptions="Center"
-				VerticalOptions="Center" />
-
+       <StackLayout
+         Padding="55,40,55,0">
+        <Image
+          Source="PlutusLogo.png"/>
+      </StackLayout>
+      
+      <StackLayout
+         Padding ="25,0,25,0" >
+        <Entry
+          Placeholder = "Studentennummer"
+          TextColor="Black"
+          BackgroundColor="White"/>
+        <Entry 
+          TextColor="Black"
+          BackgroundColor="White"
+          Placeholder = "Password"/>
+        
+          <RelativeLayout>
+              <Label Text="Onthoud mij" />
+              <Switch />
+          </RelativeLayout>
+        
+          <Button
+         Text="Inloggen"
+         TextColor="#9FDAF9"
+         BackgroundColor="#002757"  
+        />
+        
+       
+      
+      </StackLayout>
 		</StackLayout>
 
 	</ContentPage.Content>
