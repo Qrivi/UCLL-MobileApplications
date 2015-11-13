@@ -2,6 +2,7 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     x:Class="Plutus.LoginView"
     BackgroundColor="#E00049">
       
@@ -24,21 +25,20 @@
         <Entry 
           TextColor="Black"
           BackgroundColor="White"
-          Placeholder = "Password"/>
+          Placeholder = "Password"
+          IsPassword="True"/>
         
           <RelativeLayout>
               <Label Text="Onthoud mij" />
               <Switch />
+             
           </RelativeLayout>
         
-          <Button
+         <Button
          Text="Inloggen"
          TextColor="#9FDAF9"
-         BackgroundColor="#002757"  
-        />
+         BackgroundColor="#002757"/>
         
-       
-      
       </StackLayout>
 		</StackLayout>
 
