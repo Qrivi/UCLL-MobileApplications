@@ -11,4 +11,4 @@
  2 | Dictionary    | Xamarin Android Application | [alexander.khleuven.be/...](http://alexander.khleuven.be/courses/mobile/labs/dictionary/assignment.html)
  3 | Project*      | Native Android Application | [alexander.khleuven.be/...](http://alexander.khleuven.be/courses/mobile/labs/project/assignment.html)
 
- * in collaboration with [Jan Pecquet](https://bitbucket.org/JanPecquet/)
+ \* in collaboration with [Jan Pecquet](https://bitbucket.org/JanPecquet/)
