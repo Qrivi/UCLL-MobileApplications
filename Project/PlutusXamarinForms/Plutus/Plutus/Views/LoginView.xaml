@@ -28,7 +28,7 @@
           Placeholder = "Password"
           IsPassword="True"/>
          
-         <controls:CheckBox  DefaultText="Onthoud mij" HorizontalOptions="FillAndExpand" />
+         <controls:CheckBox DefaultText="Onthoud mij" HorizontalOptions="FillAndExpand" />
                  
          <Button
          Text="Inloggen"
