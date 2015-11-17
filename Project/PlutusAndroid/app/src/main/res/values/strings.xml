@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PlutusAndroid</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="studentennummer">Studentennummer</string>
+    <string name="wachtwoord">Wachtwoord</string>
+    <string name="onthoudmij">Onthoud mij!</string>
+    <string name="inloggen">Inloggen</string>
 </resources>
