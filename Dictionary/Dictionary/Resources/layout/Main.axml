@@ -13,7 +13,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="What do you want to look up?"
-            android:inputType="text" />
+            android:inputType="text"
+            android:singleLine="true" />
         <ImageButton
             android:id="@+id/SearchButton"
             android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
             android:id="@+id/FilterButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_sort_by_size" />
+            android:src="@android:drawable/ic_menu_edit" />
         <ImageButton
             android:id="@+id/ShareButton"
             android:layout_width="wrap_content"

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -50,11 +51,20 @@
     <Compile Include="DictionaryPickerActivity.cs" />
     <Compile Include="MainResultAdapter.cs" />
     <Compile Include="DictionaryListAdapter.cs" />
+    <Compile Include="Web References\services.aonaware.com\Reference.cs">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
+    <None Include="Web References\services.aonaware.com\DictService.wsdl" />
+    <None Include="Web References\services.aonaware.com\DictService.disco" />
+    <None Include="Web References\services.aonaware.com\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -69,4 +79,14 @@
     <AndroidResource Include="Resources\layout\DictionaryPicker.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <WebReferences Include="Web References" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://services.aonaware.com/DictService/DictService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\services.aonaware.com</RelPath>
+      <UpdateFromURL>http://services.aonaware.com/DictService/DictService.asmx</UpdateFromURL>
+    </WebReferenceUrl>
+  </ItemGroup>
 </Project>

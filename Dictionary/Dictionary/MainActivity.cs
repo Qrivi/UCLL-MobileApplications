@@ -14,117 +14,103 @@ using System.Xml;
 using System.Collections.Generic;
 using Android.Util;
 
+using Dictionary.services.aonaware.com;
+
 namespace Dictionary
 {
 	[Activity (Label = "Dinky Dictionary", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : Activity
+	public class MainActivity : Activity 
 	{
+		EditText searchField;
+		ImageButton searchButton, filterButton, shareButton;
+		TextView searchInfo;
+		ListView wordList;
 
-		EditText SearchField;
-		ImageButton SearchButton, FilterButton, ShareButton;
-		TextView SearchInfo;
-		ListView WordList;
+		MainResultAdapter adapter;
+		List<WordResult> wordResultList;
 
-		MainResultAdapter Adapter;
-
-		WebClient Client;
-		Uri Uri;
+		DictService service;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			Log.Info ("Dictionary", "Hello World!");
 
+			service = new DictService ();
+
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
-			Client = new WebClient();
-			Uri = new Uri ("http://services.aonaware.com/DictService/DictService.asmx/Define");
+			searchField = FindViewById<EditText> (Resource.Id.SearchField);
+			searchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
+			filterButton = FindViewById<ImageButton> (Resource.Id.FilterButton);
+			shareButton = FindViewById<ImageButton> (Resource.Id.ShareButton);
+			searchInfo = FindViewById<TextView> (Resource.Id.SearchInfo);
+			wordList = FindViewById<ListView> (Resource.Id.WordList);
 
-			SearchField = FindViewById<EditText> (Resource.Id.SearchField);
-			SearchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
-			FilterButton = FindViewById<ImageButton> (Resource.Id.FilterButton);
-			ShareButton = FindViewById<ImageButton> (Resource.Id.ShareButton);
-			SearchInfo = FindViewById<TextView> (Resource.Id.SearchInfo);
-			WordList = FindViewById<ListView> (Resource.Id.WordList);
+			searchButton.Enabled = shareButton.Enabled = false;
 
-			SearchButton.Enabled = ShareButton.Enabled = false;
+			searchField.AfterTextChanged += (sender, e) => SearchHandler();
+			searchButton.Click += (sender, e) => SearchHandler();
+			filterButton.Click += (sender, e) => FilterHandler();
+			shareButton.Click += (sender, e) => ShareHandler();
 
-			SearchField.AfterTextChanged += (sender, e) => SearchHandler();
-			SearchButton.Click += (sender, e) => SearchHandler();
-			FilterButton.Click += (sender, e) => FilterHandler();
-			ShareButton.Click += (sender, e) => ShareHandler();
+			wordResultList = new List<WordResult> ();
+			adapter = new MainResultAdapter (this, wordResultList);
+			wordList.Adapter = adapter;
 		}
 
-		private void PopulateWordList( object sender, UploadValuesCompletedEventArgs e){
-			String SearchQuery = SearchField.Text.Trim ();
+		private void PopulateWordList( String query ){
 
-			if (SearchQuery != "") {
-				if (e.Error == null) {
-					 
-					List<WordResult> Results = new List<WordResult> ();
-					XmlDocument Response = new XmlDocument ();
-
-					Response.Load (new MemoryStream (e.Result));
-				
-					XmlNodeList Definitions = Response.GetElementsByTagName ("Definition");
-
-					SearchInfo.Text = Definitions.Count + " definitions in X dictionaries for “" + SearchQuery + "”.";
-					if(Definitions.Count == 1 )
-						SearchInfo.Text = Definitions.Count + " definition in 1 dictionary for “" + SearchQuery + "”.";
-
-					foreach (XmlNode d in Definitions) {
-						//String dictionary = definition["Dictionary"]["Name"].InnerText;
-						//String worddefinition = definition["WordDefinition"].InnerText;
-						//Console.WriteLine ("Element: " + dictionary + " " + worddefinition);
-						Results.Add (new WordResult {
-							Id = Results.Count,
-							DictId = d ["Dictionary"] ["Id"].InnerText,
-							Dictionary = d ["Dictionary"] ["Name"].InnerText,
-							Definition = d ["WordDefinition"].InnerText
+			if (query != "") {
+				service.BeginDefine(query, (ar) => {
+					WordDefinition wd = service.EndDefine(ar);
+					//WordDefinition wd = service.Define(query);
+					
+					foreach (Definition d in wd.Definitions) {
+						wordResultList.Add (new WordResult {
+							Id = wordResultList.Count,
+							DictId = d.Dictionary.Id,
+							Dictionary = d.Dictionary.Name,
+							Definition = d.WordDefinition
 						});
 					}
+						
+					if( wordResultList.Count == 1 )
+						searchInfo.Text = "Found 1 definition in 1 dictionary";
+					else if( wordResultList.Count == 0 )
+						searchInfo.Text = "Found no definitions";
+					else
+						searchInfo.Text = "Found " + wordResultList.Count + " definitions in X dictionaries";
 
-					Adapter = new MainResultAdapter (this, Results);
-					WordList.Adapter = Adapter;
-
-				} else {
-					SearchInfo.Text = "Looking for definitions...";
-				}
+					adapter.NotifyDataSetChanged();
+				}, null);
+		
 			} else {
-				SearchInfo.Text = "";
+				searchInfo.Text = "";
 			}
 		}
 
 		private void SearchHandler(){
 			Log.Info ("Dictionary", "SearchHandler()");
 
-			SearchButton.Enabled = ShareButton.Enabled = ( SearchField.Text.Trim() == "" ) ? false : true;
+			searchButton.Enabled = shareButton.Enabled = ( searchField.Text.Trim() == "" ) ? false : true;
+			searchInfo.Text = "Looking for definitions...";
 
-			NameValueCollection Parameters = new NameValueCollection();
-
-			Parameters.Add ( "word", SearchField.Text.Trim() );
-
-			Client.UploadValuesCompleted += PopulateWordList;
-			Client.CancelAsync ();
-			try{
-				Client.UploadValuesAsync (Uri, Parameters);
-			}catch(Exception e){
-				// fuck the police
-				Log.Info ("MainActivity", "UploadValuesAsync() -> EXCEPTION :(" );
-			}
+			PopulateWordList (searchField.Text.Trim());
 		}
 
 		private void FilterHandler(){
 			Log.Info ("Dictionary", "FilterHandler()");
 
 			var intent = new Intent(this, typeof(DictionaryPickerActivity));
-			//intent.PutStringArrayListExtra("phone_numbers", phoneNumbers);
+			//intent.PutStringArrayListExtra("dict", dict);
 			StartActivity(intent);
 		}
 
 		private void ShareHandler(){
 			Log.Info ("Dictionary", "ShareHandler()");
+			//TODO
 		}
 	
 	}

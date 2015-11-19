@@ -9,19 +9,19 @@ namespace Dictionary
 {
 	public class MainResultAdapter : BaseAdapter 
 	{
-		Activity Activity;
-		List<WordResult> Results;
+		Activity activity;
+		List<WordResult> results;
 
 		public MainResultAdapter( Activity a, List<WordResult> r )
 		{
 			Log.Info ("WordListAdapter", "Initialized - results to show: " + r.Count);
-			
-			Activity = a;
-			Results = r;
+
+			activity = a;
+			results = r;
 		}
 
 		public override int Count {
-			get { return Results.Count; }
+			get { return results.Count; }
 		}
 
 		public override Java.Lang.Object GetItem (int position) {
@@ -31,21 +31,20 @@ namespace Dictionary
 		}
 
 		public override long GetItemId (int position) {
-			return Results [position].Id;
+			return results [position].Id;
 		}
 
 		public override View GetView (int position, View convertView, ViewGroup parent)
 		{
-			var view = convertView ?? Activity.LayoutInflater.Inflate (
+			var view = convertView ?? activity.LayoutInflater.Inflate (
 				Resource.Layout.ResultItem, parent, false);
 			var dictionary = view.FindViewById<TextView> (Resource.Id.Dictionary);
 			var definition = view.FindViewById<TextView> (Resource.Id.Definition);
 
-			dictionary.Text = Results [position].Dictionary;
-			definition.Text = Results [position].Definition;
+			dictionary.Text = results [position].Dictionary;
+			definition.Text = results [position].Definition;
 
 			return view;
 		}
 	}
 }
-
