@@ -62,6 +62,8 @@ namespace Dictionary
 
 		private void PopulateWordList( String query ){
 
+			wordResultList.Clear();
+
 			if (query != "") {
 				service.BeginDefine(query, (ar) => {
 					WordDefinition wd = service.EndDefine(ar);
@@ -75,15 +77,15 @@ namespace Dictionary
 							Definition = d.WordDefinition
 						});
 					}
-						
+
 					if( wordResultList.Count == 1 )
 						searchInfo.Text = "Found 1 definition in 1 dictionary";
 					else if( wordResultList.Count == 0 )
 						searchInfo.Text = "Found no definitions";
 					else
 						searchInfo.Text = "Found " + wordResultList.Count + " definitions in X dictionaries";
-
-					adapter.NotifyDataSetChanged();
+					
+					//adapter.NotifyDataSetChanged();
 				}, null);
 		
 			} else {
