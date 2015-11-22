@@ -13,16 +13,21 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 using Android.Util;
+using Android.Support.V7.App;
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.Design;
 
 using Dictionary.services.aonaware.com;
 
 namespace Dictionary
 {
-	[Activity (Label = "Dinky Dictionary", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : Activity 
+	[Activity (Label = "Dinky Dictionary", MainLauncher = true, Icon = "@drawable/icon", Theme="@style/Dinky")]
+	public class MainActivity : ActionBarActivity 
 	{
+		SupportToolbar toolbar;
+
 		EditText searchField;
-		ImageButton searchButton, filterButton, shareButton;
+		//ImageButton searchButton;
 		TextView searchInfo;
 		ListView wordList;
 
@@ -41,23 +46,32 @@ namespace Dictionary
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
+			toolbar = FindViewById<SupportToolbar> (Resource.Id.toolbar);
 			searchField = FindViewById<EditText> (Resource.Id.SearchField);
-			searchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
-			filterButton = FindViewById<ImageButton> (Resource.Id.FilterButton);
-			shareButton = FindViewById<ImageButton> (Resource.Id.ShareButton);
+			//searchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
 			searchInfo = FindViewById<TextView> (Resource.Id.SearchInfo);
 			wordList = FindViewById<ListView> (Resource.Id.WordList);
 
-			searchButton.Enabled = shareButton.Enabled = false;
+			SetSupportActionBar (toolbar);
+			SupportActionBar.Title = "Dinky Dictionary";
+
+			//searchButton.Enabled = false;
 
 			searchField.AfterTextChanged += (sender, e) => SearchHandler();
-			searchButton.Click += (sender, e) => SearchHandler();
-			filterButton.Click += (sender, e) => FilterHandler();
-			shareButton.Click += (sender, e) => ShareHandler();
+			//searchButton.Click += (sender, e) => SearchHandler();
 
 			wordResultList = new List<WordResult> ();
 			adapter = new MainResultAdapter (this, wordResultList);
 			wordList.Adapter = adapter;
+		}
+
+		public override bool OnCreateOptionsMenu (IMenu menu)
+		{
+			MenuInflater.Inflate (Resource.Menu.ActionMenu, menu);
+
+			toolbar.MenuItemClick += MenuHandler;
+
+			return base.OnCreateOptionsMenu (menu);
 		}
 
 		private void PopulateWordList( String query ){
@@ -79,24 +93,24 @@ namespace Dictionary
 					}
 
 					if( wordResultList.Count == 1 )
-						searchInfo.Text = "Found 1 definition in 1 dictionary";
+						searchInfo.Text = "Found 1 definition in 1 dictionary for “" + query +"”";
 					else if( wordResultList.Count == 0 )
-						searchInfo.Text = "Found no definitions";
+						searchInfo.Text = "Found no definitions for “" + query +"”";
 					else
-						searchInfo.Text = "Found " + wordResultList.Count + " definitions in X dictionaries";
+						searchInfo.Text = "Found " + wordResultList.Count + " definitions in X dictionaries for “" + query +"”";
 					
 					//adapter.NotifyDataSetChanged();
 				}, null);
 		
 			} else {
-				searchInfo.Text = "";
+				searchInfo.Text = " ";
 			}
 		}
 
 		private void SearchHandler(){
 			Log.Info ("Dictionary", "SearchHandler()");
 
-			searchButton.Enabled = shareButton.Enabled = ( searchField.Text.Trim() == "" ) ? false : true;
+			//searchButton.Enabled = ( searchField.Text.Trim() == "" ) ? false : true;
 			searchInfo.Text = "Looking for definitions...";
 
 			PopulateWordList (searchField.Text.Trim());
@@ -110,9 +124,26 @@ namespace Dictionary
 			StartActivity(intent);
 		}
 
-		private void ShareHandler(){
-			Log.Info ("Dictionary", "ShareHandler()");
-			//TODO
+		private void MenuHandler( object sender, SupportToolbar.MenuItemClickEventArgs e){
+			switch (e.Item.ItemId) {
+			case Resource.Id.action_choose:
+				Log.Info ("Dictionary", "Choose");
+				//TODO
+				break;
+			case Resource.Id.action_share:
+				Log.Info ("Dictionary", "Share");
+
+				Intent intent = new Intent( Intent.ActionSend ); 
+				intent.SetType("text/plain");
+
+				String shareBody = "Yolo Swag Wafa";
+
+				intent.PutExtra( Intent.ExtraSubject, "A definition by Dinky Dictionary");
+				intent.PutExtra( Intent.ExtraText, shareBody);
+
+				StartActivity(Intent.CreateChooser(intent, "Share via"));
+				break;
+			}
 		}
 	
 	}
