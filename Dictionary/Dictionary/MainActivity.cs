@@ -13,118 +13,137 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 using Android.Util;
+using Android.Support.V7.App;
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.Design;
+
+using Dictionary.services.aonaware.com;
 
 namespace Dictionary
 {
-	[Activity (Label = "Dinky Dictionary", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : Activity
+	[Activity (Label = "Dinky Dictionary", MainLauncher = true, Icon = "@drawable/icon", Theme="@style/Dinky")]
+	public class MainActivity : ActionBarActivity 
 	{
+		SupportToolbar toolbar;
 
-		EditText SearchField;
-		ImageButton SearchButton, FilterButton, ShareButton;
-		TextView SearchInfo;
-		ListView WordList;
+		EditText searchField;
+		//ImageButton searchButton;
+		TextView searchInfo;
+		ListView wordList;
 
-		MainResultAdapter Adapter;
+		MainResultAdapter adapter;
+		List<WordResult> wordResultList;
 
-		WebClient Client;
-		Uri Uri;
+		DictService service;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			Log.Info ("Dictionary", "Hello World!");
 
+			service = new DictService ();
+
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
-			Client = new WebClient();
-			Uri = new Uri ("http://services.aonaware.com/DictService/DictService.asmx/Define");
+			toolbar = FindViewById<SupportToolbar> (Resource.Id.toolbar);
+			searchField = FindViewById<EditText> (Resource.Id.SearchField);
+			//searchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
+			searchInfo = FindViewById<TextView> (Resource.Id.SearchInfo);
+			wordList = FindViewById<ListView> (Resource.Id.WordList);
 
-			SearchField = FindViewById<EditText> (Resource.Id.SearchField);
-			SearchButton = FindViewById<ImageButton> (Resource.Id.SearchButton);
-			FilterButton = FindViewById<ImageButton> (Resource.Id.FilterButton);
-			ShareButton = FindViewById<ImageButton> (Resource.Id.ShareButton);
-			SearchInfo = FindViewById<TextView> (Resource.Id.SearchInfo);
-			WordList = FindViewById<ListView> (Resource.Id.WordList);
+			SetSupportActionBar (toolbar);
+			SupportActionBar.Title = "Dinky Dictionary";
 
-			SearchButton.Enabled = ShareButton.Enabled = false;
+			//searchButton.Enabled = false;
 
-			SearchField.AfterTextChanged += (sender, e) => SearchHandler();
-			SearchButton.Click += (sender, e) => SearchHandler();
-			FilterButton.Click += (sender, e) => FilterHandler();
-			ShareButton.Click += (sender, e) => ShareHandler();
+			searchField.AfterTextChanged += (sender, e) => SearchHandler();
+			//searchButton.Click += (sender, e) => SearchHandler();
+
+			wordResultList = new List<WordResult> ();
+			adapter = new MainResultAdapter (this, wordResultList);
+			wordList.Adapter = adapter;
 		}
 
-		private void PopulateWordList( object sender, UploadValuesCompletedEventArgs e){
-			String SearchQuery = SearchField.Text.Trim ();
+		public override bool OnCreateOptionsMenu (IMenu menu)
+		{
+			MenuInflater.Inflate (Resource.Menu.ActionMenu, menu);
 
-			if (SearchQuery != "") {
-				if (e.Error == null) {
-					 
-					List<WordResult> Results = new List<WordResult> ();
-					XmlDocument Response = new XmlDocument ();
+			toolbar.MenuItemClick += MenuHandler;
 
-					Response.Load (new MemoryStream (e.Result));
-				
-					XmlNodeList Definitions = Response.GetElementsByTagName ("Definition");
+			return base.OnCreateOptionsMenu (menu);
+		}
 
-					SearchInfo.Text = Definitions.Count + " definitions in X dictionaries for “" + SearchQuery + "”.";
-					if(Definitions.Count == 1 )
-						SearchInfo.Text = Definitions.Count + " definition in 1 dictionary for “" + SearchQuery + "”.";
+		private void PopulateWordList( String query ){
 
-					foreach (XmlNode d in Definitions) {
-						//String dictionary = definition["Dictionary"]["Name"].InnerText;
-						//String worddefinition = definition["WordDefinition"].InnerText;
-						//Console.WriteLine ("Element: " + dictionary + " " + worddefinition);
-						Results.Add (new WordResult {
-							Id = Results.Count,
-							DictId = d ["Dictionary"] ["Id"].InnerText,
-							Dictionary = d ["Dictionary"] ["Name"].InnerText,
-							Definition = d ["WordDefinition"].InnerText
+			wordResultList.Clear();
+
+			if (query != "") {
+				service.BeginDefine(query, (ar) => {
+					WordDefinition wd = service.EndDefine(ar);
+					//WordDefinition wd = service.Define(query);
+					
+					foreach (Definition d in wd.Definitions) {
+						wordResultList.Add (new WordResult {
+							Id = wordResultList.Count,
+							DictId = d.Dictionary.Id,
+							Dictionary = d.Dictionary.Name,
+							Definition = d.WordDefinition
 						});
 					}
 
-					Adapter = new MainResultAdapter (this, Results);
-					WordList.Adapter = Adapter;
-
-				} else {
-					SearchInfo.Text = "Looking for definitions...";
-				}
+					if( wordResultList.Count == 1 )
+						searchInfo.Text = "Found 1 definition in 1 dictionary for “" + query +"”";
+					else if( wordResultList.Count == 0 )
+						searchInfo.Text = "Found no definitions for “" + query +"”";
+					else
+						searchInfo.Text = "Found " + wordResultList.Count + " definitions in X dictionaries for “" + query +"”";
+					
+					//adapter.NotifyDataSetChanged();
+				}, null);
+		
 			} else {
-				SearchInfo.Text = "";
+				searchInfo.Text = " ";
 			}
 		}
 
 		private void SearchHandler(){
 			Log.Info ("Dictionary", "SearchHandler()");
 
-			SearchButton.Enabled = ShareButton.Enabled = ( SearchField.Text.Trim() == "" ) ? false : true;
+			//searchButton.Enabled = ( searchField.Text.Trim() == "" ) ? false : true;
+			searchInfo.Text = "Looking for definitions...";
 
-			NameValueCollection Parameters = new NameValueCollection();
-
-			Parameters.Add ( "word", SearchField.Text.Trim() );
-
-			Client.UploadValuesCompleted += PopulateWordList;
-			Client.CancelAsync ();
-			try{
-				Client.UploadValuesAsync (Uri, Parameters);
-			}catch(Exception e){
-				// fuck the police
-				Log.Info ("MainActivity", "UploadValuesAsync() -> EXCEPTION :(" );
-			}
+			PopulateWordList (searchField.Text.Trim());
 		}
 
 		private void FilterHandler(){
 			Log.Info ("Dictionary", "FilterHandler()");
 
 			var intent = new Intent(this, typeof(DictionaryPickerActivity));
-			//intent.PutStringArrayListExtra("phone_numbers", phoneNumbers);
+			//intent.PutStringArrayListExtra("dict", dict);
 			StartActivity(intent);
 		}
 
-		private void ShareHandler(){
-			Log.Info ("Dictionary", "ShareHandler()");
+		private void MenuHandler( object sender, SupportToolbar.MenuItemClickEventArgs e){
+			switch (e.Item.ItemId) {
+			case Resource.Id.action_choose:
+				Log.Info ("Dictionary", "Choose");
+				//TODO
+				break;
+			case Resource.Id.action_share:
+				Log.Info ("Dictionary", "Share");
+
+				Intent intent = new Intent( Intent.ActionSend ); 
+				intent.SetType("text/plain");
+
+				String shareBody = "Yolo Swag Wafa";
+
+				intent.PutExtra( Intent.ExtraSubject, "A definition by Dinky Dictionary");
+				intent.PutExtra( Intent.ExtraText, shareBody);
+
+				StartActivity(Intent.CreateChooser(intent, "Share via"));
+				break;
+			}
 		}
 	
 	}

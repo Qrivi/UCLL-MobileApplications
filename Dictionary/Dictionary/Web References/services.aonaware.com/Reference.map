@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult filename="DictService.wsdl" referenceType="System.Web.Services.Discovery.ContractReference" url="http://services.aonaware.com/DictService/DictService.asmx?wsdl" />
+    <DiscoveryClientResult filename="DictService.disco" referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://services.aonaware.com/DictService/DictService.asmx?disco" />
+  </Results>
+</DiscoveryClientResultsFile>

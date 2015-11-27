@@ -1,0 +1,824 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s0="http://services.aonaware.com/webservices/" xmlns:tns="http://services.aonaware.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://services.aonaware.com/webservices/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Word Dictionary Web Service</wsdl:documentation>
+  <types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://services.aonaware.com/webservices/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="ServerInfo">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="ServerInfoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ServerInfoResult" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DictionaryList">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="DictionaryListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="DictionaryListResult" type="tns:ArrayOfDictionary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfDictionary">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Dictionary" nillable="true" type="tns:Dictionary" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Dictionary">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Id" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DictionaryListExtended">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="DictionaryListExtendedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="DictionaryListExtendedResult" type="tns:ArrayOfDictionary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DictionaryInfo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="dictId" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DictionaryInfoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="DictionaryInfoResult" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Define">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DefineResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="DefineResult" type="tns:WordDefinition" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="WordDefinition">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Word" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Definitions" type="tns:ArrayOfDefinition" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfDefinition">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Definition" nillable="true" type="tns:Definition" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Definition">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Word" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Dictionary" type="tns:Dictionary" />
+          <xs:element minOccurs="0" maxOccurs="1" name="WordDefinition" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DefineInDict">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="dictId" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DefineInDictResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="DefineInDictResult" type="tns:WordDefinition" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="StrategyList">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="StrategyListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="StrategyListResult" type="tns:ArrayOfStrategy" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfStrategy">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Strategy" nillable="true" type="tns:Strategy" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Strategy">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Id" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Match">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="strategy" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MatchResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="MatchResult" type="tns:ArrayOfDictionaryWord" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfDictionaryWord">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DictionaryWord" nillable="true" type="tns:DictionaryWord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DictionaryWord">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DictionaryId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Word" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MatchInDict">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="dictId" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="word" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="strategy" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MatchInDictResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="MatchInDictResult" type="tns:ArrayOfDictionaryWord" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="ArrayOfDictionary" nillable="true" type="tns:ArrayOfDictionary" />
+      <xs:element name="WordDefinition" nillable="true" type="tns:WordDefinition" />
+      <xs:element name="ArrayOfStrategy" nillable="true" type="tns:ArrayOfStrategy" />
+      <xs:element name="ArrayOfDictionaryWord" nillable="true" type="tns:ArrayOfDictionaryWord" />
+    </xs:schema>
+  </types>
+  <message name="ServerInfoSoapIn">
+    <part name="parameters" element="tns:ServerInfo" />
+  </message>
+  <message name="ServerInfoSoapOut">
+    <part name="parameters" element="tns:ServerInfoResponse" />
+  </message>
+  <message name="DictionaryListSoapIn">
+    <part name="parameters" element="tns:DictionaryList" />
+  </message>
+  <message name="DictionaryListSoapOut">
+    <part name="parameters" element="tns:DictionaryListResponse" />
+  </message>
+  <message name="DictionaryListExtendedSoapIn">
+    <part name="parameters" element="tns:DictionaryListExtended" />
+  </message>
+  <message name="DictionaryListExtendedSoapOut">
+    <part name="parameters" element="tns:DictionaryListExtendedResponse" />
+  </message>
+  <message name="DictionaryInfoSoapIn">
+    <part name="parameters" element="tns:DictionaryInfo" />
+  </message>
+  <message name="DictionaryInfoSoapOut">
+    <part name="parameters" element="tns:DictionaryInfoResponse" />
+  </message>
+  <message name="DefineSoapIn">
+    <part name="parameters" element="tns:Define" />
+  </message>
+  <message name="DefineSoapOut">
+    <part name="parameters" element="tns:DefineResponse" />
+  </message>
+  <message name="DefineInDictSoapIn">
+    <part name="parameters" element="tns:DefineInDict" />
+  </message>
+  <message name="DefineInDictSoapOut">
+    <part name="parameters" element="tns:DefineInDictResponse" />
+  </message>
+  <message name="StrategyListSoapIn">
+    <part name="parameters" element="tns:StrategyList" />
+  </message>
+  <message name="StrategyListSoapOut">
+    <part name="parameters" element="tns:StrategyListResponse" />
+  </message>
+  <message name="MatchSoapIn">
+    <part name="parameters" element="tns:Match" />
+  </message>
+  <message name="MatchSoapOut">
+    <part name="parameters" element="tns:MatchResponse" />
+  </message>
+  <message name="MatchInDictSoapIn">
+    <part name="parameters" element="tns:MatchInDict" />
+  </message>
+  <message name="MatchInDictSoapOut">
+    <part name="parameters" element="tns:MatchInDictResponse" />
+  </message>
+  <message name="ServerInfoHttpGetIn" />
+  <message name="ServerInfoHttpGetOut">
+    <part name="Body" element="tns:string" />
+  </message>
+  <message name="DictionaryListHttpGetIn" />
+  <message name="DictionaryListHttpGetOut">
+    <part name="Body" element="tns:ArrayOfDictionary" />
+  </message>
+  <message name="DictionaryListExtendedHttpGetIn" />
+  <message name="DictionaryListExtendedHttpGetOut">
+    <part name="Body" element="tns:ArrayOfDictionary" />
+  </message>
+  <message name="DictionaryInfoHttpGetIn">
+    <part name="dictId" type="s:string" />
+  </message>
+  <message name="DictionaryInfoHttpGetOut">
+    <part name="Body" element="tns:string" />
+  </message>
+  <message name="DefineHttpGetIn">
+    <part name="word" type="s:string" />
+  </message>
+  <message name="DefineHttpGetOut">
+    <part name="Body" element="tns:WordDefinition" />
+  </message>
+  <message name="DefineInDictHttpGetIn">
+    <part name="dictId" type="s:string" />
+    <part name="word" type="s:string" />
+  </message>
+  <message name="DefineInDictHttpGetOut">
+    <part name="Body" element="tns:WordDefinition" />
+  </message>
+  <message name="StrategyListHttpGetIn" />
+  <message name="StrategyListHttpGetOut">
+    <part name="Body" element="tns:ArrayOfStrategy" />
+  </message>
+  <message name="MatchHttpGetIn">
+    <part name="word" type="s:string" />
+    <part name="strategy" type="s:string" />
+  </message>
+  <message name="MatchHttpGetOut">
+    <part name="Body" element="tns:ArrayOfDictionaryWord" />
+  </message>
+  <message name="MatchInDictHttpGetIn">
+    <part name="dictId" type="s:string" />
+    <part name="word" type="s:string" />
+    <part name="strategy" type="s:string" />
+  </message>
+  <message name="MatchInDictHttpGetOut">
+    <part name="Body" element="tns:ArrayOfDictionaryWord" />
+  </message>
+  <message name="ServerInfoHttpPostIn" />
+  <message name="ServerInfoHttpPostOut">
+    <part name="Body" element="tns:string" />
+  </message>
+  <message name="DictionaryListHttpPostIn" />
+  <message name="DictionaryListHttpPostOut">
+    <part name="Body" element="tns:ArrayOfDictionary" />
+  </message>
+  <message name="DictionaryListExtendedHttpPostIn" />
+  <message name="DictionaryListExtendedHttpPostOut">
+    <part name="Body" element="tns:ArrayOfDictionary" />
+  </message>
+  <message name="DictionaryInfoHttpPostIn">
+    <part name="dictId" type="s:string" />
+  </message>
+  <message name="DictionaryInfoHttpPostOut">
+    <part name="Body" element="tns:string" />
+  </message>
+  <message name="DefineHttpPostIn">
+    <part name="word" type="s:string" />
+  </message>
+  <message name="DefineHttpPostOut">
+    <part name="Body" element="tns:WordDefinition" />
+  </message>
+  <message name="DefineInDictHttpPostIn">
+    <part name="dictId" type="s:string" />
+    <part name="word" type="s:string" />
+  </message>
+  <message name="DefineInDictHttpPostOut">
+    <part name="Body" element="tns:WordDefinition" />
+  </message>
+  <message name="StrategyListHttpPostIn" />
+  <message name="StrategyListHttpPostOut">
+    <part name="Body" element="tns:ArrayOfStrategy" />
+  </message>
+  <message name="MatchHttpPostIn">
+    <part name="word" type="s:string" />
+    <part name="strategy" type="s:string" />
+  </message>
+  <message name="MatchHttpPostOut">
+    <part name="Body" element="tns:ArrayOfDictionaryWord" />
+  </message>
+  <message name="MatchInDictHttpPostIn">
+    <part name="dictId" type="s:string" />
+    <part name="word" type="s:string" />
+    <part name="strategy" type="s:string" />
+  </message>
+  <message name="MatchInDictHttpPostOut">
+    <part name="Body" element="tns:ArrayOfDictionaryWord" />
+  </message>
+  <portType name="DictServiceSoap">
+    <operation name="ServerInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show remote server information</wsdl:documentation>
+      <input message="tns:ServerInfoSoapIn" />
+      <output message="tns:ServerInfoSoapOut" />
+    </operation>
+    <operation name="DictionaryList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available dictionaries</wsdl:documentation>
+      <input message="tns:DictionaryListSoapIn" />
+      <output message="tns:DictionaryListSoapOut" />
+    </operation>
+    <operation name="DictionaryListExtended">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of advanced dictionaries (e.g. translating dictionaries)</wsdl:documentation>
+      <input message="tns:DictionaryListExtendedSoapIn" />
+      <output message="tns:DictionaryListExtendedSoapOut" />
+    </operation>
+    <operation name="DictionaryInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show information about the specified dictionary</wsdl:documentation>
+      <input message="tns:DictionaryInfoSoapIn" />
+      <output message="tns:DictionaryInfoSoapOut" />
+    </operation>
+    <operation name="Define">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Define given word, returning definitions from all dictionaries</wsdl:documentation>
+      <input message="tns:DefineSoapIn" />
+      <output message="tns:DefineSoapOut" />
+    </operation>
+    <operation name="DefineInDict">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Define given word, returning definitions from specified dictionary</wsdl:documentation>
+      <input message="tns:DefineInDictSoapIn" />
+      <output message="tns:DefineInDictSoapOut" />
+    </operation>
+    <operation name="StrategyList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return list of all available strategies on the server</wsdl:documentation>
+      <input message="tns:StrategyListSoapIn" />
+      <output message="tns:StrategyListSoapOut" />
+    </operation>
+    <operation name="Match">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Look for matching words in all dictionaries using the given strategy</wsdl:documentation>
+      <input message="tns:MatchSoapIn" />
+      <output message="tns:MatchSoapOut" />
+    </operation>
+    <operation name="MatchInDict">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Look for matching words in the specified dictionary using the given strategy</wsdl:documentation>
+      <input message="tns:MatchInDictSoapIn" />
+      <output message="tns:MatchInDictSoapOut" />
+    </operation>
+  </portType>
+  <portType name="DictServiceHttpGet">
+    <operation name="ServerInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show remote server information</wsdl:documentation>
+      <input message="tns:ServerInfoHttpGetIn" />
+      <output message="tns:ServerInfoHttpGetOut" />
+    </operation>
+    <operation name="DictionaryList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available dictionaries</wsdl:documentation>
+      <input message="tns:DictionaryListHttpGetIn" />
+      <output message="tns:DictionaryListHttpGetOut" />
+    </operation>
+    <operation name="DictionaryListExtended">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of advanced dictionaries (e.g. translating dictionaries)</wsdl:documentation>
+      <input message="tns:DictionaryListExtendedHttpGetIn" />
+      <output message="tns:DictionaryListExtendedHttpGetOut" />
+    </operation>
+    <operation name="DictionaryInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show information about the specified dictionary</wsdl:documentation>
+      <input message="tns:DictionaryInfoHttpGetIn" />
+      <output message="tns:DictionaryInfoHttpGetOut" />
+    </operation>
+    <operation name="Define">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Define given word, returning definitions from all dictionaries</wsdl:documentation>
+      <input message="tns:DefineHttpGetIn" />
+      <output message="tns:DefineHttpGetOut" />
+    </operation>
+    <operation name="DefineInDict">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Define given word, returning definitions from specified dictionary</wsdl:documentation>
+      <input message="tns:DefineInDictHttpGetIn" />
+      <output message="tns:DefineInDictHttpGetOut" />
+    </operation>
+    <operation name="StrategyList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return list of all available strategies on the server</wsdl:documentation>
+      <input message="tns:StrategyListHttpGetIn" />
+      <output message="tns:StrategyListHttpGetOut" />
+    </operation>
+    <operation name="Match">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Look for matching words in all dictionaries using the given strategy</wsdl:documentation>
+      <input message="tns:MatchHttpGetIn" />
+      <output message="tns:MatchHttpGetOut" />
+    </operation>
+    <operation name="MatchInDict">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Look for matching words in the specified dictionary using the given strategy</wsdl:documentation>
+      <input message="tns:MatchInDictHttpGetIn" />
+      <output message="tns:MatchInDictHttpGetOut" />
+    </operation>
+  </portType>
+  <portType name="DictServiceHttpPost">
+    <operation name="ServerInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show remote server information</wsdl:documentation>
+      <input message="tns:ServerInfoHttpPostIn" />
+      <output message="tns:ServerInfoHttpPostOut" />
+    </operation>
+    <operation name="DictionaryList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available dictionaries</wsdl:documentation>
+      <input message="tns:DictionaryListHttpPostIn" />
+      <output message="tns:DictionaryListHttpPostOut" />
+    </operation>
+    <operation name="DictionaryListExtended">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of advanced dictionaries (e.g. translating dictionaries)</wsdl:documentation>
+      <input message="tns:DictionaryListExtendedHttpPostIn" />
+      <output message="tns:DictionaryListExtendedHttpPostOut" />
+    </operation>
+    <operation name="DictionaryInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show information about the specified dictionary</wsdl:documentation>
+      <input message="tns:DictionaryInfoHttpPostIn" />
+      <output message="tns:DictionaryInfoHttpPostOut" />
+    </operation>
+    <operation name="Define">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Define given word, returning definitions from all dictionaries</wsdl:documentation>
+      <input message="tns:DefineHttpPostIn" />
+      <output message="tns:DefineHttpPostOut" />
+    </operation>
+    <operation name="DefineInDict">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Define given word, returning definitions from specified dictionary</wsdl:documentation>
+      <input message="tns:DefineInDictHttpPostIn" />
+      <output message="tns:DefineInDictHttpPostOut" />
+    </operation>
+    <operation name="StrategyList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return list of all available strategies on the server</wsdl:documentation>
+      <input message="tns:StrategyListHttpPostIn" />
+      <output message="tns:StrategyListHttpPostOut" />
+    </operation>
+    <operation name="Match">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Look for matching words in all dictionaries using the given strategy</wsdl:documentation>
+      <input message="tns:MatchHttpPostIn" />
+      <output message="tns:MatchHttpPostOut" />
+    </operation>
+    <operation name="MatchInDict">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Look for matching words in the specified dictionary using the given strategy</wsdl:documentation>
+      <input message="tns:MatchInDictHttpPostIn" />
+      <output message="tns:MatchInDictHttpPostOut" />
+    </operation>
+  </portType>
+  <binding name="DictServiceSoap" type="tns:DictServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ServerInfo">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/ServerInfo" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DictionaryList">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/DictionaryList" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DictionaryListExtended">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/DictionaryListExtended" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DictionaryInfo">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/DictionaryInfo" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Define">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/Define" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DefineInDict">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/DefineInDict" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="StrategyList">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/StrategyList" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Match">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/Match" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="MatchInDict">
+      <soap:operation soapAction="http://services.aonaware.com/webservices/MatchInDict" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="DictServiceSoap12" type="tns:DictServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ServerInfo">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/ServerInfo" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DictionaryList">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/DictionaryList" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DictionaryListExtended">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/DictionaryListExtended" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DictionaryInfo">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/DictionaryInfo" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Define">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/Define" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DefineInDict">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/DefineInDict" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="StrategyList">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/StrategyList" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Match">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/Match" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="MatchInDict">
+      <soap12:operation soapAction="http://services.aonaware.com/webservices/MatchInDict" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="DictServiceHttpGet" type="tns:DictServiceHttpGet">
+    <http:binding verb="GET" />
+    <operation name="ServerInfo">
+      <http:operation location="/ServerInfo" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DictionaryList">
+      <http:operation location="/DictionaryList" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DictionaryListExtended">
+      <http:operation location="/DictionaryListExtended" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DictionaryInfo">
+      <http:operation location="/DictionaryInfo" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="Define">
+      <http:operation location="/Define" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DefineInDict">
+      <http:operation location="/DefineInDict" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="StrategyList">
+      <http:operation location="/StrategyList" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="Match">
+      <http:operation location="/Match" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="MatchInDict">
+      <http:operation location="/MatchInDict" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="DictServiceHttpPost" type="tns:DictServiceHttpPost">
+    <http:binding verb="POST" />
+    <operation name="ServerInfo">
+      <http:operation location="/ServerInfo" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DictionaryList">
+      <http:operation location="/DictionaryList" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DictionaryListExtended">
+      <http:operation location="/DictionaryListExtended" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DictionaryInfo">
+      <http:operation location="/DictionaryInfo" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="Define">
+      <http:operation location="/Define" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="DefineInDict">
+      <http:operation location="/DefineInDict" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="StrategyList">
+      <http:operation location="/StrategyList" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="Match">
+      <http:operation location="/Match" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="MatchInDict">
+      <http:operation location="/MatchInDict" />
+      <input>
+        <mime:content part="" type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <service name="DictService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Word Dictionary Web Service</wsdl:documentation>
+    <port name="DictServiceSoap" binding="tns:DictServiceSoap">
+      <soap:address location="http://services.aonaware.com/DictService/DictService.asmx" />
+    </port>
+    <port name="DictServiceSoap12" binding="tns:DictServiceSoap12">
+      <soap12:address location="http://services.aonaware.com/DictService/DictService.asmx" />
+    </port>
+    <port name="DictServiceHttpGet" binding="tns:DictServiceHttpGet">
+      <http:address location="http://services.aonaware.com/DictService/DictService.asmx" />
+    </port>
+    <port name="DictServiceHttpPost" binding="tns:DictServiceHttpPost">
+      <http:address location="http://services.aonaware.com/DictService/DictService.asmx" />
+    </port>
+  </service>
+</definitions>
