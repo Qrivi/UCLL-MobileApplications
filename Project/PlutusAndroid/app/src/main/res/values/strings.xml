@@ -4,4 +4,6 @@
     <string name="wachtwoord">Wachtwoord</string>
     <string name="onthoudmij">Onthoud mij!</string>
     <string name="inloggen">Inloggen</string>
+    <string name="dashTitle">Dashboard</string>
+    <string name="currentBalance">Current balance:</string>
 </resources>
