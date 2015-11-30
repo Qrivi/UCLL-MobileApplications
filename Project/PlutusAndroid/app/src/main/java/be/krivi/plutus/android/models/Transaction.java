@@ -8,17 +8,17 @@ import java.util.Date;
  */
 public class Transaction{
 
+    private Date timestamp;
     private double amount;
     private String type;
-    private Date timestamp;
 
     private String title, description;
     private Location location;
 
-    public Transaction( double amount, String type, Date timestamp, String title, String description, Location location ){
+    public Transaction( Date timestamp,  double amount, String type,  String title, String description, Location location ){
+        setTimestamp( timestamp );
         setAmount( amount );
         setType( type );
-        setTimestamp( timestamp );
         setTitle( title );
         setDescription( description );
         setLocation( location );

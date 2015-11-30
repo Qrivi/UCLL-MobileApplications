@@ -6,4 +6,8 @@
     <string name="inloggen">Inloggen</string>
     <string name="dashTitle">Dashboard</string>
     <string name="currentBalance">Current balance:</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
