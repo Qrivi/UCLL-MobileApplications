@@ -9,4 +9,6 @@
     <color name="appPrimaryDark">#820025</color>
     <color name="appAccent">@color/ucllDarkBlue</color>
 
+    <color name="appDrawerText">#333333</color>
+
 </resources>

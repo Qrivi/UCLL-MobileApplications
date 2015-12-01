@@ -4,9 +4,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.tmiyamon:gradle-mdicons:0.3.0'
     }
 }
 apply plugin: 'com.android.application'
+apply plugin: 'com.tmiyamon.mdicons'
 
 repositories {
     jcenter()
@@ -32,6 +34,22 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+mdicons {
+    assets {
+        nav {
+            colors "ucllDarkBlue", "appDrawerText"
+            sizes "36dp"
+            names "compare arrows", "credit card", "exit to app", "settings"
+        }
+
+        toolbar {
+            colors "ucllWhite"
+            sizes "18dp"
+            names "delete", "filter list", "search"
         }
     }
 }

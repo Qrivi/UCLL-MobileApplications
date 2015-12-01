@@ -1,19 +1,20 @@
-package be.krivi.plutus.android;
+package be.krivi.plutus.android.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import be.krivi.plutus.android.R;
 
-public class MainActivity extends AppCompatActivity{
+public class TransactionsActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
+        setContentView( R.layout.activity_transactions );
 
         toolbar = (Toolbar) findViewById( R.id.app_bar );
         setSupportActionBar( toolbar );
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if( id == R.id.action_settings ){
+        if( id == R.id.action_search ){
             return true;
         }
 
