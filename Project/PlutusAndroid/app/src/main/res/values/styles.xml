@@ -1,0 +1,18 @@
+<resources>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/appPrimary</item>
+        <item name="colorPrimaryDark">@color/appPrimaryDark</item>
+        <item name="colorAccent">@color/appAccent</item>
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/ucllWhite</item>
+        <item name="android:textColorSecondary">@color/ucllWhite</item>
+    </style>
+
+</resources>

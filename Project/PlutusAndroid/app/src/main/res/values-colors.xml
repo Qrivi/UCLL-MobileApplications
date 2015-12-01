@@ -1,0 +1,12 @@
+<resources>
+
+    <color name="ucllPink">#E00049</color>
+    <color name="ucllDarkBlue">#002757</color>
+    <color name="ucllLightBlue">#9FDAF9</color>
+    <color name="ucllWhite">#FFFFFF</color>
+
+    <color name="appPrimary">@color/ucllPink</color>
+    <color name="appPrimaryDark">#820025</color>
+    <color name="appAccent">@color/ucllDarkBlue</color>
+
+</resources>
