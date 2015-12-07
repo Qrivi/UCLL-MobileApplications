@@ -1,14 +1,41 @@
 <resources>
 
-    <color name="ucllPink">#E00049</color>
-    <color name="ucllDarkBlue">#002757</color>
-    <color name="ucllLightBlue">#9FDAF9</color>
-    <color name="ucllWhite">#FFFFFF</color>
+    <color name="ucll_pink">#E00049</color>
+    <color name="ucll_dark_blue">#002757</color>
+    <color name="ucll_light_blue">#9FDAF9</color>
+    <color name="ucll_light">#FFFFFF</color>
 
-    <color name="appPrimary">@color/ucllPink</color>
-    <color name="appPrimaryDark">#820025</color>
-    <color name="appAccent">@color/ucllDarkBlue</color>
+    <color name="ucll_pink_alt">#820025</color>
+    <color name="ucll_light_blue_alt">#C4E7FC</color>
 
-    <color name="appDrawerText">#333333</color>
+    <color name="plutus_dark_gray">#4A4A4A</color>
+    <color name="plutus_green">#417505</color>
+    <color name="plutus_red">#D0021B</color>
+
+
+    <color name="transaction_topup">@color/plutus_green</color>
+    <color name="transaction_expense">@color/plutus_red</color>
+
+    <color name="text_default">#4A4A4A</color>
+    <color name="text_clickable">#333333</color>
+
+    <color name="text_subheader">#A2A2A2</color>
+    <color name="text_subline">#BBBBBB</color>
+
+    <color name="text_menuitem">@color/text_clickable</color>
+    <color name="text_edittext">@color/text_clickable</color>
+    <color name="text_hint">#9B9B9B</color>
+    <color name="text_link">@color/ucll_light_blue</color>
+
+    <color name="text_dialog_title">#606060</color>
+    <color name="text_dialog_body">#666666</color>
+    <color name="text_dialog_positive">@color/ucll_dark_blue</color>
+    <color name="text_dialog_negative">@color/text_dialog_body</color>
+    <color name="text_dialog_warning">@color/plutus_red</color>
+    <color name="dialog_background">@color/ucll_light</color>
+
+
+    <color name="button_text">#F5F5F5</color>
+    <color name="button_background">#F5F5F5</color>
 
 </resources>

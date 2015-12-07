@@ -1,18 +1,37 @@
 <resources>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/appPrimary</item>
-        <item name="colorPrimaryDark">@color/appPrimaryDark</item>
-        <item name="colorAccent">@color/appAccent</item>
+    <style name="Plutus" parent="android:Theme.Material.Light">
+        <item name="android:colorPrimary">@color/ucll_pink</item>
+        <item name="android:colorPrimaryDark">@color/ucll_pink_alt</item>
+        <item name="android:colorAccent">@color/ucll_dark_blue</item>
+        <item name="android:textColorPrimary">@color/ucll_light</item>
+        <item name="android:windowBackground">@color/ucll_light</item>
     </style>
 
-    <style name="AppTheme" parent="AppTheme.Base">
+    <style name="Plutus.Login" parent="Plutus">
+        <item name="android:colorAccent">@color/ucll_light</item>
+        <item name="android:windowBackground">@color/ucll_pink</item>
+        <item name="android:navigationBarColor">@color/ucll_pink</item>
+        <item name="android:textColor">@color/plutus_dark_gray</item>
 
+        <item name="android:editTextStyle">@style/Plutus.Login.CustomField</item>
     </style>
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:textColorPrimary">@color/ucllWhite</item>
-        <item name="android:textColorSecondary">@color/ucllWhite</item>
+    <style name="Plutus.Layout">
+        <item name="android:paddingTop">@dimen/activity_default_padding</item>
+        <item name="android:paddingRight">@dimen/activity_default_padding</item>
+        <item name="android:paddingBottom">@dimen/activity_default_padding</item>
+        <item name="android:paddingLeft">@dimen/activity_default_padding</item>
+    </style>
+
+    <style name="Plutus.Login.CustomField">
+        <item name="android:background">@drawable/plutus_customfield</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:singleLine">true</item>
     </style>
 
 </resources>
