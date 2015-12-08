@@ -22,7 +22,7 @@ public class BrowserActivity extends Activity{
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_browser );
 
-        browser = (WebView)findViewById( R.id.webview_frame );
+        browser = (WebView)findViewById( R.id.webView );
         bar = (ProgressBar)findViewById( R.id.progressBar );
 
         browser.setWebViewClient( new WebViewClient() );

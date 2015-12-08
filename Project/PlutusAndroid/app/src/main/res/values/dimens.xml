@@ -5,8 +5,7 @@
 
     <dimen name="plutus_spacer_small">3dp</dimen>
     <dimen name="plutus_spacer_default">6dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="plutus_info_small">10dp</dimen>
 
 </resources>

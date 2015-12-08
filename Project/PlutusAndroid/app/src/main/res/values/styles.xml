@@ -32,6 +32,10 @@
         <item name="android:paddingLeft">25dp</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:singleLine">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:longClickable">false</item>
     </style>
 
 </resources>
