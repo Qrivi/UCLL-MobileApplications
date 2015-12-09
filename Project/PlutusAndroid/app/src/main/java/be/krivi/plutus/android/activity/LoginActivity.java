@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.network.Client;
 import be.krivi.plutus.android.view.Message;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
@@ -22,6 +23,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     private LinearLayout progressFrame;
     private TextView progressText;
+
+    private Client client;
 
     private boolean rememberMe;
 
@@ -44,6 +47,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         progressFrame = (LinearLayout)findViewById( R.id.progressFrame );
         progressText = (TextView)findViewById( R.id.progressText );
 
+        client = new Client(this);
 
         loginButton.setOnClickListener( this );
         aboutButton.setOnClickListener( this );
@@ -65,12 +69,33 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void verifyCredentials(){
+
+        client.send();
+        hideLoginForm();
+        progressText.setText( "Verifying credentials..." );
+    }
+
+    private boolean autoLogin(){
+
+        return false;
+    }
+
+    private void showLoginForm(){
+        ucllLogo.setVisibility( View.VISIBLE );
+        aboutButton.setVisibility( View.VISIBLE );
+        loginButton.setVisibility( View.VISIBLE );
+        loginForm.setVisibility( View.VISIBLE );
+        progressFrame.setVisibility( View.GONE );
+
+    }
+
+    private void hideLoginForm(){
         ucllLogo.setVisibility( View.GONE );
         aboutButton.setVisibility( View.GONE );
         loginButton.setVisibility( View.GONE );
         loginForm.setVisibility( View.GONE );
         progressFrame.setVisibility( View.VISIBLE );
 
-        progressText.setText( "Verifying credentials..." );
     }
+
 }
