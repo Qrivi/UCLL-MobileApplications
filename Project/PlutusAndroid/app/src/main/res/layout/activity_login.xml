@@ -1,101 +1,110 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="be.krivi.plutus.android.activity.LoginActivity"
-                style="@style/Plutus.Layout"
-                android:descendantFocusability="beforeDescendants"
-                android:focusableInTouchMode="true">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingLeft="@dimen/activity_margin_extra"
+        android:paddingRight="@dimen/activity_margin_extra"
+        android:id="@+id/wrapper"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        tools:context=".LoginActivity">
 
     <ImageView
-            android:layout_width="230dp"
-            android:layout_height="260dp"
-            android:id="@+id/ucllLogo"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ucll_logo"
-            android:scaleType="fitEnd"/>
-
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/ucllLogo"
-            android:id="@+id/loginForm">
-
-        <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textNoSuggestions"
-                android:maxLength="8"
-                android:hint="@string/student_id"
-                android:id="@+id/txt_studentId"
-                android:layout_marginBottom="@dimen/plutus_spacer_default"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"/>
-        <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:imeOptions="actionDone"
-                android:hint="@string/password"
-                android:id="@+id/txt_password"
-                android:layout_marginBottom="@dimen/plutus_spacer_default"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"/>
-        <CheckBox
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/remember_me"
-                android:id="@+id/cbx_rememberMe"
-                android:buttonTint="@color/ucll_light"
-                android:textColor="@color/ucll_light_blue"/>
-    </LinearLayout>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/log_in"
-            android:id="@+id/btn_logIn"
-            android:layout_below="@+id/loginForm"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/ucll_dark_blue"
-            android:textColor="@color/ucll_light"
-            android:paddingLeft="@dimen/activity_login_padding"
-            android:paddingRight="@dimen/activity_login_padding"
-            android:layout_marginTop="@dimen/activity_login_padding"/>
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_aboutPlutus"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" android:src="@drawable/ic_info_white_18dp"
-            android:background="@android:color/transparent"/>
-
-    <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/progressFrame"
-            android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/title"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/activity_margin_default"
+            android:paddingBottom="@dimen/activity_margin_default"
+            android:id="@+id/ucllLogo"
+            android:src="@drawable/ucll_logo"
+            android:scaleType="fitCenter"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/wrapperForm"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/title"
+            android:text="@string/sign_in_using_your_student_credentials"
+            android:gravity="center"/>
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/spacing_form"
+            android:id="@+id/wrapperForm">
+
         <ProgressBar
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/progressBar"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="138dp"/>
-        <TextView
-                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/spacing_form"
+                android:id="@+id/progressBar"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/plutus_info_small"
-                android:text="..."
-                android:textColor="@color/ucll_light"
-                android:id="@+id/progressText"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="98dp"/>
-    </LinearLayout>
+                android:orientation="vertical"
+                android:background="@color/ucll_pink"
+                android:id="@+id/wrapperInput">
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/studentIdStyle"
+                    app:errorTextAppearance="@style/Plutus.Login.Error">
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_studentId"
+                        android:hint="@string/student_id"
+                        android:imeOptions="actionNext"
+                        android:maxLength="8"
+                        android:inputType="textFilter"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/passwordStyle"
+                    app:errorTextAppearance="@style/Plutus.Login.Error">
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_password"
+                        android:hint="@string/password"
+                        android:imeOptions="actionGo"
+                        android:inputType="textPassword"/>
+            </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_border"
+                        android:orientation="vertical"
+                        android:id="@+id/wrapperButtons">
+
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_signIn"
+                            android:text="@string/sign_in"/>
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_info"
+                            android:text="@string/read_our_privacy_policy"
+                            android:background="@android:color/transparent"
+                            android:minHeight="@dimen/link_buttonSize"
+                            android:textSize="@dimen/link_textSize"/>
+                </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

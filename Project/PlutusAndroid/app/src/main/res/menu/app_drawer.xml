@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="be.krivi.plutus.android.MainActivity">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/navigation_balance"
+                android:icon="@drawable/ic_credit_card_black_24dp"
+                android:title="@string/balance"/>
+
+        <item
+                android:id="@+id/navigation_transactions"
+                android:icon="@drawable/ic_compare_arrows_black_24dp"
+                android:title="@string/transactions"/>
+
+        <item
+                android:id="@+id/navigation_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/settings"/>
+    </group>
+</menu>
