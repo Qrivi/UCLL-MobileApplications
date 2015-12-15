@@ -6,7 +6,7 @@ import android.util.Log;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.BaseActivity;
 import be.krivi.plutus.android.model.User;
-import be.krivi.plutus.android.network_volley.Client;
+import be.krivi.plutus.android.network.volley.Client;
 
 /**
  * Created by Krivi on 09/12/15.

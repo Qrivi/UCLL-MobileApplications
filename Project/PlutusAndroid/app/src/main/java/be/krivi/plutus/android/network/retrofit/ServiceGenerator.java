@@ -1,4 +1,4 @@
-package be.krivi.plutus.android.network_retrofit;
+package be.krivi.plutus.android.network.retrofit;
 
 import android.util.Base64;
 import be.krivi.plutus.android.application.Config;
