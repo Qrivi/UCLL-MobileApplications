@@ -1,4 +1,4 @@
-package be.krivi.plutus.android.network_volley;
+package be.krivi.plutus.android.network.volley;
 
 import android.content.Context;
 import android.util.Base64;
