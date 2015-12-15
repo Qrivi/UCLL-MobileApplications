@@ -1,4 +1,4 @@
-package be.krivi.plutus.android.network;
+package be.krivi.plutus.android.network_retrofit;
 
 /**
  * Created by Jan on 14/12/2015.

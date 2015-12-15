@@ -13,8 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import be.krivi.plutus.android.R;
-import be.krivi.plutus.android.network.Client;
-import be.krivi.plutus.android.network.ServiceGenerator;
+import be.krivi.plutus.android.network_retrofit.Client;
+import be.krivi.plutus.android.network_retrofit.ServiceGenerator;
 import be.krivi.plutus.android.rest.VerifyResponse;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -117,11 +117,12 @@ public class LoginActivity extends BaseActivity{
                 call.enqueue( new Callback<VerifyResponse>(){
                     @Override
                     public void onResponse( Response<VerifyResponse> response, Retrofit retrofit ){
-                        Log.v("HIERBENIK", response.message() + "  " + retrofit.baseUrl().url().toString() );
+                        Log.v("RetroCool", response.message() + "  " + response.body() + response.headers().toString() );
                     }
 
                     @Override
                     public void onFailure( Throwable t ){
+                        Log.v("RetroFail", "jammer" );
 
                     }
                 } );

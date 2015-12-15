@@ -1,4 +1,4 @@
-package be.krivi.plutus.android.network_deprecated;
+package be.krivi.plutus.android.network_volley;
 
 
 import be.krivi.plutus.android.application.PlutusAndroid;

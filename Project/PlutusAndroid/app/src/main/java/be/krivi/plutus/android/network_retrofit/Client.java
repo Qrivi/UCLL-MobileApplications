@@ -1,4 +1,4 @@
-package be.krivi.plutus.android.network;
+package be.krivi.plutus.android.network_retrofit;
 
 import be.krivi.plutus.android.rest.VerifyResponse;
 import retrofit.Call;
