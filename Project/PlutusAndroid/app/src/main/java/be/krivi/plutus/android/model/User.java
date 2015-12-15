@@ -9,6 +9,13 @@ public class User{
     private String password;
     private double balance;
 
+    public User(){}
+
+    public User( String studentId, String password ){
+        setStudentId( studentId );
+        setPassword( password );
+    }
+
     public User( double balance, String studentId ){
         setStudentId( studentId );
         setBalance( balance );
@@ -26,7 +33,7 @@ public class User{
         return studentId;
     }
 
-    private void setStudentId( String id ){
+    public void setStudentId( String id ){
         this.studentId = id;
     }
 
@@ -34,7 +41,7 @@ public class User{
         return password;
     }
 
-    private void setPassword( String password ){
+    public void setPassword( String password ){
         this.password = password;
     }
 }

@@ -6,15 +6,23 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.network.Client;
+import be.krivi.plutus.android.network.ServiceGenerator;
+import be.krivi.plutus.android.rest.VerifyResponse;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class LoginActivity extends BaseActivity{
 
@@ -49,11 +57,18 @@ public class LoginActivity extends BaseActivity{
     @Bind( R.id.passwordStyle )
     TextInputLayout mPasswordStyle;
 
+    private Client client;
+
+
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
         this.setContentView( R.layout.activity_login );
         ButterKnife.bind( this );
+
+        // TODO remove this
+        mPassword.setText( "Pass1234" );
+        mStudentId.setText( "r0123456" );
 
         imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
 
@@ -68,6 +83,8 @@ public class LoginActivity extends BaseActivity{
                 return true;
             }
         } );
+
+        client = ServiceGenerator.createService( Client.class );
     }
 
     @OnClick( R.id.btn_info )
@@ -88,30 +105,62 @@ public class LoginActivity extends BaseActivity{
             imm.toggleSoftInput( InputMethodManager.SHOW_FORCED, 0 );
             mTitle.setText( R.string.verifying_credentials );
 
-            String statusStudentId = app.verifyStudentId( mStudentId.getText().toString() );
-            String statusPassword = app.verifyPassword( mPassword.getText().toString() );
+            String studentId = mStudentId.getText().toString();
+            String password = mPassword.getText().toString();
+
+            String statusStudentId = app.verifyStudentId( studentId );
+            String statusPassword = app.verifyPassword( password );
 
             if( statusStudentId.equals( "OK" ) && statusPassword.equals( "OK" ) ){
-                // TODO app.logIn( id, pass )
-                // nok -> showerror password
-                // ok -> "populating databas" tot ...
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+
+                Call<VerifyResponse> call = client.verify( studentId, password );
+                call.enqueue( new Callback<VerifyResponse>(){
+                    @Override
+                    public void onResponse( Response<VerifyResponse> response, Retrofit retrofit ){
+                        Log.v("HIERBENIK", response.message() + "  " + retrofit.baseUrl().url().toString() );
+                    }
+
+                    @Override
+                    public void onFailure( Throwable t ){
+
+                    }
+                } );
+
+
+
+
+
+//                if( app.verifyCredentials( studentId, password ) ){
+//                    mTitle.setText( R.string.populating_database );
+//                    startActivity( new Intent( this, MainActivity.class ) );
+//                    finish();// TODO app.logIn( id, pass )
+//                    // nok -> showerror password
+//                    // ok -> "populating databas" tot ...
+//                }else{
+//                    showError( "OK", getString( R.string.password_is_incorrect ) );
+//                }
             }else{
-                mWrapperInput.startAnimation( aFadeIn );
-
-                mStudentIdStyle.setError( "" );
-                mPasswordStyle.setError( "" );
-                mPassword.setText( "" );
-                mTitle.setText( R.string.sign_in_using_your_student_credentials );
-
-                if( !statusStudentId.equals( "OK" ) )
-                    mStudentIdStyle.setError( statusStudentId );
-                if( !statusPassword.equals( "OK" ) )
-                    mPasswordStyle.setError( statusPassword );
-
-                busy = false;
+                showError( statusStudentId, statusPassword );
             }
         }
+
+    }
+
+    private void showError( String errorStudentId, String errorPassword ){
+
+        mWrapperInput.startAnimation( aFadeIn );
+
+        mStudentIdStyle.setError( "" );
+        mPasswordStyle.setError( "" );
+        mPassword.setText( "" );
+        mTitle.setText( R.string.sign_in_using_your_student_credentials );
+
+        if( !errorStudentId.equals( "OK" ) )
+            mStudentIdStyle.setError( errorStudentId );
+        if( !errorPassword.equals( "OK" ) )
+            mPasswordStyle.setError( errorPassword );
+
+        busy = false;
+
     }
 }
