@@ -24,9 +24,16 @@
             <!-- fragments here -->
 
             <TextView
-                    android:text="@string/hello_world"
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+            <Button
+                    android:id="@+id/buttonVOORUIT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:text="Klik to move"/>
 
         </RelativeLayout>
 

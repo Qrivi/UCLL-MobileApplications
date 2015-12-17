@@ -2,6 +2,8 @@ package be.krivi.plutus.android.io;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import be.krivi.plutus.android.model.User;
+
 import java.io.IOException;
 
 
@@ -25,12 +27,14 @@ public class SPAdapter{
         return ( sharedPreferences.contains( "studentID" ) && sharedPreferences.contains( "password" ) );
     }
 
-    public void saveCredentials( String studentId, String password ) throws NullPointerException{
-        if( studentId == null || password == null || studentId.equals( "" ) || password.equals( "" ) )
+    public void saveCredentials( User user ) throws NullPointerException{
+        if( user.getStudentId() == null || user.getPassword() == null || user.getBalance() < 0 ||
+                user.getStudentId().equals( "" ) || user.getPassword().equals( "" ) )
             throw new NullPointerException( "Student ID and password cannot be empty" );
 
-        editor.putString( "student_id", studentId );
-        editor.putString( "password", password );
+        editor.putString( "student_id", user.getStudentId() );
+        editor.putString( "password", user.getPassword() );
+        editor.putString( "balance", user.getBalance() + "" );
         editor.commit();
     }
 
@@ -46,6 +50,13 @@ public class SPAdapter{
             throw new IOException( "Student ID is not saved in the preferences file" );
 
         return sharedPreferences.getString( "student_id", "" );
+    }
+
+    public double getBalance() throws IOException{
+        if( !isUserRemembered() )
+            throw new IOException( "Student ID is not saved in the preferences file" );
+
+        return Double.parseDouble( sharedPreferences.getString( "balance", "" ) );
     }
 
 }

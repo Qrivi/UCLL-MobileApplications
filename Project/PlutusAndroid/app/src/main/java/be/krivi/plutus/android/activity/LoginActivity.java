@@ -6,23 +6,25 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import be.krivi.plutus.android.R;
-import be.krivi.plutus.android.network.retrofit.Client;
-import be.krivi.plutus.android.network.retrofit.ServiceGenerator;
-import be.krivi.plutus.android.rest.VerifyResponse;
+import be.krivi.plutus.android.application.Config;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 public class LoginActivity extends BaseActivity{
 
@@ -57,13 +59,175 @@ public class LoginActivity extends BaseActivity{
     @Bind( R.id.passwordStyle )
     TextInputLayout mPasswordStyle;
 
-    private Client client;
-
-
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
+
+        if( app.isUserRemembered() ){
+            if( app.isNetworkAvailable() ){
+                this.setContentView( R.layout.activity_login );
+                showFadeOut( R.string.populating_database + "" );
+                initializeBalance( app.getCurrentUser().getStudentId(), app.getCurrentUser().getPassword() );
+            }else{
+                initializeMainWindow();
+            }
+        }else{
+            initializeLoginWindow();
+        }
+    }
+
+    @OnClick( R.id.btn_info )
+    public void infoClickHandler(){
+        startActivity( new Intent( Intent.ACTION_VIEW ).setData( Uri.parse( app.getProjectUri() ) ) );
+    }
+
+    @OnClick( R.id.btn_signIn )
+    public void signInClickHandler(){
+        verifyCredentials();
+    }
+
+    private void verifyCredentials(){
+        if( !busy ){
+            busy = true;
+
+            showFadeOut( R.string.verifying_credentials + "" );
+
+            String studentId = mStudentId.getText().toString();
+            String password = mPassword.getText().toString();
+
+            String statusStudentId = app.verifyStudentId( studentId );
+            String statusPassword = app.verifyPassword( password );
+
+            if( statusStudentId.equals( "OK" ) && statusPassword.equals( "OK" ) )
+                verifyCredentials( studentId, password );
+            else
+                showError( statusStudentId, statusPassword );
+        }
+    }
+
+    private void verifyCredentials( final String studentId, final String password ){
+        final String URL = Config.API_URL + Config.API_VERSION + "/verify";
+
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse( String response ){
+                        try{
+                            JSONObject data = new JSONObject( response ).getJSONObject( "data" );
+                            if( data.getBoolean( "valid" ) ){
+                                app.initializeUser( studentId, password );
+                                initializeBalance( studentId, password );
+                            }
+                        }catch( JSONException e ){
+                            // TODO write exception
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse( VolleyError error ){
+                        showError( "OK", "R.string.password_is_incorrect" );
+                    }
+                } ){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError{
+                return getCustomParams( studentId, password );
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError{
+                return getCustomHeaders();
+            }
+        };
+        request.setShouldCache( false );
+        app.getRequestQueue().add( request );
+    }
+
+    private void initializeBalance( String studentId, String password ){
+        mTitle.setText( R.string.populating_database );
+        balance( studentId, password );
+    }
+
+    private void balance( final String studentId, final String password ){
+        final String URL = Config.API_URL + Config.API_VERSION + "/balance";
+
+        StringRequest request = new StringRequest( Request.Method.POST,
+                URL,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse( String response ){
+                        try{
+                            JSONObject data = new JSONObject( response ).getJSONObject( "data" );
+                            double balance = data.getDouble( "credit" );
+
+                            app.getCurrentUser().setBalance( balance );
+                            app.populateDatabase(0);
+
+                            initializeMainWindow();
+                        }catch( JSONException e ){
+                            // TODO write exception
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse( VolleyError error ){
+                        // TODO write exception
+                        error.printStackTrace();
+                    }
+                } ){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError{
+                return getCustomParams( studentId, password );
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError{
+                return getCustomHeaders();
+            }
+        };
+        app.getRequestQueue().add( request );
+    }
+
+    private void showFadeOut( String text ){
+        mWrapperInput.startAnimation( aFadeOut );
+
+        imm.toggleSoftInput( InputMethodManager.SHOW_FORCED, 0 );
+        mTitle.setText( text );
+    }
+
+    private void showError( String errorStudentId, String errorPassword ){
+
+        mWrapperInput.startAnimation( aFadeIn );
+
+        mStudentIdStyle.setError( "" );
+        mPasswordStyle.setError( "" );
+        mPassword.setText( "" );
+        mTitle.setText( R.string.sign_in_using_your_student_credentials );
+
+        if( !errorStudentId.equals( "OK" ) )
+            mStudentIdStyle.setError( errorStudentId );
+        if( !errorPassword.equals( "OK" ) )
+            mPasswordStyle.setError( errorPassword );
+
+        busy = false;
+
+    }
+
+    private void initializeMainWindow(){
+        startActivity( new Intent( app.getApplicationContext(), MainActivity.class ) );
+        finish();
+    }
+
+    private void initializeLoginWindow(){
         this.setContentView( R.layout.activity_login );
+
         ButterKnife.bind( this );
 
         // TODO remove this
@@ -83,85 +247,5 @@ public class LoginActivity extends BaseActivity{
                 return true;
             }
         } );
-
-        client = ServiceGenerator.createService( Client.class );
-    }
-
-    @OnClick( R.id.btn_info )
-    public void infoClickHandler(){
-        startActivity( new Intent( Intent.ACTION_VIEW ).setData( Uri.parse( app.getProjectUri() ) ) );
-    }
-
-    @OnClick( R.id.btn_signIn )
-    public void signInClickHandler(){
-        verifyCredentials();
-    }
-
-    private void verifyCredentials(){
-        if( !busy ){
-            busy = true;
-            mWrapperInput.startAnimation( aFadeOut );
-
-            imm.toggleSoftInput( InputMethodManager.SHOW_FORCED, 0 );
-            mTitle.setText( R.string.verifying_credentials );
-
-            String studentId = mStudentId.getText().toString();
-            String password = mPassword.getText().toString();
-
-            String statusStudentId = app.verifyStudentId( studentId );
-            String statusPassword = app.verifyPassword( password );
-
-            if( statusStudentId.equals( "OK" ) && statusPassword.equals( "OK" ) ){
-
-                Call<VerifyResponse> call = client.verify( studentId, password );
-                call.enqueue( new Callback<VerifyResponse>(){
-                    @Override
-                    public void onResponse( Response<VerifyResponse> response, Retrofit retrofit ){
-                        Log.v("RetroCool", response.message() + "  " + response.body() + response.headers().toString() );
-                    }
-
-                    @Override
-                    public void onFailure( Throwable t ){
-                        Log.v("RetroFail", "jammer" );
-
-                    }
-                } );
-
-
-
-
-
-//                if( app.verifyCredentials( studentId, password ) ){
-//                    mTitle.setText( R.string.populating_database );
-//                    startActivity( new Intent( this, MainActivity.class ) );
-//                    finish();// TODO app.logIn( id, pass )
-//                    // nok -> showerror password
-//                    // ok -> "populating databas" tot ...
-//                }else{
-//                    showError( "OK", getString( R.string.password_is_incorrect ) );
-//                }
-            }else{
-                showError( statusStudentId, statusPassword );
-            }
-        }
-
-    }
-
-    private void showError( String errorStudentId, String errorPassword ){
-
-        mWrapperInput.startAnimation( aFadeIn );
-
-        mStudentIdStyle.setError( "" );
-        mPasswordStyle.setError( "" );
-        mPassword.setText( "" );
-        mTitle.setText( R.string.sign_in_using_your_student_credentials );
-
-        if( !errorStudentId.equals( "OK" ) )
-            mStudentIdStyle.setError( errorStudentId );
-        if( !errorPassword.equals( "OK" ) )
-            mPasswordStyle.setError( errorPassword );
-
-        busy = false;
-
     }
 }

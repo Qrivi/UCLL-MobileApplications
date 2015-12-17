@@ -1,17 +1,25 @@
 package be.krivi.plutus.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity{
 
     @Bind( R.id.toolbar )
     Toolbar mToolbar;
+
+    @Bind( R.id.textView )
+    TextView mText;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -19,6 +27,16 @@ public class MainActivity extends BaseActivity{
         this.setContentView( R.layout.activity_main );
         ButterKnife.bind( this );
         this.setSupportActionBar( mToolbar );
+
+        mText.setText( "U coolboy got monies : " + app.getCurrentUser().getBalance() );
+
+
+    }
+
+    @OnClick( R.id.buttonVOORUIT )
+    public void infoClickHandler() {
+        startActivity( new Intent( app.getApplicationContext(), Transactions.class ) );
+        finish();
     }
 
     @Override

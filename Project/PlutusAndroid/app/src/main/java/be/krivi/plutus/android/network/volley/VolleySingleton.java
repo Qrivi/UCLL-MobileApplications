@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by Jan on 8/12/2015.
  */
-public class    VolleySingleton{
+public class VolleySingleton{
 
     private static VolleySingleton sINSTANCE = null;
     private RequestQueue mRequestQueue;

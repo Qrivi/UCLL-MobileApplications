@@ -3,7 +3,9 @@ package be.krivi.plutus.android.io;
 import android.content.Context;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
+import be.krivi.plutus.android.model.User;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -21,13 +23,28 @@ public class IOService{
         this.spAdapter = new SPAdapter( context );
     }
 
-    public boolean isUserRemembered() {
+
+    public boolean isUserRemembered(){
         return spAdapter.isUserRemembered();
     }
 
-    public void saveCredentials(String studentId, String password) throws NullPointerException {
-        spAdapter.saveCredentials(studentId, password);
+    public void saveCredentials( User user ) throws NullPointerException{
+        spAdapter.saveCredentials( user );
     }
+
+
+    public String getStudentId() throws IOException{
+        return spAdapter.getStudentId();
+    }
+
+    public String getPassword() throws IOException{
+        return spAdapter.getPassword();
+    }
+
+    public double getBalance() throws IOException{
+        return spAdapter.getBalance();
+    }
+
 
     public long insertLocation( Location l ){
         return dbAdapter.insertLocation( l );
@@ -36,6 +53,14 @@ public class IOService{
     public long insertTransaction( Transaction t ){
         return dbAdapter.insertTransaction( t );
     }
+
+    public void insertListOfTransactions(List<Transaction> transactions) {
+        for(Transaction t : transactions) {
+            insertLocation(t.getLocation());
+            insertTransaction( t );
+        }
+    }
+
 
     public List<Transaction> getAllTransactions() throws ParseException{
         return dbAdapter.getAllTransactions();

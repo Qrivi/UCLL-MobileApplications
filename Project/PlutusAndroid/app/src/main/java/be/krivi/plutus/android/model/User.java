@@ -16,8 +16,8 @@ public class User{
         setPassword( password );
     }
 
-    public User( double balance, String studentId ){
-        setStudentId( studentId );
+    public User( String studentId, String password, double balance ){
+        this(studentId, password );
         setBalance( balance );
     }
 
@@ -25,7 +25,7 @@ public class User{
         return balance;
     }
 
-    private void setBalance( double balance ){
+    public void setBalance( double balance ){
         this.balance = balance;
     }
 
