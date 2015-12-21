@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -92,7 +93,7 @@ public class LoginActivity extends BaseActivity{
 
             showFadeOut( getResources().getString( R.string.verifying_credentials ) );
 
-            String studentId = mStudentId.getText().toString();
+            String studentId = mStudentId.getText().toString().toLowerCase();
             String password = mPassword.getText().toString();
 
             String statusStudentId = app.verifyStudentId( studentId );
@@ -107,7 +108,7 @@ public class LoginActivity extends BaseActivity{
 
     private void verifyCredentials( final String studentId, final String password ){
         final String URL = Config.API_URL + Config.API_VERSION + "/verify";
-
+        Log.v( "URLLLLLL", URL );
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 URL,
@@ -117,7 +118,7 @@ public class LoginActivity extends BaseActivity{
                         try{
                             JSONObject data = new JSONObject( response ).getJSONObject( "data" );
                             if( data.getBoolean( "valid" ) ){
-                                app.initializeUser( studentId, password );
+                                app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
                                 initializeBalance( studentId, password );
                             }
                         }catch( JSONException e ){

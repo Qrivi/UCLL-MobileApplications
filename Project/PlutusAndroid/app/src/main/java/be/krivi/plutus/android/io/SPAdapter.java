@@ -34,7 +34,9 @@ public class SPAdapter{
 
         editor.putString( "student_id", user.getStudentId() );
         editor.putString( "password", user.getPassword() );
-        editor.putString( "balance", user.getBalance() + "" );
+        editor.putString( "firstname", user.getFirstname() );
+        editor.putString( "lastname", user.getLastname() );
+        editor.putString( "balance",  user.getBalance() + "" );
         editor.commit();
     }
 
@@ -57,6 +59,20 @@ public class SPAdapter{
             throw new IOException( "Student ID is not saved in the preferences file" );
 
         return Double.parseDouble( sharedPreferences.getString( "balance", "" ) );
+    }
+
+    public String getFirstname() throws IOException{
+        if( !isUserRemembered() )
+            throw new IOException( "Student ID is not saved in the preferences file" );
+
+        return sharedPreferences.getString( "firstname", "" );
+    }
+
+    public String getLastname() throws IOException{
+        if( !isUserRemembered() )
+            throw new IOException( "Student ID is not saved in the preferences file" );
+
+        return sharedPreferences.getString( "lastname", "" );
     }
 
 }

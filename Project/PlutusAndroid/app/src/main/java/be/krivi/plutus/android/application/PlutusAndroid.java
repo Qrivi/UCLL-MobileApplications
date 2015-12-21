@@ -54,8 +54,8 @@ public class PlutusAndroid extends Application{
         IOService.saveCredentials( getCurrentUser() );
     }
 
-    public void initializeUser( String studentId, String password ){
-        this.user = new User( studentId, password );
+    public void initializeUser( String studentId, String password, String firstname, String lastname ){
+        this.user = new User( studentId, password, firstname, lastname );
     }
 
     public void initializeUserBalance( double balance ){
@@ -113,7 +113,7 @@ public class PlutusAndroid extends Application{
         boolean isRemembered = IOService.isUserRemembered();
         if( isRemembered ){
             try{
-                initializeUser( IOService.getStudentId(), IOService.getPassword() );
+                user = new User(IOService.getStudentId(), IOService.getPassword());
                 initializeUserBalance( IOService.getBalance() );
             }catch( IOException e ){
                 isRemembered = false;

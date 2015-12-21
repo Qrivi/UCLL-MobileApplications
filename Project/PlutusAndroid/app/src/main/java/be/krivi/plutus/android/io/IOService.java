@@ -44,6 +44,12 @@ public class IOService{
     public double getBalance() throws IOException{
         return spAdapter.getBalance();
     }
+    public String getFirstname() throws IOException{
+        return spAdapter.getFirstname();
+    }
+    public String getLastname() throws IOException{
+        return spAdapter.getLastname();
+    }
 
 
     public long insertLocation( Location l ){
