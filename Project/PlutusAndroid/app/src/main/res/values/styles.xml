@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/ucll_pink</item>
         <item name="colorPrimaryDark">@color/ucll_pink_alt</item>
         <item name="colorAccent">@color/ucll_dark_blue</item>
+        <item name="android:colorAccent">@color/ucll_dark_blue</item>
 
         <item name="android:textColorPrimary">@color/ucll_light</item>
         <item name="android:textColorSecondary">@color/ucll_light</item>
@@ -22,6 +23,7 @@
         <item name="colorPrimary">@color/ucll_pink</item>
         <item name="colorPrimaryDark">@color/ucll_pink_alt</item>
         <item name="colorAccent">@color/ucll_light_blue</item>
+        <item name="android:colorAccent">@color/ucll_light_blue</item>
 
         <item name="android:textColor">@color/ucll_light</item>
         <item name="android:windowBackground">@color/ucll_pink</item>

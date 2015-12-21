@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity{
         if( app.isUserRemembered() ){
             if( app.isNetworkAvailable() ){
                 this.setContentView( R.layout.activity_login );
-                showFadeOut( R.string.populating_database + "" );
+                showFadeOut( getResources().getString( R.string.populating_database ) );
                 initializeBalance( app.getCurrentUser().getStudentId(), app.getCurrentUser().getPassword() );
             }else{
                 initializeMainWindow();
@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity{
         if( !busy ){
             busy = true;
 
-            showFadeOut( R.string.verifying_credentials + "" );
+            showFadeOut( getResources().getString( R.string.verifying_credentials ) );
 
             String studentId = mStudentId.getText().toString();
             String password = mPassword.getText().toString();
@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity{
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse( VolleyError error ){
-                        showError( "OK", "R.string.password_is_incorrect" );
+                        showError( "OK", getResources().getString( R.string.password_is_incorrect ) );
                     }
                 } ){
 
@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeBalance( String studentId, String password ){
-        mTitle.setText( R.string.populating_database );
+        mTitle.setText( getResources().getString( R.string.populating_database ) );
         balance( studentId, password );
     }
 
@@ -165,7 +165,7 @@ public class LoginActivity extends BaseActivity{
                             double balance = data.getDouble( "credit" );
 
                             app.getCurrentUser().setBalance( balance );
-                            app.populateDatabase(0);
+                            app.populateDatabase( 0 );
 
                             initializeMainWindow();
                         }catch( JSONException e ){
@@ -209,7 +209,7 @@ public class LoginActivity extends BaseActivity{
         mStudentIdStyle.setError( "" );
         mPasswordStyle.setError( "" );
         mPassword.setText( "" );
-        mTitle.setText( R.string.sign_in_using_your_student_credentials );
+        mTitle.setText( getResources().getString( R.string.sign_in_using_your_student_credentials ) );
 
         if( !errorStudentId.equals( "OK" ) )
             mStudentIdStyle.setError( errorStudentId );
@@ -217,11 +217,10 @@ public class LoginActivity extends BaseActivity{
             mPasswordStyle.setError( errorPassword );
 
         busy = false;
-
     }
 
     private void initializeMainWindow(){
-        startActivity( new Intent( app.getApplicationContext(), MainActivity.class ) );
+        startActivity( new Intent( app.getApplicationContext(), BalanceActivity.class ) );
         finish();
     }
 

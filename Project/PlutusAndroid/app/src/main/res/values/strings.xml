@@ -19,4 +19,5 @@
     <string name="transactions">Transactions</string>
     <string name="settings">Settings</string>
     <string name="password_is_incorrect">Password is incorrect</string>
+    <string name="sign_out">Sign out</string>
 </resources>

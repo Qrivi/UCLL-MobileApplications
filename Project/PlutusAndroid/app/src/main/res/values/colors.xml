@@ -19,10 +19,11 @@
         <color name="text_default">#4A4A4A</color>
         <color name="text_clickable">#333333</color>
 
+        <!-- tot hier al gebruikt -->
+
         <color name="text_subheader">#A2A2A2</color>
         <color name="text_subline">#BBBBBB</color>
 
-        <color name="text_menuitem">@color/text_clickable</color>
         <color name="text_edittext">@color/text_clickable</color>
         <color name="text_hint">#9B9B9B</color>
         <color name="text_link">@color/ucll_light_blue</color>

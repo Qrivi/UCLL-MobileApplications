@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity{
+public class BalanceActivity extends BaseActivity{
 
     @Bind( R.id.toolbar )
     Toolbar mToolbar;
@@ -24,18 +23,16 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
-        this.setContentView( R.layout.activity_main );
+        this.setContentView( R.layout.activity_balance );
         ButterKnife.bind( this );
         this.setSupportActionBar( mToolbar );
 
         mText.setText( "U coolboy got monies : " + app.getCurrentUser().getBalance() );
-
-
     }
 
     @OnClick( R.id.buttonVOORUIT )
     public void infoClickHandler() {
-        startActivity( new Intent( app.getApplicationContext(), Transactions.class ) );
+        startActivity( new Intent( app.getApplicationContext(), TransactionsActivity.class ) );
         finish();
     }
 

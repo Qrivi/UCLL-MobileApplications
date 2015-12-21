@@ -1,0 +1,40 @@
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/drawer_height"
+        android:background="@color/ucll_pink"
+        android:fitsSystemWindows="true">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/imageView"
+            android:src="@drawable/plutus_header"
+            android:scaleType="fitStart"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_margin_default">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/lbl_studentId"
+                android:layout_marginBottom="@dimen/drawer_textSpacing"
+                android:text="Johnny"
+                android:textStyle="bold"
+                android:textColor="@color/ucll_light"
+                android:id="@+id/lbl_studentName"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="r0123456"
+                android:textColor="@color/ucll_light"
+                android:id="@+id/lbl_studentId"/>
+
+    </RelativeLayout>
+</RelativeLayout>

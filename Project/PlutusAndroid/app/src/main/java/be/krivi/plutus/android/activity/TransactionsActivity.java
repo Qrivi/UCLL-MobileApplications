@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Transactions extends BaseActivity{
+public class TransactionsActivity extends BaseActivity{
 
     TextView text;
 
@@ -32,7 +32,7 @@ public class Transactions extends BaseActivity{
 
         text = (TextView) findViewById( R.id.transactionsTEXT );
 
-        String output = "Transactions bitch : \n";
+        String output = "TransactionsActivity bitch : \n";
         for( Transaction t : transactions )
             output += t.toString();
 
