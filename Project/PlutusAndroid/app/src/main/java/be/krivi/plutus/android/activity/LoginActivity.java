@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -108,7 +107,7 @@ public class LoginActivity extends BaseActivity{
 
     private void verifyCredentials( final String studentId, final String password ){
         final String URL = Config.API_URL + Config.API_VERSION + "/verify";
-        Log.v( "URLLLLLL", URL );
+
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 URL,
@@ -221,7 +220,7 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeMainWindow(){
-        startActivity( new Intent( app.getApplicationContext(), BalanceActivity.class ) );
+        startActivity( new Intent( app.getApplicationContext(), MainActivity.class ) );
         finish();
     }
 

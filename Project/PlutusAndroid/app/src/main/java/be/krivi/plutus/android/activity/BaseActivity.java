@@ -3,6 +3,7 @@ package be.krivi.plutus.android.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.application.PlutusAndroid;
 import com.android.volley.AuthFailureError;
