@@ -10,12 +10,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.fragment.BalanceFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import java.text.ParseException;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -53,6 +56,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawerToggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener( this );
+
+
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView lbl_studentId = (TextView) headerView.findViewById(R.id.lbl_studentId);
+        lbl_studentId.setText( app.getCurrentUser().getStudentId() );
+        TextView lbl_studentName = (TextView) headerView.findViewById(R.id.lbl_studentName);
+        lbl_studentName.setText( app.getCurrentUser().getFirstname() );
+
+
     }
 
     @Override

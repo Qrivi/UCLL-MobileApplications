@@ -24,11 +24,11 @@ public class SPAdapter{
     }
 
     public boolean isUserRemembered(){
-        return ( sharedPreferences.contains( "studentID" ) && sharedPreferences.contains( "password" ) );
+        return ( sharedPreferences.contains( "student_id" ) && sharedPreferences.contains( "password" ) );
     }
 
     public void saveCredentials( User user ) throws NullPointerException{
-        if( user.getStudentId() == null || user.getPassword() == null || user.getBalance() < 0 ||
+        if( user.getStudentId() == null || user.getPassword() == null ||
                 user.getStudentId().equals( "" ) || user.getPassword().equals( "" ) )
             throw new NullPointerException( "Student ID and password cannot be empty" );
 
@@ -36,7 +36,22 @@ public class SPAdapter{
         editor.putString( "password", user.getPassword() );
         editor.putString( "firstname", user.getFirstname() );
         editor.putString( "lastname", user.getLastname() );
-        editor.putString( "balance",  user.getBalance() + "" );
+        editor.commit();
+    }
+
+    public void saveBalance( double balance ){
+        if( balance < 0 )
+            throw new NullPointerException( "Student ID and password cannot be empty" );
+
+        editor.putString( "balance", balance + "" );
+        editor.commit();
+    }
+
+    public void saveHomeScreen( String homeScreen ) throws NullPointerException{
+        if( homeScreen == null || homeScreen.equals( "" ) )
+            throw new NullPointerException( "Student ID and password cannot be empty" );
+
+        editor.putString( "home_screen", homeScreen );
         editor.commit();
     }
 
@@ -51,7 +66,7 @@ public class SPAdapter{
         if( !isUserRemembered() )
             throw new IOException( "Student ID is not saved in the preferences file" );
 
-        return sharedPreferences.getString( "student_id", "" );
+        return sharedPreferences.getString( "password", "" );
     }
 
     public double getBalance() throws IOException{
@@ -73,6 +88,10 @@ public class SPAdapter{
             throw new IOException( "Student ID is not saved in the preferences file" );
 
         return sharedPreferences.getString( "lastname", "" );
+    }
+
+    public String getHomeScreen(){
+        return sharedPreferences.getString( "home_screen", null );
     }
 
 }

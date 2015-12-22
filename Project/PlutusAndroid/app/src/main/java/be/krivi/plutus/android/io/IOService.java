@@ -32,6 +32,14 @@ public class IOService{
         spAdapter.saveCredentials( user );
     }
 
+    public void saveBalance(double balance)  throws NullPointerException {
+        spAdapter.saveBalance(balance);
+    }
+
+    public void saveHomeScreen(String homeScreen) throws NullPointerException {
+        spAdapter.saveHomeScreen( homeScreen );
+    }
+
 
     public String getStudentId() throws IOException{
         return spAdapter.getStudentId();
@@ -44,11 +52,17 @@ public class IOService{
     public double getBalance() throws IOException{
         return spAdapter.getBalance();
     }
+
     public String getFirstname() throws IOException{
         return spAdapter.getFirstname();
     }
+
     public String getLastname() throws IOException{
         return spAdapter.getLastname();
+    }
+
+    public String getHomeScreen() {
+        return spAdapter.getHomeScreen();
     }
 
 
@@ -66,7 +80,6 @@ public class IOService{
             insertTransaction( t );
         }
     }
-
 
     public List<Transaction> getAllTransactions() throws ParseException{
         return dbAdapter.getAllTransactions();

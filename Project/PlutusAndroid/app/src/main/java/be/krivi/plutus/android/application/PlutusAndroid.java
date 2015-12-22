@@ -2,7 +2,6 @@ package be.krivi.plutus.android.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.ConfigurationInfo;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import be.krivi.plutus.android.R;
@@ -46,8 +45,8 @@ public class PlutusAndroid extends Application{
         //      if no such key exists, it means the user is opening the app for the first time;
         //      in this case write the pref and return the default startScreen
 
-        //homeScreen = prefs.homescreen != null ? prefs.homescreen : Config.APP_DEFAULT_HOMESCREEN;
-        homeScreen = false ? "stringFromPrefs" : Config.APP_DEFAULT_HOMESCREEN;
+        homeScreen = IOService.getHomeScreen() != null ? IOService.getHomeScreen() : Config.APP_DEFAULT_HOMESCREEN;
+        //homeScreen = false ? "stringFromPrefs" : Config.APP_DEFAULT_HOMESCREEN;
     }
 
     public static Context getAppContext(){
@@ -59,25 +58,23 @@ public class PlutusAndroid extends Application{
     }
 
 
-    public void saveCredentials() {
-        IOService.saveCredentials( getCurrentUser() );
-    }
-
     public void initializeUser( String studentId, String password, String firstname, String lastname ){
         this.user = new User( studentId, password, firstname, lastname );
+        IOService.saveCredentials( getCurrentUser() );
     }
 
     public void initializeUserBalance( double balance ){
         this.user.setBalance( balance );
-    }
-
-    public User getCurrentUser(){
-        return user;
+        IOService.saveBalance( balance );
     }
 
 
     public void setCurrentActivity( BaseActivity activity ){
         this.currentActivity = activity;
+    }
+
+    public User getCurrentUser(){
+        return user;
     }
 
     public String getProjectUri(){
@@ -117,13 +114,12 @@ public class PlutusAndroid extends Application{
         }
     }
 
-
     public boolean isUserRemembered(){
+
         boolean isRemembered = IOService.isUserRemembered();
         if( isRemembered ){
             try{
-                user = new User(IOService.getStudentId(), IOService.getPassword());
-                initializeUserBalance( IOService.getBalance() );
+                user = new User( IOService.getStudentId(), IOService.getPassword(), IOService.getFirstname(), IOService.getLastname() );
             }catch( IOException e ){
                 isRemembered = false;
             }
@@ -131,14 +127,14 @@ public class PlutusAndroid extends Application{
         return isRemembered;
     }
 
+
     public boolean isNetworkAvailable(){
         //TODO check this, it doesnt work properly I think
         final ConnectivityManager connectivityManager = ( (ConnectivityManager)getAppContext().getSystemService( Context.CONNECTIVITY_SERVICE ) );
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-
-    public void populateDatabase(int page) {
+    public void populateDatabase( int page ){
         networkClient.populateDatabase( user, page );
     }
 
@@ -150,8 +146,9 @@ public class PlutusAndroid extends Application{
 
         return homeScreen;
     }
-    public void setHomeScreen(String homeScreen){
+
+    public void setHomeScreen( String homeScreen ){
         this.homeScreen = homeScreen;
-        // TODO also write startScreen to sharedPrefs
+        IOService.saveHomeScreen( homeScreen );
     }
 }

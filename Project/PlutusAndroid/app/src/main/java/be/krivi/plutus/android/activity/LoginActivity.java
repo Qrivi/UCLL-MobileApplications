@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
+import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -61,18 +63,20 @@ public class LoginActivity extends BaseActivity{
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
+
         super.onCreate( savedInstanceState );
 
         if( app.isUserRemembered() ){
             if( app.isNetworkAvailable() ){
-                this.setContentView( R.layout.activity_login );
-                showFadeOut( getResources().getString( R.string.populating_database ) );
-                initializeBalance( app.getCurrentUser().getStudentId(), app.getCurrentUser().getPassword() );
+                initializeLoginWindow();
+                verifyCredentials( app.getCurrentUser().getStudentId(), app.getCurrentUser().getPassword() );
             }else{
                 initializeMainWindow();
             }
         }else{
             initializeLoginWindow();
+            if( !app.isNetworkAvailable() )
+                Message.toast( this, "No internet available" ); //TODO SNACKBAR
         }
     }
 
@@ -90,8 +94,6 @@ public class LoginActivity extends BaseActivity{
         if( !busy ){
             busy = true;
 
-            showFadeOut( getResources().getString( R.string.verifying_credentials ) );
-
             String studentId = mStudentId.getText().toString().toLowerCase();
             String password = mPassword.getText().toString();
 
@@ -106,6 +108,8 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void verifyCredentials( final String studentId, final String password ){
+
+        showFadeOut( getResources().getString( R.string.verifying_credentials ) );
         final String URL = Config.API_URL + Config.API_VERSION + "/verify";
 
         StringRequest request = new StringRequest(
@@ -118,7 +122,7 @@ public class LoginActivity extends BaseActivity{
                             JSONObject data = new JSONObject( response ).getJSONObject( "data" );
                             if( data.getBoolean( "valid" ) ){
                                 app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
-                                initializeBalance( studentId, password );
+                                initializeMainWindow();
                             }
                         }catch( JSONException e ){
                             // TODO write exception
@@ -144,54 +148,6 @@ public class LoginActivity extends BaseActivity{
             }
         };
         request.setShouldCache( false );
-        app.getRequestQueue().add( request );
-    }
-
-    private void initializeBalance( String studentId, String password ){
-        mTitle.setText( getResources().getString( R.string.populating_database ) );
-        balance( studentId, password );
-    }
-
-    private void balance( final String studentId, final String password ){
-        final String URL = Config.API_URL + Config.API_VERSION + "/balance";
-
-        StringRequest request = new StringRequest( Request.Method.POST,
-                URL,
-                new Response.Listener<String>(){
-                    @Override
-                    public void onResponse( String response ){
-                        try{
-                            JSONObject data = new JSONObject( response ).getJSONObject( "data" );
-                            double balance = data.getDouble( "credit" );
-
-                            app.getCurrentUser().setBalance( balance );
-                            app.populateDatabase( 0 );
-
-                            initializeMainWindow();
-                        }catch( JSONException e ){
-                            // TODO write exception
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse( VolleyError error ){
-                        // TODO write exception
-                        error.printStackTrace();
-                    }
-                } ){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError{
-                return getCustomParams( studentId, password );
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError{
-                return getCustomHeaders();
-            }
-        };
         app.getRequestQueue().add( request );
     }
 
@@ -225,6 +181,7 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeLoginWindow(){
+
         this.setContentView( R.layout.activity_login );
 
         ButterKnife.bind( this );

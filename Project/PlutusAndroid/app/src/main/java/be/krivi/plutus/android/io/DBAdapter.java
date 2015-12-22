@@ -40,6 +40,7 @@ public class DBAdapter{
     }
 
     public long insertTransaction( Transaction t ){
+
         DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
 
         if( checkIfDataAlreadyExist( DBHelper.TRANSACTIONS_TABLE_NAME, DBHelper.TRANSACTIONS_TIMESTAMP, f.format( t.getTimestamp() ) ) )
@@ -67,9 +68,11 @@ public class DBAdapter{
         Cursor cursor = db.rawQuery( query, null );
 
         List<Transaction> transactions = new LinkedList();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
         while( cursor.moveToNext() ){
-            Date timestamp = new Date( cursor.getLong(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TIMESTAMP) ) );
+
+            Date timestamp = dateFormat.parse(cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TIMESTAMP) ));
             double amount = cursor.getDouble( cursor.getColumnIndex(DBHelper.TRANSACTIONS_AMOUNT) );
             String type = cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TYPE) );
             String title = cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TITLE) );
@@ -78,6 +81,7 @@ public class DBAdapter{
 
             Transaction t = new Transaction( timestamp, amount, type, title, description, new Location( location, 0, 0 ) );
             transactions.add( t );
+
         }
         return transactions;
     }
@@ -97,10 +101,10 @@ public class DBAdapter{
                 DBHelper.TRANSACTIONS_TIMESTAMP + "= '" + f.format( timestamp ) + "'",
                 null, null, null, DBHelper.TRANSACTIONS_TIMESTAMP );
 
-        DateFormat format = new SimpleDateFormat( "Y-m-d'TH:i:s" );
+
         cursor.moveToNext();
 
-        Date t = format.parse( cursor.getString( 1 ) );
+        Date t = f.parse( cursor.getString( 1 ) );
         double amount = cursor.getDouble( 2 );
         String type = cursor.getString( 3 );
         String title = cursor.getString( 4 );
