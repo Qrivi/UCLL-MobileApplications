@@ -16,6 +16,7 @@ import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.fragment.BalanceFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
+import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -26,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -40,6 +42,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView mNavigationView;
 
     ActionBarDrawerToggle mDrawerToggle;
+
+    List<Transaction> mTransactions;
 
 
     @Override
@@ -71,6 +75,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
+
 
     }
 
@@ -144,57 +149,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         transaction.commit();
     }
 
-    public void fetchBalance(){
 
-        Map<String, String> params = new HashMap<>();
-        params.put( "studentId", app.getCurrentUser().getStudentId() );
-        params.put( "password", app.getCurrentUser().getPassword() );
 
-        app.contactAPI( params, Config.API_BALANCE, new VolleyCallback(){
-            @Override
-            public void onSuccess( String response ){
-                try{
-                    JSONObject data = new JSONObject( response ).getJSONObject( "data" );
-                    double balance = data.getDouble( "credit" );
-                    app.initializeUserBalance( balance );
-                    //TODO write communication with fragment!
-                }catch( JSONException e ){
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure( VolleyError error ){
-                Message.obtrusive( app.getApplicationContext(), error.getMessage() );
-            }
-        } );
-    }
-
-    public void fetchTransactions(){
-
-        Map<String, String> params = new HashMap<>();
-        params.put( "studentId", app.getCurrentUser().getStudentId() );
-        params.put( "password", app.getCurrentUser().getPassword() );
-        params.put( "page",  0 + "" );
-
-        app.contactAPI( params, Config.API_TRANSACTIONS, new VolleyCallback(){
-            @Override
-            public void onSuccess( String response ){
-                try{
-                    JSONArray array = new JSONObject( response ).getJSONArray( "data" );
-                    app.writeTransactions( array );
-                    //TODO write communication with fragment!
-                }catch( JSONException e ){
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure( VolleyError error ){
-                Message.obtrusive( app.getApplicationContext(), error.getMessage() );
-            }
-        } );
-
-    }
 }
 
 

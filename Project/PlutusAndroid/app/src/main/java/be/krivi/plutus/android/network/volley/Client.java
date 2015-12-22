@@ -2,6 +2,8 @@ package be.krivi.plutus.android.network.volley;
 
 import android.util.Base64;
 import be.krivi.plutus.android.application.Config;
+import be.krivi.plutus.android.application.PlutusAndroid;
+import be.krivi.plutus.android.view.Message;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 
@@ -16,10 +18,13 @@ public class Client{
     private RequestQueue mRequestQueue;
 
     public Client(){
-        this.mRequestQueue = VolleySingleton.getINSTANCE().getmRequestQueue();
+        this.mRequestQueue = VolleySingleton.getInstance().getRequestQueue();
     }
 
     public void contactAPI( final Map<String, String> params, String endpoint, final VolleyCallback callback ){
+
+        //TODO remove me
+        Message.toast( PlutusAndroid.getAppContext(), "volleystarted " + endpoint );
 
         final String URL = Config.API_URL + Config.API_VERSION + endpoint;
 

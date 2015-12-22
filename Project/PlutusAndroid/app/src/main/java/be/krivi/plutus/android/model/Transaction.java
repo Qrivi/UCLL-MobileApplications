@@ -75,7 +75,6 @@ public class Transaction{
     public String toString() {
         //TODO remove me!
         return "Date : " + timestamp.toString() + "\n" +
-                "Place : " + location.getName() + "\n" +
-                "Amount : " + amount + "\n\n";
+                "title : " + type + "\n\n";
     }
 }

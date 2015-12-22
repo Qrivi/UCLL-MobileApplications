@@ -6,9 +6,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
+import be.krivi.plutus.android.view.Message;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,6 +42,9 @@ public class DBAdapter{
 
     public long insertTransaction( Transaction t ){
 
+        //TODO remove this
+        Message.toast( PlutusAndroid.getAppContext(), "insertTransaction" );
+
         DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
 
         if( checkIfDataAlreadyExist( DBHelper.TRANSACTIONS_TABLE_NAME, DBHelper.TRANSACTIONS_TIMESTAMP, f.format( t.getTimestamp() ) ) )
@@ -58,26 +62,28 @@ public class DBAdapter{
 
     public List<Transaction> getAllTransactions() throws ParseException{
 
-        String query =
-                "SELECT * " +
+        //TODO remove this
+        Message.toast( PlutusAndroid.getAppContext(), "read database" );
+
+        String query = "SELECT * " +
                 "FROM " + DBHelper.TRANSACTIONS_TABLE_NAME + " t JOIN " + DBHelper.LOCATIONS_TABLE_NAME + " l " +
-                    "ON t." + DBHelper.TRANSACTIONS_LOCATION + " = l." + DBHelper.LOCATIONS_NAME +
+                "ON t." + DBHelper.TRANSACTIONS_LOCATION + " = l." + DBHelper.LOCATIONS_NAME +
                 " ORDER BY " + DBHelper.TRANSACTIONS_TIMESTAMP;
 
 
         Cursor cursor = db.rawQuery( query, null );
 
-        List<Transaction> transactions = new LinkedList();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        LinkedList transactions = new LinkedList();
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
 
         while( cursor.moveToNext() ){
 
-            Date timestamp = dateFormat.parse(cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TIMESTAMP) ));
-            double amount = cursor.getDouble( cursor.getColumnIndex(DBHelper.TRANSACTIONS_AMOUNT) );
-            String type = cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TYPE) );
-            String title = cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_TITLE) );
-            String description = cursor.getString(  cursor.getColumnIndex(DBHelper.TRANSACTIONS_DESCRIPTION) );
-            String location = cursor.getString( cursor.getColumnIndex(DBHelper.TRANSACTIONS_LOCATION) );
+            Date timestamp = dateFormat.parse( cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_TIMESTAMP ) ) );
+            double amount = cursor.getDouble( cursor.getColumnIndex( DBHelper.TRANSACTIONS_AMOUNT ) );
+            String type = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_TYPE ) );
+            String title = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_TITLE ) );
+            String description = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_DESCRIPTION ) );
+            String location = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_LOCATION ) );
 
             Transaction t = new Transaction( timestamp, amount, type, title, description, new Location( location, 0, 0 ) );
             transactions.add( t );

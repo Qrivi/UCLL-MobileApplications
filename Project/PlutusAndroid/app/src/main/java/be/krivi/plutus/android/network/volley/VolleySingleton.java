@@ -10,20 +10,20 @@ import com.android.volley.toolbox.Volley;
  */
 public class VolleySingleton{
 
-    private static VolleySingleton sINSTANCE = null;
-    private RequestQueue mRequestQueue;
+    private static VolleySingleton instance = null;
+    private RequestQueue requestQueue;
 
     private VolleySingleton(){
-        mRequestQueue = Volley.newRequestQueue(PlutusAndroid.getAppContext());
+        requestQueue = Volley.newRequestQueue(PlutusAndroid.getAppContext());
     }
 
-    public static VolleySingleton getINSTANCE(){
-        if( sINSTANCE == null ){
-            sINSTANCE = new VolleySingleton();
+    public static VolleySingleton getInstance(){
+        if( instance == null ){
+            instance = new VolleySingleton();
         }
-        return sINSTANCE;
+        return instance;
     }
-    public RequestQueue getmRequestQueue() {
-        return mRequestQueue;
+    public RequestQueue getRequestQueue() {
+        return requestQueue;
     }
 }

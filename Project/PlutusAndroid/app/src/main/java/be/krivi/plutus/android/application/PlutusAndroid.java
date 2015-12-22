@@ -11,11 +11,9 @@ import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
 import be.krivi.plutus.android.network.volley.NetworkClient;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
-import be.krivi.plutus.android.network.volley.VolleySingleton;
-import com.android.volley.RequestQueue;
+import be.krivi.plutus.android.view.Message;
 import org.json.JSONArray;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +25,9 @@ public class PlutusAndroid extends Application{
 
     private static PlutusAndroid instance;
     private BaseActivity currentActivity;
+
     private User user;
+    private List<Transaction> transactions;
 
     private IOService IOService;
     private NetworkClient networkClient;
@@ -41,7 +41,7 @@ public class PlutusAndroid extends Application{
         IOService = new IOService( getAppContext() );
         networkClient = new NetworkClient();
 
-        homeScreen = IOService.getHomeScreen() != null ? IOService.getHomeScreen() : Config.APP_DEFAULT_HOMESCREEN;
+        homeScreen = IOService.getHomeScreen().equals( "" ) ? Config.APP_DEFAULT_HOMESCREEN : IOService.getHomeScreen();
     }
 
     public static Context getAppContext(){
@@ -59,6 +59,10 @@ public class PlutusAndroid extends Application{
         IOService.saveBalance( balance );
     }
 
+
+    public BaseActivity getCurrentActivity(){
+        return currentActivity;
+    }
 
     public void setCurrentActivity( BaseActivity activity ){
         this.currentActivity = activity;
@@ -107,15 +111,17 @@ public class PlutusAndroid extends Application{
 
     public boolean isUserSaved(){
 
-        boolean isRemembered = IOService.isUserRemembered();
-        if( isRemembered ){
-            try{
-                user = new User( IOService.getStudentId(), IOService.getPassword(), IOService.getFirstname(), IOService.getLastname() );
-            }catch( IOException e ){
-                isRemembered = false;
-            }
+        return IOService.isUserSaved();
+    }
+
+    public void loadData(){
+        user = new User( IOService.getStudentId(), IOService.getPassword(), IOService.getFirstname(),
+                IOService.getLastname(), IOService.getBalance() );
+        try{
+            transactions = IOService.getAllTransactions();
+        }catch( ParseException e ){
+            Message.obtrusive( currentActivity, "Error loading data into application: \n" + e.getMessage() );
         }
-        return isRemembered;
     }
 
 
@@ -124,16 +130,17 @@ public class PlutusAndroid extends Application{
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public void contactAPI( Map<String, String> params, String endpoint, final VolleyCallback callback ) {
+    public void contactAPI( Map<String, String> params, String endpoint, final VolleyCallback callback ){
         networkClient.contactAPI( params, endpoint, callback );
     }
 
-    public void writeTransactions(JSONArray JSONTransactions) {
+    public void writeTransactions( JSONArray JSONTransactions ){
         IOService.writeTransactions( JSONTransactions );
+        loadData();
     }
 
-    public List<Transaction> getTransactions() throws ParseException{
-        return IOService.getAllTransactions();
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public String getHomeScreen(){

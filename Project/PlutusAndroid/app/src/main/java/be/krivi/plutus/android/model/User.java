@@ -24,6 +24,12 @@ public class User{
         this(studentId, password );
         setFirstname( firstname );
         setLastname( lastname );
+        setBalance( balance );
+    }
+
+    public User(String studentId, String password, String firstname, String lastname, double balance) {
+        this(studentId, password, firstname, lastname );
+        setBalance( balance );
     }
 
     public User( String studentId, String password, double balance ){

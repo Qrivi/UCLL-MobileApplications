@@ -12,7 +12,7 @@ import be.krivi.plutus.android.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingsFragment extends Fragment{
+public class SettingsFragment extends BaseFragment{
 
 
     public SettingsFragment(){

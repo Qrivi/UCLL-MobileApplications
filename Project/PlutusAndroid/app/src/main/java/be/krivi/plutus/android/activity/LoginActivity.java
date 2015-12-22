@@ -71,11 +71,10 @@ public class LoginActivity extends BaseActivity{
             initializeMainWindow();
         }else{
             initializeLoginWindow();
-            if( !app.isNetworkAvailable() ){
-                Message.snack( mWrapper, getString( R.string.internet_connection_not_available ) );
-                mBtn_signIn.setEnabled( false );
-            }
+            if( !app.isNetworkAvailable() );
+                //TODO krivi zijn methode
         }
+
     }
 
     @OnClick( R.id.btn_info )
@@ -159,6 +158,7 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeMainWindow(){
+        app.loadData();
         startActivity( new Intent( app.getApplicationContext(), MainActivity.class ) );
         finish();
     }

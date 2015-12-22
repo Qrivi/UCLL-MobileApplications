@@ -7,11 +7,9 @@ import be.krivi.plutus.android.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,46 +25,45 @@ public class IOService{
         this.spAdapter = new SPAdapter( context );
     }
 
-    public boolean isUserRemembered(){
-        return spAdapter.isUserRemembered();
+    public boolean isUserSaved(){
+        return spAdapter.isUserSaved();
     }
 
-    public void saveCredentials( User user ) throws NullPointerException{
+    public void saveCredentials( User user ){
         spAdapter.saveCredentials( user );
     }
 
-    public void saveBalance(double balance)  throws NullPointerException {
-        spAdapter.saveBalance(balance);
+    public void saveBalance( double balance ){
+        spAdapter.saveBalance( balance );
     }
 
-    public void saveHomeScreen(String homeScreen) throws NullPointerException {
+    public void saveHomeScreen( String homeScreen ){
         spAdapter.saveHomeScreen( homeScreen );
     }
 
-    public String getStudentId() throws IOException{
+    public String getStudentId(){
         return spAdapter.getStudentId();
     }
 
-    public String getPassword() throws IOException{
+    public String getPassword(){
         return spAdapter.getPassword();
     }
 
-    public double getBalance() throws IOException{
+    public double getBalance(){
         return spAdapter.getBalance();
     }
 
-    public String getFirstname() throws IOException{
+    public String getFirstname(){
         return spAdapter.getFirstname();
     }
 
-    public String getLastname() throws IOException{
+    public String getLastname(){
         return spAdapter.getLastname();
     }
 
-    public String getHomeScreen() {
+    public String getHomeScreen(){
         return spAdapter.getHomeScreen();
     }
-
 
 
     public void writeTransactions( JSONArray JSONTransactions ){
@@ -76,8 +73,8 @@ public class IOService{
             try{
                 obj = JSONTransactions.getJSONObject( i );
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-                Date time = dateFormat.parse(obj.getString( "timestamp" ));
+                SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
+                Date time = dateFormat.parse( obj.getString( "timestamp" ) );
 
                 double amount = obj.getDouble( "amount" );
                 String type = obj.getString( "type" );
@@ -103,7 +100,7 @@ public class IOService{
 
     public long insertTransaction( Transaction t ){
         dbAdapter.insertLocation( t.getLocation() );
-        return dbAdapter.insertTransaction( t ) ;
+        return dbAdapter.insertTransaction( t );
     }
 
     public List<Transaction> getAllTransactions() throws ParseException{
