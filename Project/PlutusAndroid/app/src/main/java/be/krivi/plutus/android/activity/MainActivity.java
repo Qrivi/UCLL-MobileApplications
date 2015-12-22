@@ -115,8 +115,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 transaction.replace( R.id.wrapperFragment, new SettingsFragment() );
                 break;
         }
+
         if( menuItem != 0 )
             mNavigationView.getMenu().findItem( menuItem ).setChecked( true );
+        if( getSupportActionBar() != null )
+            getSupportActionBar().setTitle( fragmentTitle );
+
         mToolbar.setTitle( fragmentTitle );
         transaction.commit();
     }
