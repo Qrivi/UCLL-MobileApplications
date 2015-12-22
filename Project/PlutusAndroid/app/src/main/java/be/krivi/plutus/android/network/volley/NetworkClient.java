@@ -1,20 +1,20 @@
 package be.krivi.plutus.android.network.volley;
 
-import be.krivi.plutus.android.model.User;
+import java.util.Map;
 
 /**
  * Created by Jan on 17/12/2015.
  */
 public class NetworkClient{
 
-    private Client volleyClient;
+    private Client client;
 
     public NetworkClient(){
-        this.volleyClient = new Client();
+        this.client = new Client();
     }
 
-    public void populateDatabase(User user, int page) {
-        volleyClient.populateDatabase( user, page);
+    public void contactAPI( Map<String, String> params, String endpoint, final VolleyCallback callback ) {
+        client.contactAPI( params, endpoint, callback );
     }
 
 }

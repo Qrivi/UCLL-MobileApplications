@@ -12,13 +12,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.fragment.BalanceFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
+import be.krivi.plutus.android.network.volley.VolleyCallback;
+import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.android.volley.VolleyError;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -52,18 +60,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 super.onDrawerOpened( drawerView );
             }
         };
+
         mDrawerLayout.setDrawerListener( mDrawerToggle );
         mDrawerToggle.syncState();
-
         mNavigationView.setNavigationItemSelectedListener( this );
 
 
-        View headerView = mNavigationView.getHeaderView(0);
-        TextView lbl_studentId = (TextView) headerView.findViewById(R.id.lbl_studentId);
+        View headerView = mNavigationView.getHeaderView( 0 );
+        TextView lbl_studentId = (TextView)headerView.findViewById( R.id.lbl_studentId );
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
-        TextView lbl_studentName = (TextView) headerView.findViewById(R.id.lbl_studentName);
+        TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
-
 
     }
 
@@ -135,6 +142,58 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         mToolbar.setTitle( fragmentTitle );
         transaction.commit();
+    }
+
+    public void fetchBalance(){
+
+        Map<String, String> params = new HashMap<>();
+        params.put( "studentId", app.getCurrentUser().getStudentId() );
+        params.put( "password", app.getCurrentUser().getPassword() );
+
+        app.contactAPI( params, Config.API_BALANCE, new VolleyCallback(){
+            @Override
+            public void onSuccess( String response ){
+                try{
+                    JSONObject data = new JSONObject( response ).getJSONObject( "data" );
+                    double balance = data.getDouble( "credit" );
+                    app.initializeUserBalance( balance );
+                    //TODO write communication with fragment!
+                }catch( JSONException e ){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure( VolleyError error ){
+                Message.obtrusive( app.getApplicationContext(), error.getMessage() );
+            }
+        } );
+    }
+
+    public void fetchTransactions(){
+
+        Map<String, String> params = new HashMap<>();
+        params.put( "studentId", app.getCurrentUser().getStudentId() );
+        params.put( "password", app.getCurrentUser().getPassword() );
+        params.put( "page",  0 + "" );
+
+        app.contactAPI( params, Config.API_TRANSACTIONS, new VolleyCallback(){
+            @Override
+            public void onSuccess( String response ){
+                try{
+                    JSONArray array = new JSONObject( response ).getJSONArray( "data" );
+                    app.writeTransactions( array );
+                    //TODO write communication with fragment!
+                }catch( JSONException e ){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure( VolleyError error ){
+                Message.obtrusive( app.getApplicationContext(), error.getMessage() );
+            }
+        } );
+
     }
 }
 

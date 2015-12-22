@@ -10,12 +10,15 @@ import be.krivi.plutus.android.io.IOService;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
 import be.krivi.plutus.android.network.volley.NetworkClient;
+import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.network.volley.VolleySingleton;
 import com.android.volley.RequestQueue;
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Krivi on 09/12/15.
@@ -29,32 +32,20 @@ public class PlutusAndroid extends Application{
     private IOService IOService;
     private NetworkClient networkClient;
 
-    private RequestQueue mRequestQueue;
-
     private String homeScreen;
 
     @Override
     public void onCreate(){
         super.onCreate();
         instance = this;
-        this.mRequestQueue = VolleySingleton.getINSTANCE().getmRequestQueue();
         IOService = new IOService( getAppContext() );
         networkClient = new NetworkClient();
 
-        //TODO load start screen from sharedPrefs
-        //      if no such key exists, it means the user is opening the app for the first time;
-        //      in this case write the pref and return the default startScreen
-
         homeScreen = IOService.getHomeScreen() != null ? IOService.getHomeScreen() : Config.APP_DEFAULT_HOMESCREEN;
-        //homeScreen = false ? "stringFromPrefs" : Config.APP_DEFAULT_HOMESCREEN;
     }
 
     public static Context getAppContext(){
         return instance.getApplicationContext();
-    }
-
-    public RequestQueue getRequestQueue(){
-        return mRequestQueue;
     }
 
 
@@ -114,7 +105,7 @@ public class PlutusAndroid extends Application{
         }
     }
 
-    public boolean isUserRemembered(){
+    public boolean isUserSaved(){
 
         boolean isRemembered = IOService.isUserRemembered();
         if( isRemembered ){
@@ -129,13 +120,16 @@ public class PlutusAndroid extends Application{
 
 
     public boolean isNetworkAvailable(){
-        //TODO check this, it doesnt work properly I think
         final ConnectivityManager connectivityManager = ( (ConnectivityManager)getAppContext().getSystemService( Context.CONNECTIVITY_SERVICE ) );
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public void populateDatabase( int page ){
-        networkClient.populateDatabase( user, page );
+    public void contactAPI( Map<String, String> params, String endpoint, final VolleyCallback callback ) {
+        networkClient.contactAPI( params, endpoint, callback );
+    }
+
+    public void writeTransactions(JSONArray JSONTransactions) {
+        IOService.writeTransactions( JSONTransactions );
     }
 
     public List<Transaction> getTransactions() throws ParseException{

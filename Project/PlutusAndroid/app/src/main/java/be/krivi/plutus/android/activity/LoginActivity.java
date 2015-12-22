@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,18 +13,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
+import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity{
@@ -61,22 +58,23 @@ public class LoginActivity extends BaseActivity{
     @Bind( R.id.passwordStyle )
     TextInputLayout mPasswordStyle;
 
+    @Bind( R.id.btn_signIn )
+    Button mBtn_signIn;
+
+
     @Override
     protected void onCreate( Bundle savedInstanceState ){
 
         super.onCreate( savedInstanceState );
 
-        if( app.isUserRemembered() ){
-            if( app.isNetworkAvailable() ){
-                initializeLoginWindow();
-                verifyCredentials( app.getCurrentUser().getStudentId(), app.getCurrentUser().getPassword() );
-            }else{
-                initializeMainWindow();
-            }
+        if( app.isUserSaved() ){
+            initializeMainWindow();
         }else{
             initializeLoginWindow();
-            if( !app.isNetworkAvailable() )
-                Message.toast( this, "No internet available" ); //TODO SNACKBAR
+            if( !app.isNetworkAvailable() ){
+                Message.snack( mWrapper, getString( R.string.internet_connection_not_available ) );
+                mBtn_signIn.setEnabled( false );
+            }
         }
     }
 
@@ -109,46 +107,31 @@ public class LoginActivity extends BaseActivity{
 
     private void verifyCredentials( final String studentId, final String password ){
 
-        showFadeOut( getResources().getString( R.string.verifying_credentials ) );
-        final String URL = Config.API_URL + Config.API_VERSION + "/verify";
+        showFadeOut( getString( R.string.verifying_credentials ) );
 
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                URL,
-                new Response.Listener<String>(){
-                    @Override
-                    public void onResponse( String response ){
-                        try{
-                            JSONObject data = new JSONObject( response ).getJSONObject( "data" );
-                            if( data.getBoolean( "valid" ) ){
-                                app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
-                                initializeMainWindow();
-                            }
-                        }catch( JSONException e ){
-                            // TODO write exception
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse( VolleyError error ){
-                        showError( "OK", getResources().getString( R.string.password_is_incorrect ) );
-                    }
-                } ){
+        Map<String, String> params = new HashMap<>();
+        params.put( "studentId", studentId );
+        params.put( "password", password );
 
+        app.contactAPI( params, Config.API_VERIFY, new VolleyCallback(){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError{
-                return getCustomParams( studentId, password );
+            public void onSuccess( String response ){
+                try{
+                    JSONObject data = new JSONObject(response).getJSONObject( "data" );
+                    if( data.getBoolean( "valid" ) ){
+                        app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
+                        initializeMainWindow();
+                    }
+                }catch( JSONException e ){
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError{
-                return getCustomHeaders();
+            public void onFailure( VolleyError error ){
+                Message.obtrusive( app.getApplicationContext(), error.getMessage() );
             }
-        };
-        request.setShouldCache( false );
-        app.getRequestQueue().add( request );
+        } );
     }
 
     private void showFadeOut( String text ){
@@ -165,7 +148,7 @@ public class LoginActivity extends BaseActivity{
         mStudentIdStyle.setError( "" );
         mPasswordStyle.setError( "" );
         mPassword.setText( "" );
-        mTitle.setText( getResources().getString( R.string.sign_in_using_your_student_credentials ) );
+        mTitle.setText( getString( R.string.sign_in_using_your_student_credentials ) );
 
         if( !errorStudentId.equals( "OK" ) )
             mStudentIdStyle.setError( errorStudentId );

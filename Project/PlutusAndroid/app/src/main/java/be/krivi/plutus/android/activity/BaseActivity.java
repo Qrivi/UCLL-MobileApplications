@@ -3,10 +3,16 @@ package be.krivi.plutus.android.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.application.PlutusAndroid;
+import be.krivi.plutus.android.network.volley.VolleyCallback;
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,30 +27,15 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
-        app = (PlutusAndroid) this.getApplicationContext();
+        app = (PlutusAndroid)this.getApplicationContext();
 
-        app.setCurrentActivity(this);
+        app.setCurrentActivity( this );
     }
 
-    protected void OnPause(){
+    @Override
+    protected void onPause(){
+        super.onPause();
         app.setCurrentActivity( null );
-    }
-
-    protected Map<String, String> getCustomHeaders() throws AuthFailureError{
-        Map<String, String> headers = new HashMap<>();
-        String credentials = Config.API_LOGIN + ":" + Config.API_PASSWORD;
-        String auth = "Basic "
-                + Base64.encodeToString( credentials.getBytes(),
-                Base64.NO_WRAP );
-        headers.put( "Authorization", auth );
-        return headers;
-    }
-
-    protected Map<String, String> getCustomParams( String studentID, String password ) throws AuthFailureError{
-        Map<String, String> params = new HashMap<String, String>();
-        params.put( "studentId", studentID );
-        params.put( "password", password );
-        return params;
     }
 
 

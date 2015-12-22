@@ -4,10 +4,14 @@ import android.content.Context;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,7 +26,6 @@ public class IOService{
         this.dbAdapter = new DBAdapter( context );
         this.spAdapter = new SPAdapter( context );
     }
-
 
     public boolean isUserRemembered(){
         return spAdapter.isUserRemembered();
@@ -39,7 +42,6 @@ public class IOService{
     public void saveHomeScreen(String homeScreen) throws NullPointerException {
         spAdapter.saveHomeScreen( homeScreen );
     }
-
 
     public String getStudentId() throws IOException{
         return spAdapter.getStudentId();
@@ -66,19 +68,42 @@ public class IOService{
     }
 
 
-    public long insertLocation( Location l ){
-        return dbAdapter.insertLocation( l );
+
+    public void writeTransactions( JSONArray JSONTransactions ){
+
+        for( int i = 0; i < JSONTransactions.length(); i++ ){
+            JSONObject obj;
+            try{
+                obj = JSONTransactions.getJSONObject( i );
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                Date time = dateFormat.parse(obj.getString( "timestamp" ));
+
+                double amount = obj.getDouble( "amount" );
+                String type = obj.getString( "type" );
+
+                JSONObject details = obj.getJSONObject( "details" );
+                String title = details.getString( "title" );
+                String description = details.getString( "description" );
+
+                JSONObject loc = obj.getJSONObject( "location" );
+                String name = loc.getString( "name" );
+                double lat = loc.getDouble( "lat" );
+                double lng = loc.getDouble( "lng" );
+
+                Transaction t = new Transaction( time, amount, type, title, description, new Location( name, lat, lng ) );
+                insertTransaction( t );
+
+            }catch( Exception e ){
+                //TODO : write exception
+                e.printStackTrace();
+            }
+        }
     }
 
     public long insertTransaction( Transaction t ){
-        return dbAdapter.insertTransaction( t );
-    }
-
-    public void insertListOfTransactions(List<Transaction> transactions) {
-        for(Transaction t : transactions) {
-            insertLocation(t.getLocation());
-            insertTransaction( t );
-        }
+        dbAdapter.insertLocation( t.getLocation() );
+        return dbAdapter.insertTransaction( t ) ;
     }
 
     public List<Transaction> getAllTransactions() throws ParseException{
