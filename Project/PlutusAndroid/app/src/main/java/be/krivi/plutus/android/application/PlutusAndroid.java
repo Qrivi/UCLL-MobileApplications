@@ -15,6 +15,8 @@ import be.krivi.plutus.android.view.Message;
 import org.json.JSONArray;
 
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -139,7 +141,7 @@ public class PlutusAndroid extends Application{
         loadData();
     }
 
-    public List<Transaction> getTransactions() {
+    public List<Transaction> getTransactions(){
         return transactions;
     }
 
@@ -151,5 +153,28 @@ public class PlutusAndroid extends Application{
     public void setHomeScreen( String homeScreen ){
         this.homeScreen = homeScreen;
         IOService.saveHomeScreen( homeScreen );
+    }
+
+    public boolean fetchRequired(){
+        // if pauseTime was longer than 1 hour ago
+
+        Date pauseDate = IOService.getPauseTimestamp();
+        if( pauseDate == null )
+            return true;
+
+        Date now = new Date( System.currentTimeMillis() );
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime( pauseDate );
+        cal.add( Calendar.MINUTE, Config.APP_DEFAULT_SNOOZE_TIME );
+
+        Log.v( "Now", now.toString() );
+        Log.v("pause", cal.getTime().toString());
+
+        return now.after( cal.getTime() );
+    }
+
+    public void savePauseTimestamp( Date timestamp ){
+        IOService.savePauseTimestamp( timestamp );
     }
 }

@@ -41,6 +41,11 @@ public class IOService{
         spAdapter.saveHomeScreen( homeScreen );
     }
 
+    public void savePauseTimestamp( Date timestamp ){
+        spAdapter.savePauseTimestamp( timestamp );
+    }
+
+
     public String getStudentId(){
         return spAdapter.getStudentId();
     }
@@ -65,6 +70,9 @@ public class IOService{
         return spAdapter.getHomeScreen();
     }
 
+    public Date getPauseTimestamp(){
+        return spAdapter.getPauseTimestamp();
+    }
 
     public void writeTransactions( JSONArray JSONTransactions ){
 

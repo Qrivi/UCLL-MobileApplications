@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
@@ -42,9 +43,6 @@ public class DBAdapter{
 
     public long insertTransaction( Transaction t ){
 
-        //TODO remove this
-        Message.toast( PlutusAndroid.getAppContext(), "insertTransaction" );
-
         DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
 
         if( checkIfDataAlreadyExist( DBHelper.TRANSACTIONS_TABLE_NAME, DBHelper.TRANSACTIONS_TIMESTAMP, f.format( t.getTimestamp() ) ) )
@@ -63,7 +61,8 @@ public class DBAdapter{
     public List<Transaction> getAllTransactions() throws ParseException{
 
         //TODO remove this
-        Message.toast( PlutusAndroid.getAppContext(), "read database" );
+        Log.v("All transcations", "HIER");
+
 
         String query = "SELECT * " +
                 "FROM " + DBHelper.TRANSACTIONS_TABLE_NAME + " t JOIN " + DBHelper.LOCATIONS_TABLE_NAME + " l " +
@@ -122,8 +121,8 @@ public class DBAdapter{
         return new Transaction( t, amount, type, title, description, new Location( location, lng, lat ) );
     }
 
-    public boolean checkIfDataAlreadyExist( String TableName, String dbfield, String fieldValue ){
-        String query = "select * from " + TableName + " where " + dbfield + " = '" + fieldValue + "' ";
+    public boolean checkIfDataAlreadyExist( String tableName, String dbfield, String fieldValue ){
+        String query = "SELECT * FROM " + tableName + " WHERE " + dbfield + " = '" + fieldValue + "' ";
 
         Cursor cursor = db.rawQuery( query, null );
         if( cursor.getCount() <= 0 ){

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import be.krivi.plutus.android.model.User;
 
+import java.security.Timestamp;
+import java.util.Date;
+
 
 /**
  * Created by Krivi on 10/12/15.
@@ -43,6 +46,10 @@ public class SPAdapter{
         editor.commit();
     }
 
+    public void savePauseTimestamp(Date timestamp) {
+        editor.putLong( "pauseTime", timestamp.getTime() );
+    }
+
     public String getStudentId(){
         return sharedPreferences.getString( "student_id", "" );
     }
@@ -66,5 +73,13 @@ public class SPAdapter{
     public String getHomeScreen(){
         return sharedPreferences.getString( "home_screen", "" );
     }
+
+    public Date getPauseTimestamp() {
+        long milliseconds = sharedPreferences.getLong( "pauseTime", 0 );
+        if(milliseconds == 0)
+            return null;
+        return new Date(milliseconds);
+    }
+
 
 }

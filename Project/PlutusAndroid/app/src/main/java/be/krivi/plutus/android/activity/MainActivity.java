@@ -14,6 +14,7 @@ import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.fragment.BalanceFragment;
+import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
 import be.krivi.plutus.android.model.Transaction;
@@ -26,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     ActionBarDrawerToggle mDrawerToggle;
 
+    BaseFragment currentFragment;
+
+    boolean fetchRequired;
     List<Transaction> mTransactions;
 
 
@@ -69,14 +74,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener( this );
 
+        if( app.fetchRequired() ){
+            fetchAllData();
+            fetchRequired = true;
+        }
+
 
         View headerView = mNavigationView.getHeaderView( 0 );
         TextView lbl_studentId = (TextView)headerView.findViewById( R.id.lbl_studentId );
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
+    }
 
-
+    @Override
+    public void onPause(){
+        super.onPause();
+        app.savePauseTimestamp( new Date( System.currentTimeMillis() ) );
     }
 
     @Override
@@ -128,17 +142,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch( fragmentTitle ){
             case "Balance":
                 menuItem = R.id.navigation_balance;
-                transaction.replace( R.id.wrapperFragment, new BalanceFragment() );
+                currentFragment = new BalanceFragment();
                 break;
             case "Transactions":
                 menuItem = R.id.navigation_transactions;
-                transaction.replace( R.id.wrapperFragment, new TransactionsFragment() );
+                currentFragment = new TransactionsFragment();
                 break;
             case "Settings":
                 menuItem = R.id.navigation_settings;
-                transaction.replace( R.id.wrapperFragment, new SettingsFragment() );
+                currentFragment = new SettingsFragment();
                 break;
         }
+
+        transaction.replace( R.id.wrapperFragment, currentFragment );
 
         if( menuItem != 0 )
             mNavigationView.getMenu().findItem( menuItem ).setChecked( true );
@@ -149,6 +165,101 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         transaction.commit();
     }
 
+    public void fetchAllData(){
+        if( isNetworkAvailable() ){
+            fetchBalanceData();
+            fetchTransactionsData();
+        }
+    }
+
+    public void fetchBalanceData(){
+
+        if( isNetworkAvailable() ){
+            Map<String, String> params = new HashMap<>();
+            params.put( "studentId", app.getCurrentUser().getStudentId() );
+            params.put( "password", app.getCurrentUser().getPassword() );
+
+            app.contactAPI( params, Config.API_BALANCE, new VolleyCallback(){
+                @Override
+                public void onSuccess( String response ){
+                    try{
+                        JSONObject data = new JSONObject( response ).getJSONObject( "data" );
+                        double balance = data.getDouble( "credit" );
+                        app.initializeUserBalance( balance );
+                        app.loadData();
+                        updateCurrentFragment( "Balance" );
+                    }catch( JSONException e ){
+                        Message.obtrusive( app.getCurrentActivity(), "Error fetching balance: \n" + e.getMessage() );
+                    }
+                }
+
+                @Override
+                public void onFailure( VolleyError error ){
+                    Message.obtrusive( app.getCurrentActivity(), error.getMessage() );
+                }
+            } );
+        }
+    }
+
+    public void fetchTransactionsData(){
+
+        if( isNetworkAvailable() ){
+            Map<String, String> params = new HashMap<>();
+            params.put( "studentId", app.getCurrentUser().getStudentId() );
+            params.put( "password", app.getCurrentUser().getPassword() );
+            params.put( "page", 0 + "" );
+
+            app.contactAPI( params, Config.API_TRANSACTIONS, new VolleyCallback(){
+                @Override
+                public void onSuccess( String response ){
+                    try{
+                        JSONArray array = new JSONObject( response ).getJSONArray( "data" );
+                        app.writeTransactions( array );
+                        app.loadData();
+                        updateCurrentFragment( "Transactions" );
+                    }catch( JSONException e ){
+                        Message.obtrusive( app.getCurrentActivity(), "Error fetching transactions: \n" + e.getMessage() );
+                    }
+                }
+
+                @Override
+                public void onFailure( VolleyError error ){
+                    Message.obtrusive( app.getCurrentActivity(), error.getMessage() );
+                }
+            } );
+        }
+    }
+
+    private void updateCurrentFragment( String fragmentTitle ){
+
+        if( fetchRequired ){
+            Message.toast( this, getString( R.string.database_updated ) );
+            fetchRequired = false;
+        }
+
+        if( mToolbar.getTitle().toString().equals( fragmentTitle ) ){
+            switch( fragmentTitle ){
+                case "Balance":
+                    BalanceFragment bf = (BalanceFragment)currentFragment;
+                    bf.updateView();
+                    break;
+                case "Transactions":
+                    TransactionsFragment tf = (TransactionsFragment)currentFragment;
+                    tf.updateView();
+                    break;
+            }
+        }
+    }
+
+    private boolean isNetworkAvailable(){
+
+        if( !app.isNetworkAvailable() ){
+            Message.toast( app.getCurrentActivity(), getString( R.string.no_internet_connection ) );
+            return false;
+        }
+        return true;
+
+    }
 
 
 }

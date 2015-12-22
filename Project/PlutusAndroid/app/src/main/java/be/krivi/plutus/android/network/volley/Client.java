@@ -1,6 +1,7 @@
 package be.krivi.plutus.android.network.volley;
 
 import android.util.Base64;
+import android.util.Log;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.view.Message;
@@ -24,7 +25,7 @@ public class Client{
     public void contactAPI( final Map<String, String> params, String endpoint, final VolleyCallback callback ){
 
         //TODO remove me
-        Message.toast( PlutusAndroid.getAppContext(), "volleystarted " + endpoint );
+        Log.v("CONTACT APIs", "HIER " + endpoint);
 
         final String URL = Config.API_URL + Config.API_VERSION + endpoint;
 
