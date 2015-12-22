@@ -2,6 +2,7 @@ package be.krivi.plutus.android.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ConfigurationInfo;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import be.krivi.plutus.android.R;
@@ -31,6 +32,7 @@ public class PlutusAndroid extends Application{
 
     private RequestQueue mRequestQueue;
 
+    private String homeScreen;
 
     @Override
     public void onCreate(){
@@ -39,6 +41,13 @@ public class PlutusAndroid extends Application{
         this.mRequestQueue = VolleySingleton.getINSTANCE().getmRequestQueue();
         IOService = new IOService( getAppContext() );
         networkClient = new NetworkClient();
+
+        //TODO load start screen from sharedPrefs
+        //      if no such key exists, it means the user is opening the app for the first time;
+        //      in this case write the pref and return the default startScreen
+
+        //homeScreen = prefs.homescreen != null ? prefs.homescreen : Config.APP_DEFAULT_HOMESCREEN;
+        homeScreen = false ? "stringFromPrefs" : Config.APP_DEFAULT_HOMESCREEN;
     }
 
     public static Context getAppContext(){
@@ -122,15 +131,8 @@ public class PlutusAndroid extends Application{
         return isRemembered;
     }
 
-    public String getRememberedStudentId() throws IOException{
-        return IOService.getStudentId();
-    }
-
-    public String getRemberedPassword() throws IOException{
-        return IOService.getPassword();
-    }
-
     public boolean isNetworkAvailable(){
+        //TODO check this, it doesnt work properly I think
         final ConnectivityManager connectivityManager = ( (ConnectivityManager)getAppContext().getSystemService( Context.CONNECTIVITY_SERVICE ) );
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
@@ -142,5 +144,14 @@ public class PlutusAndroid extends Application{
 
     public List<Transaction> getTransactions() throws ParseException{
         return IOService.getAllTransactions();
+    }
+
+    public String getHomeScreen(){
+
+        return homeScreen;
+    }
+    public void setHomeScreen(String homeScreen){
+        this.homeScreen = homeScreen;
+        // TODO also write startScreen to sharedPrefs
     }
 }

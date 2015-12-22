@@ -1,35 +1,32 @@
 package be.krivi.plutus.android.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.fragment.BalanceFragment;
+import be.krivi.plutus.android.fragment.SettingsFragment;
+import be.krivi.plutus.android.fragment.TransactionsFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     @Bind( R.id.toolbar )
     Toolbar mToolbar;
 
-    @Bind( R.id.textView )
-    TextView mText;
-
-    @Bind( R.id.navigation_view )
-    NavigationView mNavigationView;
-
     @Bind( R.id.wrapperMain )
     DrawerLayout mDrawerLayout;
+
+    @Bind( R.id.wrapperDrawer )
+    NavigationView mNavigationView;
 
     ActionBarDrawerToggle mDrawerToggle;
 
@@ -37,14 +34,13 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
-
         this.setContentView( R.layout.activity_main );
         ButterKnife.bind( this );
 
-        this.setSupportActionBar( mToolbar );
+        setSupportActionBar( mToolbar );
+        setFragment( app.getHomeScreen() );
 
         mDrawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer ){
-
             public void onDrawerClosed( View view ){
                 super.onDrawerClosed( view );
             }
@@ -53,27 +49,10 @@ public class MainActivity extends BaseActivity{
                 super.onDrawerOpened( drawerView );
             }
         };
-
         mDrawerLayout.setDrawerListener( mDrawerToggle );
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
-        getSupportActionBar().setHomeButtonEnabled( true );
         mDrawerToggle.syncState();
 
-        mNavigationView.setNavigationItemSelectedListener( new NavigationView.OnNavigationItemSelectedListener(){
-            @Override
-            public boolean onNavigationItemSelected( MenuItem item ){
-                item.setChecked( true );
-                startActivity( new Intent( app.getApplicationContext(), TransactionsActivity.class ) );
-
-                overridePendingTransition(0,0);
-
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        } );
-
-        mText.setText( "U coolboy got monies : " + app.getCurrentUser().getBalance() );
-
+        mNavigationView.setNavigationItemSelectedListener( this );
     }
 
     @Override
@@ -97,4 +76,50 @@ public class MainActivity extends BaseActivity{
 
         return super.onOptionsItemSelected( item );
     }
+
+    @Override
+    public void onBackPressed(){
+        if( mToolbar.getTitle().toString().equals( app.getHomeScreen() ) )
+            finish();
+        else
+            setFragment( app.getHomeScreen() );
+    }
+
+    @Override
+    public boolean onNavigationItemSelected( MenuItem item ){
+
+        // if user taps active item, no new fragments need to load
+        if( !item.isChecked() )
+            setFragment( item.getTitle().toString() );
+
+        mDrawerLayout.closeDrawers();
+        return true;
+    }
+
+    public void setFragment( String fragmentTitle ){
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        int menuItem = 0;
+
+        switch( fragmentTitle ){
+            case "Balance":
+                menuItem = R.id.navigation_balance;
+                transaction.replace( R.id.wrapperFragment, new BalanceFragment() );
+                break;
+            case "Transactions":
+                menuItem = R.id.navigation_transactions;
+                transaction.replace( R.id.wrapperFragment, new TransactionsFragment() );
+                break;
+            case "Settings":
+                menuItem = R.id.navigation_settings;
+                transaction.replace( R.id.wrapperFragment, new SettingsFragment() );
+                break;
+        }
+        if( menuItem != 0 )
+            mNavigationView.getMenu().findItem( menuItem ).setChecked( true );
+        mToolbar.setTitle( fragmentTitle );
+        transaction.commit();
+    }
 }
+
+

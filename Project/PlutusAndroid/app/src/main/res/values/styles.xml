@@ -8,12 +8,12 @@
 
         <item name="android:textColorPrimary">@color/ucll_light</item>
         <item name="android:textColorSecondary">@color/ucll_light</item>
+        <item name="colorControlHighlight">@color/ucll_light_blue</item>
         <item name="android:textColor">@color/plutus_dark_gray</item>
         <item name="android:windowBackground">@color/ucll_light</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-
     </style>
 
     <style name="Plutus.Toolbar" parent="ThemeOverlay.AppCompat">

@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/lbl_studentId"
                 android:layout_marginBottom="@dimen/drawer_textSpacing"
-                android:text="Johnny"
+                android:text="---"
                 android:textStyle="bold"
                 android:textColor="@color/ucll_light"
                 android:id="@+id/lbl_studentName"/>
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="r0123456"
+                android:text="---"
                 android:textColor="@color/ucll_light"
                 android:id="@+id/lbl_studentId"/>
 

@@ -17,37 +17,21 @@
                 layout="@layout/app_toolbar"
                 android:id="@+id/toolbar"/>
 
-        <RelativeLayout
+        <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/activity_margin_default">
-
-            <!-- fragments here -->
-
-            <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <Button
-                    android:id="@+id/buttonVOORUIT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:text="Klik to move"/>
-
-        </RelativeLayout>
+                android:padding="@dimen/activity_margin_default"
+                android:id="@+id/wrapperFragment"/>
 
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
-            android:id="@+id/navigation_view"
+            android:id="@+id/wrapperDrawer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/app_drawer"
             app:menu="@menu/app_drawer"
-            app:itemBackground="@drawable/ripple_drawer"
             app:itemIconTint="@color/drawer_item_text_color"
             app:itemTextColor="@color/drawer_item_text_color">
 

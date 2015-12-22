@@ -8,7 +8,6 @@
             android:checkableBehavior="single">
 
         <item
-                android:checked="true"
                 android:id="@+id/navigation_balance"
                 android:icon="@drawable/ic_credit_card_black_24dp"
                 android:title="@string/balance"/>
