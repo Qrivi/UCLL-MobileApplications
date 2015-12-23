@@ -116,6 +116,10 @@ public class PlutusAndroid extends Application{
         return IOService.isUserSaved();
     }
 
+    public String existsStudentId() {
+        return IOService.existsStudentId();
+    }
+
     public void loadData(){
         user = new User( IOService.getStudentId(), IOService.getPassword(), IOService.getFirstname(),
                 IOService.getLastname(), IOService.getBalance() );
@@ -124,6 +128,11 @@ public class PlutusAndroid extends Application{
         }catch( ParseException e ){
             Message.obtrusive( currentActivity, "Error loading data into application: \n" + e.getMessage() );
         }
+    }
+
+    public void logoutUser() {
+        IOService.clearSharedPreferences();
+        IOService.clearDatabase();
     }
 
 

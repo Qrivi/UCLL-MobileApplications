@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import be.krivi.plutus.android.model.User;
 
-import java.security.Timestamp;
 import java.util.Date;
 
 
@@ -28,6 +27,10 @@ public class SPAdapter{
         return ( sharedPreferences.contains( "student_id" ) && sharedPreferences.contains( "password" ) );
     }
 
+    public String existsStudentId(){
+        return sharedPreferences.getString( "student_id", null );
+    }
+
     public void saveCredentials( User user ){
         editor.putString( "student_id", user.getStudentId() );
         editor.putString( "password", user.getPassword() );
@@ -46,8 +49,18 @@ public class SPAdapter{
         editor.commit();
     }
 
-    public void savePauseTimestamp(Date timestamp) {
+    public void savePauseTimestamp( Date timestamp ){
         editor.putLong( "pauseTime", timestamp.getTime() );
+        editor.commit();
+    }
+
+    public void clearSharedPreferences(){
+        editor.remove( "password" );
+        editor.remove( "firstname" );
+        editor.remove( "lastname" );
+        editor.remove( "balance" );
+        editor.remove( "pauseTime" );
+        editor.commit();
     }
 
     public String getStudentId(){
@@ -74,11 +87,11 @@ public class SPAdapter{
         return sharedPreferences.getString( "home_screen", "" );
     }
 
-    public Date getPauseTimestamp() {
+    public Date getPauseTimestamp(){
         long milliseconds = sharedPreferences.getLong( "pauseTime", 0 );
-        if(milliseconds == 0)
+        if( milliseconds == 0 )
             return null;
-        return new Date(milliseconds);
+        return new Date( milliseconds );
     }
 
 

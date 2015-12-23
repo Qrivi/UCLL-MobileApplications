@@ -29,6 +29,10 @@ public class IOService{
         return spAdapter.isUserSaved();
     }
 
+    public String existsStudentId(){
+        return spAdapter.existsStudentId();
+    }
+
     public void saveCredentials( User user ){
         spAdapter.saveCredentials( user );
     }
@@ -43,6 +47,10 @@ public class IOService{
 
     public void savePauseTimestamp( Date timestamp ){
         spAdapter.savePauseTimestamp( timestamp );
+    }
+
+    public void clearSharedPreferences(){
+        spAdapter.clearSharedPreferences();
     }
 
 
@@ -117,6 +125,10 @@ public class IOService{
 
     public Transaction getTransaction( Date timestamp ) throws ParseException{
         return dbAdapter.getTransaction( timestamp );
+    }
+
+    public void clearDatabase(){
+        dbAdapter.clearDatabase();
     }
 
 

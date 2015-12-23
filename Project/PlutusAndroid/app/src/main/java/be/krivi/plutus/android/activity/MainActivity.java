@@ -1,5 +1,6 @@
 package be.krivi.plutus.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,6 +76,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener( this );
 
+        /*if(app.existsStudentId() == null)
+            Log.v("HIER", "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+            //TODO how to open a drawer?*/
+
         if( app.fetchRequired() ){
             fetchAllData();
             fetchRequired = true;
@@ -127,6 +133,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected( MenuItem item ){
 
         // if user taps active item, no new fragments need to load
+
+        if(item.getTitle().equals( getString( R.string.sign_out )))
+            logout();
+
         if( !item.isChecked() )
             setFragment( item.getTitle().toString() );
 
@@ -261,6 +271,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+    private void logout() {
+        app.logoutUser();
+        startActivity( new Intent( app.getApplicationContext(), LoginActivity.class ) );
+        finish();
+    }
 
 }
 

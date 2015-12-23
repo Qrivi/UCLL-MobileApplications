@@ -186,8 +186,11 @@ public class LoginActivity extends BaseActivity{
         ButterKnife.bind( this );
 
         // TODO remove this
-        mPassword.setText( "Pass1234" );
-        mStudentId.setText( "r0123456" );
+        //mPassword.setText( "Pass1234" );
+       // mStudentId.setText( "r0123456" );
+
+        if(app.existsStudentId() != null)
+             mStudentId.setText(app.existsStudentId());
 
         imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
 
