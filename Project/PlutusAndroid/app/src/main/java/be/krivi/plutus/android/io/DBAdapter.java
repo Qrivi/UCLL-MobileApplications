@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class DBAdapter{
 
@@ -41,7 +42,7 @@ public class DBAdapter{
 
     public long insertTransaction( Transaction t ){
 
-        DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
+        DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
 
         if( checkIfDataAlreadyExist( DBHelper.TRANSACTIONS_TABLE_NAME, DBHelper.TRANSACTIONS_TIMESTAMP, f.format( t.getTimestamp() ) ) )
             return -1;
@@ -70,8 +71,8 @@ public class DBAdapter{
 
         Cursor cursor = db.rawQuery( query, null );
 
-        LinkedList transactions = new LinkedList();
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
+        List<Transaction> transactions = new LinkedList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
 
         while( cursor.moveToNext() ){
 
@@ -82,17 +83,18 @@ public class DBAdapter{
             String description = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_DESCRIPTION ) );
             String location = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_LOCATION ) );
 
-            Transaction t = new Transaction( timestamp, amount, type, title, description, new Location( location, 0, 0 ) );
-            transactions.add( t );
+            transactions.add( new Transaction( timestamp, amount, type, title, description, new Location( location, 0, 0 ) ) );
 
         }
+        //TODO not sure if should be closed right here or later
+        cursor.close();
         return transactions;
     }
 
     public Transaction getTransaction( Date timestamp ) throws ParseException{
 
 
-        DateFormat f = new SimpleDateFormat( "Y-m-d'TH:i:s" );
+        DateFormat f = new SimpleDateFormat( "Y-m-d'TH:i:s", Locale.US );
 
         String[] columns = {DBHelper.TRANSACTIONS_TIMESTAMP, DBHelper.TRANSACTIONS_AMOUNT, DBHelper.TRANSACTIONS_TYPE,
                 DBHelper.TRANSACTIONS_TITLE, DBHelper.TRANSACTIONS_TITLE, DBHelper.TRANSACTIONS_DESCRIPTION,
@@ -116,6 +118,9 @@ public class DBAdapter{
         double lng = cursor.getDouble( 7 );
         double lat = cursor.getDouble( 8 );
 
+        //TODO not sure if should be closed right here or later
+        cursor.close();
+
         return new Transaction( t, amount, type, title, description, new Location( location, lng, lat ) );
     }
 
@@ -131,10 +136,14 @@ public class DBAdapter{
         return true;
     }
 
+    // TODO Jan: rename to dropTables
     public void clearDatabase(){
         db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.TRANSACTIONS_LOCATION );
         db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.LOCATIONS_TABLE_NAME );
     }
+
+    // TODO Jan: implement method truncateTables below
+    // public void truncateTables(){}
 
     static class DBHelper extends SQLiteOpenHelper{
 

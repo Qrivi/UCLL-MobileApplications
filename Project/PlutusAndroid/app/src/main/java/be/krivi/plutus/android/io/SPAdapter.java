@@ -27,15 +27,11 @@ public class SPAdapter{
         return ( sharedPreferences.contains( "student_id" ) && sharedPreferences.contains( "password" ) );
     }
 
-    public String existsStudentId(){
-        return sharedPreferences.getString( "student_id", null );
-    }
-
     public void saveCredentials( User user ){
         editor.putString( "student_id", user.getStudentId() );
         editor.putString( "password", user.getPassword() );
-        editor.putString( "firstname", user.getFirstname() );
-        editor.putString( "lastname", user.getLastname() );
+        editor.putString( "first_name", user.getFirstname() );
+        editor.putString( "last_name", user.getLastname() );
         editor.commit();
     }
 
@@ -50,17 +46,22 @@ public class SPAdapter{
     }
 
     public void savePauseTimestamp( Date timestamp ){
-        editor.putLong( "pauseTime", timestamp.getTime() );
+        editor.putLong( "pause_time", timestamp.getTime() );
+        editor.commit();
+    }
+
+    public void cleanSharedPreferences(){
+        editor.remove( "password" );
+        editor.remove( "first_name" );
+        editor.remove( "last_name" );
+        editor.remove( "balance" );
+        editor.remove( "pause_time" );
         editor.commit();
     }
 
     public void clearSharedPreferences(){
-        editor.remove( "password" );
-        editor.remove( "firstname" );
-        editor.remove( "lastname" );
-        editor.remove( "balance" );
-        editor.remove( "pauseTime" );
-        editor.commit();
+        editor.remove( "student_id" );
+        cleanSharedPreferences();
     }
 
     public String getStudentId(){
@@ -76,11 +77,11 @@ public class SPAdapter{
     }
 
     public String getFirstname(){
-        return sharedPreferences.getString( "firstname", "" );
+        return sharedPreferences.getString( "first_name", "" );
     }
 
     public String getLastname(){
-        return sharedPreferences.getString( "lastname", "" );
+        return sharedPreferences.getString( "last_name", "" );
     }
 
     public String getHomeScreen(){
@@ -88,7 +89,7 @@ public class SPAdapter{
     }
 
     public Date getPauseTimestamp(){
-        long milliseconds = sharedPreferences.getLong( "pauseTime", 0 );
+        long milliseconds = sharedPreferences.getLong( "pause_time", 0 );
         if( milliseconds == 0 )
             return null;
         return new Date( milliseconds );

@@ -70,6 +70,9 @@ public class LoginActivity extends BaseActivity{
     protected void onCreate( Bundle savedInstanceState ){
 
         super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_login );
+
+        ButterKnife.bind( this );
 
         if( app.isUserSaved() ){
             initializeMainWindow();
@@ -180,10 +183,6 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeLoginWindow(){
-
-        this.setContentView( R.layout.activity_login );
-
-        ButterKnife.bind( this );
 
         // TODO remove this
         //mPassword.setText( "Pass1234" );

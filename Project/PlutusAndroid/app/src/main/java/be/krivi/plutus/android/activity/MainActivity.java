@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,21 +76,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener( this );
 
-        /*if(app.existsStudentId() == null)
-            Log.v("HIER", "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-            //TODO how to open a drawer?*/
-
-        if( app.fetchRequired() ){
-            fetchAllData();
-            fetchRequired = true;
-        }
-
-
         View headerView = mNavigationView.getHeaderView( 0 );
         TextView lbl_studentId = (TextView)headerView.findViewById( R.id.lbl_studentId );
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
+
+        if( app.isNewInstallation() )
+            mDrawerLayout.openDrawer( GravityCompat.START );
+
+            if( app.fetchRequired() ){
+                fetchAllData();
+                fetchRequired = true;
+            }
+
     }
 
     @Override
@@ -133,13 +132,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected( MenuItem item ){
 
         // if user taps active item, no new fragments need to load
-
-        if(item.getTitle().equals( getString( R.string.sign_out )))
+        if( item.getItemId() == R.id.navigation_signout ){
             logout();
-
-        if( !item.isChecked() )
+            return true;
+        }else if( !item.isChecked() ){
             setFragment( item.getTitle().toString() );
-
+        }
         mDrawerLayout.closeDrawers();
         return true;
     }
@@ -271,7 +269,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void logout() {
+    private void logout(){
         app.logoutUser();
         startActivity( new Intent( app.getApplicationContext(), LoginActivity.class ) );
         finish();
