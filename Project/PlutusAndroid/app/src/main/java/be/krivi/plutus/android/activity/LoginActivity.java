@@ -135,7 +135,7 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onSuccess( String response ){
                 try{
-                    JSONObject data = new JSONObject(response).getJSONObject( "data" );
+                    JSONObject data = new JSONObject( response ).getJSONObject( "data" );
                     if( data.getBoolean( "valid" ) ){
                         app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
                         initializeMainWindow();
@@ -178,7 +178,7 @@ public class LoginActivity extends BaseActivity{
 
     private void initializeMainWindow(){
         app.loadData();
-        startActivity( new Intent( app.getApplicationContext(), MainActivity.class ) );
+        startActivity( new Intent( this, MainActivity.class ) );
         finish();
     }
 
@@ -186,10 +186,10 @@ public class LoginActivity extends BaseActivity{
 
         // TODO remove this
         //mPassword.setText( "Pass1234" );
-       // mStudentId.setText( "r0123456" );
+        // mStudentId.setText( "r0123456" );
 
-        if(app.existsStudentId() != null)
-             mStudentId.setText(app.existsStudentId());
+        if( !app.isNewInstallation() )
+            mStudentId.setText( app.getStudentId() );
 
         imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
 

@@ -136,14 +136,16 @@ public class DBAdapter{
         return true;
     }
 
-    // TODO Jan: rename to dropTables
-    public void clearDatabase(){
+    public void dropTables(){
         db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.TRANSACTIONS_LOCATION );
         db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.LOCATIONS_TABLE_NAME );
     }
 
-    // TODO Jan: implement method truncateTables below
-    // public void truncateTables(){}
+    public void truncateTables(){
+        db.execSQL( "DELETE FROM " + DBHelper.TRANSACTIONS_TABLE_NAME );
+        db.execSQL( "DELETE FROM " + DBHelper.LOCATIONS_TABLE_NAME );
+        db.execSQL( "VACUUM" );
+    }
 
     static class DBHelper extends SQLiteOpenHelper{
 

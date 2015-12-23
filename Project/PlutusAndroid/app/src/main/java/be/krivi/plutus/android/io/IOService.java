@@ -46,7 +46,7 @@ public class IOService{
     }
 
     public void cleanSharedPreferences(){
-        spAdapter.clearSharedPreferences();
+        spAdapter.cleanSharedPreferences();
     }
 
     public void clearSharedPreferences(){
@@ -127,8 +127,12 @@ public class IOService{
         return dbAdapter.getTransaction( timestamp );
     }
 
+    public void cleanDatabase(){
+        dbAdapter.truncateTables();
+    }
+
     public void clearDatabase(){
-        dbAdapter.clearDatabase();
+        dbAdapter.dropTables();
     }
 
 

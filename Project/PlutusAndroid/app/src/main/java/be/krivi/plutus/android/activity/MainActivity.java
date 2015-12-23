@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,14 +51,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     BaseFragment currentFragment;
 
     boolean fetchRequired;
+    boolean loggingOut;
     List<Transaction> mTransactions;
 
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
+
+        //TODO remove logs.
+        // These logs were added because MainActivity can crash in some very rare cases leaving an unclear stack trace.
+        // Seeing which logs actually are getting logged and which are not may help to locate the cause of the crash.
+
+        Log.v( "WELKOM", "onCreate1" );
         this.setContentView( R.layout.activity_main );
+        Log.v( "WELKOM", "onCreate2" );
         ButterKnife.bind( this );
+
 
         setSupportActionBar( mToolbar );
         setFragment( app.getHomeScreen() );
@@ -82,20 +92,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
 
+        Log.v( "WELKOM", "onCreate3" );
+
         if( app.isNewInstallation() )
             mDrawerLayout.openDrawer( GravityCompat.START );
+    }
 
-            if( app.fetchRequired() ){
-                fetchAllData();
-                fetchRequired = true;
-            }
+    @Override
+    public void onResume(){
+        super.onResume();
 
+        if( app.fetchRequired() ){
+            fetchAllData();
+            fetchRequired = true;
+        }
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        app.savePauseTimestamp( new Date( System.currentTimeMillis() ) );
+        
+        if( !loggingOut )
+            app.savePauseTimestamp( new Date( System.currentTimeMillis() ) );
     }
 
     @Override
@@ -270,6 +288,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void logout(){
+        loggingOut = true;
         app.logoutUser();
         startActivity( new Intent( app.getApplicationContext(), LoginActivity.class ) );
         finish();
