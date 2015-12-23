@@ -82,11 +82,11 @@ public class IOService{
         return spAdapter.getPauseTimestamp();
     }
 
-    public void writeTransactions( JSONArray JSONTransactions ){
+    public boolean writeTransactions( JSONArray JSONTransactions ){
+        try{
+            for( int i = 0; i < JSONTransactions.length(); i++ ){
+                JSONObject obj;
 
-        for( int i = 0; i < JSONTransactions.length(); i++ ){
-            JSONObject obj;
-            try{
                 obj = JSONTransactions.getJSONObject( i );
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
@@ -105,18 +105,24 @@ public class IOService{
                 double lng = loc.getDouble( "lng" );
 
                 Transaction t = new Transaction( time, amount, type, title, description, new Location( name, lat, lng ) );
-                insertTransaction( t );
 
-            }catch( Exception e ){
-                //TODO : write exception
-                e.printStackTrace();
+                if( insertTransaction( t ) )
+                    return false;
+
             }
+        }catch( Exception e ){
+            //TODO : write exception
+            e.printStackTrace();
         }
+
+        return true;
     }
 
-    public long insertTransaction( Transaction t ){
+    public boolean insertTransaction( Transaction t ){
         dbAdapter.insertLocation( t.getLocation() );
-        return dbAdapter.insertTransaction( t );
+        if( dbAdapter.insertTransaction( t ) < 0 )
+            return true;
+        return false;
     }
 
     public List<Transaction> getAllTransactions() throws ParseException{

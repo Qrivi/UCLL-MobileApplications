@@ -9,7 +9,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,10 +49,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     BaseFragment currentFragment;
 
-    boolean fetchRequired;
     boolean loggingOut;
     List<Transaction> mTransactions;
-
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -83,7 +80,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
-        
+
         if( app.isNewInstallation() )
             mDrawerLayout.openDrawer( GravityCompat.START );
     }
@@ -92,16 +89,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onResume(){
         super.onResume();
 
-        if( app.fetchRequired() ){
+        if( app.fetchRequired() )
             fetchAllData();
-            fetchRequired = true;
-        }
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        
+
         if( !loggingOut )
             app.savePauseTimestamp( new Date( System.currentTimeMillis() ) );
     }
@@ -211,7 +206,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
                 }
             } );
         }
@@ -223,7 +218,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Map<String, String> params = new HashMap<>();
             params.put( "studentId", app.getCurrentUser().getStudentId() );
             params.put( "password", app.getCurrentUser().getPassword() );
-            params.put( "page", 0 + "" );
+            params.put( "page", "1" );
 
             app.contactAPI( params, Config.API_TRANSACTIONS, new VolleyCallback(){
                 @Override
@@ -231,7 +226,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     try{
                         JSONArray array = new JSONObject( response ).getJSONArray( "data" );
                         app.writeTransactions( array );
-                        app.loadData();
+                        app.completeDatabase( 2 );
                         updateCurrentFragment( "Transactions" );
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), "Error fetching transactions: \n" + e.getMessage() );
@@ -240,18 +235,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
                 }
             } );
         }
     }
 
     private void updateCurrentFragment( String fragmentTitle ){
-
-        if( fetchRequired ){
-            Message.toast( this, getString( R.string.database_updated ) );
-            fetchRequired = false;
-        }
 
         if( mToolbar.getTitle().toString().equals( fragmentTitle ) ){
             switch( fragmentTitle ){
