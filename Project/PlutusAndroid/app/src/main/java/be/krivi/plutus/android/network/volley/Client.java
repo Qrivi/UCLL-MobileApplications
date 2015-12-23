@@ -54,6 +54,7 @@ public class Client{
                 return getCustomHeaders();
             }
         };
+        request.setShouldCache(false);
         mRequestQueue.add( request );
     }
 

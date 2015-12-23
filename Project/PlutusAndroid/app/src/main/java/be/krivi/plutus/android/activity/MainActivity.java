@@ -58,16 +58,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
-
-        //TODO remove logs.
-        // These logs were added because MainActivity can crash in some very rare cases leaving an unclear stack trace.
-        // Seeing which logs actually are getting logged and which are not may help to locate the cause of the crash.
-
-        Log.v( "WELKOM", "onCreate1" );
         this.setContentView( R.layout.activity_main );
-        Log.v( "WELKOM", "onCreate2" );
         ButterKnife.bind( this );
-
 
         setSupportActionBar( mToolbar );
         setFragment( app.getHomeScreen() );
@@ -91,9 +83,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
-
-        Log.v( "WELKOM", "onCreate3" );
-
+        
         if( app.isNewInstallation() )
             mDrawerLayout.openDrawer( GravityCompat.START );
     }

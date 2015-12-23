@@ -18,6 +18,7 @@ public abstract class Config{
     public static String API_PASSWORD = "6298e5dbc7c0475c2273a8e2371695d4756b8f45";
 
     public static String APP_DEFAULT_HOMESCREEN = "Balance";
-    public static int APP_DEFAULT_SNOOZE_TIME = 60;
+    //TODO change me to 60 minutes!
+    public static int APP_DEFAULT_SNOOZE_TIME = 2;
 
 }

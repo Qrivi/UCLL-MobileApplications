@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -135,10 +136,13 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onSuccess( String response ){
                 try{
+                    Log.v("LogResponse", response);
                     JSONObject data = new JSONObject( response ).getJSONObject( "data" );
                     if( data.getBoolean( "valid" ) ){
                         app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
                         initializeMainWindow();
+                    } else {
+                        showError("OK", getString( R.string.password_is_incorrect ));
                     }
                 }catch( JSONException e ){
                     e.printStackTrace();
