@@ -6,9 +6,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +22,6 @@ import be.krivi.plutus.android.fragment.BalanceFragment;
 import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
-import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -31,7 +33,6 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -50,7 +51,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     BaseFragment currentFragment;
 
     boolean loggingOut;
-    List<Transaction> mTransactions;
+
+    MenuItem mFilter;
+    MenuItem mSearch;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -59,6 +62,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         ButterKnife.bind( this );
 
         setSupportActionBar( mToolbar );
+
         setFragment( app.getHomeScreen() );
 
         mDrawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer ){
@@ -105,6 +109,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onCreateOptionsMenu( Menu menu ){
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate( R.menu.menu_main, menu );
+
+        mSearch = mToolbar.getMenu().findItem( R.id.action_search );
+        mFilter = mToolbar.getMenu().findItem( R.id.action_filter );
+
+        SearchView searchView = (SearchView)MenuItemCompat.getActionView( mSearch );
+        searchView.setQueryHint( getString( R.string.search_for_transaction ) );
+        searchView.setIconifiedByDefault( false );
+
+        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit( String query ){
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange( String newText ){
+                Log.v( "IK HEB DIT ", newText );
+                return false;
+            }
+        } );
         return true;
     }
 
@@ -113,12 +138,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if( id == R.id.action_settings ){
-            return true;
-        }
+        //if( item.getTitle().toString().equals( getString( R.string.search ) ) )
+
 
         return super.onOptionsItemSelected( item );
     }

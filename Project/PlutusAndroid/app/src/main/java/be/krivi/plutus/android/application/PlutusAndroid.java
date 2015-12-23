@@ -179,11 +179,6 @@ public class PlutusAndroid extends Application{
         cal.setTime( pauseDate );
         cal.add( Calendar.MINUTE, Config.APP_DEFAULT_SNOOZE_TIME );
 
-        //TODO remove this
-        Log.v( "PAUSETIME - now", now.toString() );
-        Log.v( "PAUSETIME - snoozed", cal.getTime().toString() );
-        Log.v( "PAUSETIME - refresh", now.after( cal.getTime() ) + "" );
-
         return now.after( cal.getTime() );
     }
 
