@@ -1,5 +1,6 @@
 package be.krivi.plutus.android.activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -27,8 +28,8 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
+        setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
         app = (PlutusAndroid)this.getApplicationContext();
-
         app.setCurrentActivity( this );
     }
 

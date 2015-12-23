@@ -6,8 +6,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +22,6 @@ import be.krivi.plutus.android.fragment.BalanceFragment;
 import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
-import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -32,7 +33,6 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -50,26 +50,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     BaseFragment currentFragment;
 
-    boolean fetchRequired;
     boolean loggingOut;
-    List<Transaction> mTransactions;
 
+    MenuItem mFilter;
+    MenuItem mSearch;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
-
-        //TODO remove logs.
-        // These logs were added because MainActivity can crash in some very rare cases leaving an unclear stack trace.
-        // Seeing which logs actually are getting logged and which are not may help to locate the cause of the crash.
-
-        Log.v( "WELKOM", "onCreate1" );
         this.setContentView( R.layout.activity_main );
-        Log.v( "WELKOM", "onCreate2" );
         ButterKnife.bind( this );
 
-
         setSupportActionBar( mToolbar );
+
         setFragment( app.getHomeScreen() );
 
         mDrawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer ){
@@ -92,8 +85,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstname() );
 
-        Log.v( "WELKOM", "onCreate3" );
-
         if( app.isNewInstallation() )
             mDrawerLayout.openDrawer( GravityCompat.START );
     }
@@ -102,10 +93,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onResume(){
         super.onResume();
 
-        if( app.fetchRequired() ){
+        if( app.fetchRequired() )
             fetchAllData();
-            fetchRequired = true;
-        }
     }
 
     @Override
@@ -120,6 +109,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onCreateOptionsMenu( Menu menu ){
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate( R.menu.menu_main, menu );
+
+        mSearch = mToolbar.getMenu().findItem( R.id.action_search );
+        mFilter = mToolbar.getMenu().findItem( R.id.action_filter );
+
+        SearchView searchView = (SearchView)MenuItemCompat.getActionView( mSearch );
+        searchView.setQueryHint( getString( R.string.search_for_transaction ) );
+        searchView.setIconifiedByDefault( false );
+
+        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit( String query ){
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange( String newText ){
+                Log.v( "IK HEB DIT ", newText );
+                return false;
+            }
+        } );
         return true;
     }
 
@@ -128,12 +138,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if( id == R.id.action_settings ){
-            return true;
-        }
+        //if( item.getTitle().toString().equals( getString( R.string.search ) ) )
+
 
         return super.onOptionsItemSelected( item );
     }
@@ -221,7 +228,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
                 }
             } );
         }
@@ -233,7 +240,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Map<String, String> params = new HashMap<>();
             params.put( "studentId", app.getCurrentUser().getStudentId() );
             params.put( "password", app.getCurrentUser().getPassword() );
-            params.put( "page", 0 + "" );
+            params.put( "page", "1" );
 
             app.contactAPI( params, Config.API_ENDPOINT_TRANSACTIONS, new VolleyCallback(){
                 @Override
@@ -241,7 +248,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     try{
                         JSONArray array = new JSONObject( response ).getJSONArray( "data" );
                         app.writeTransactions( array );
-                        app.loadData();
+                        app.completeDatabase( 2 );
                         updateCurrentFragment( "Transactions" );
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), "Error fetching transactions: \n" + e.getMessage() );
@@ -250,18 +257,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
                 }
             } );
         }
     }
 
     private void updateCurrentFragment( String fragmentTitle ){
-
-        if( fetchRequired ){
-            Message.toast( this, getString( R.string.database_updated ) );
-            fetchRequired = false;
-        }
 
         if( mToolbar.getTitle().toString().equals( fragmentTitle ) ){
             switch( fragmentTitle ){

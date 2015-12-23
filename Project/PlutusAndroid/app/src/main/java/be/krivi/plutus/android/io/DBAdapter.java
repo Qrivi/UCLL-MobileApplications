@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 
@@ -58,10 +57,6 @@ public class DBAdapter{
     }
 
     public List<Transaction> getAllTransactions() throws ParseException{
-
-        //TODO remove this
-        Log.v( "All transcations", "HIER" );
-
 
         String query = "SELECT * " +
                 "FROM " + DBHelper.TRANSACTIONS_TABLE_NAME + " t JOIN " + DBHelper.LOCATIONS_TABLE_NAME + " l " +

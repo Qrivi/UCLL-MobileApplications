@@ -12,13 +12,13 @@ import be.krivi.plutus.android.model.User;
 import be.krivi.plutus.android.network.volley.NetworkClient;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
+import com.android.volley.VolleyError;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Krivi on 09/12/15.
@@ -59,6 +59,7 @@ public class PlutusAndroid extends Application{
     public void initializeUserBalance( double balance ){
         this.user.setBalance( balance );
         IOService.saveBalance( balance );
+        loadData();
     }
 
 
@@ -145,9 +146,10 @@ public class PlutusAndroid extends Application{
         networkClient.contactAPI( params, endpoint, callback );
     }
 
-    public void writeTransactions( JSONArray JSONTransactions ){
-        IOService.writeTransactions( JSONTransactions );
+    public boolean writeTransactions( JSONArray JSONTransactions ){
+        boolean writeSuccessful = IOService.writeTransactions( JSONTransactions );
         loadData();
+        return writeSuccessful;
     }
 
     public List<Transaction> getTransactions(){
@@ -177,11 +179,6 @@ public class PlutusAndroid extends Application{
         cal.setTime( pauseDate );
         cal.add( Calendar.MINUTE, Config.APP_DEFAULT_SNOOZE_TIME );
 
-        //TODO remove this
-        Log.v( "PAUSETIME - now", now.toString() );
-        Log.v( "PAUSETIME - snoozed", cal.getTime().toString() );
-        Log.v( "PAUSETIME - refresh", now.after( cal.getTime() ) + "");
-
         return now.after( cal.getTime() );
     }
 
@@ -191,5 +188,41 @@ public class PlutusAndroid extends Application{
 
     public String getStudentId(){
         return IOService.getStudentId();
+    }
+
+    public void completeDatabase( final int page ){
+        //TODO elke pagina met transactions afgaan
+
+        if( isNetworkAvailable() ){
+            Map<String, String> params = new HashMap<>();
+            params.put( "studentId", getCurrentUser().getStudentId() );
+            params.put( "password", getCurrentUser().getPassword() );
+
+            contactAPI( params, Config.API_TRANSACTIONS + "/" + page, new VolleyCallback(){
+                @Override
+                public void onSuccess( String response ){
+                    try{
+                        JSONArray array = new JSONObject( response ).getJSONArray( "data" );
+                         if( writeTransactions( array ))
+                            completeDatabase( ( page ) + 1 );
+                    }catch( JSONException e ){
+                        try{
+                            JSONObject obj = new JSONObject( response );
+                            if( !obj.has( "data" ) )
+                                throw new JSONException( "Response did not contain any data" );
+                            Message.toast( getAppContext(), getString( R.string.database_updated ) );
+                        }catch( JSONException f ){
+                            Message.obtrusive( getCurrentActivity(), "Error fetching transactions: \n" + e.getMessage() );
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure( VolleyError error ){
+                    Message.obtrusive( getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
+                }
+            } );
+        }
+
     }
 }
