@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onPause(){
         super.onPause();
-        
+
         if( !loggingOut )
             app.savePauseTimestamp( new Date( System.currentTimeMillis() ) );
     }
@@ -205,7 +205,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             params.put( "studentId", app.getCurrentUser().getStudentId() );
             params.put( "password", app.getCurrentUser().getPassword() );
 
-            app.contactAPI( params, Config.API_BALANCE, new VolleyCallback(){
+            app.contactAPI( params, Config.API_ENDPOINT_BALANCE, new VolleyCallback(){
                 @Override
                 public void onSuccess( String response ){
                     try{
@@ -235,7 +235,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             params.put( "password", app.getCurrentUser().getPassword() );
             params.put( "page", 0 + "" );
 
-            app.contactAPI( params, Config.API_TRANSACTIONS, new VolleyCallback(){
+            app.contactAPI( params, Config.API_ENDPOINT_TRANSACTIONS, new VolleyCallback(){
                 @Override
                 public void onSuccess( String response ){
                     try{

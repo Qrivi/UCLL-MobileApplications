@@ -131,7 +131,7 @@ public class LoginActivity extends BaseActivity{
         params.put( "studentId", studentId );
         params.put( "password", password );
 
-        app.contactAPI( params, Config.API_VERIFY, new VolleyCallback(){
+        app.contactAPI( params, Config.API_ENPOINT_VERIFY, new VolleyCallback(){
             @Override
             public void onSuccess( String response ){
                 try{

@@ -1,16 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:id="@+id/tmp_linearLayout"
-             tools:context="be.krivi.plutus.android.fragment.TransactionsFragment">
+<android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipeRefreshTransactions"
+        tools:context="be.krivi.plutus.android.fragment.TransactionsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:id="@+id/tmp_transactions"
+    <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Welcome to Transactions fragment :)"/>
+            android:id="@+id/recyclerTransactions"/>
 
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+
