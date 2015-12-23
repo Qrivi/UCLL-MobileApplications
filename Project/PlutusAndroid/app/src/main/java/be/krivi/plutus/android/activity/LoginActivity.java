@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -61,6 +62,9 @@ public class LoginActivity extends BaseActivity{
     @Bind( R.id.btn_signIn )
     Button mBtn_signIn;
 
+    @Bind( R.id.btn_tryAgain )
+    Button mBtn_tryAgain;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -71,10 +75,22 @@ public class LoginActivity extends BaseActivity{
             initializeMainWindow();
         }else{
             initializeLoginWindow();
-            if( !app.isNetworkAvailable() );
-                //TODO krivi zijn methode
+            if( !app.isNetworkAvailable() ){
+                mBtn_tryAgain.setVisibility( View.VISIBLE );
+                mWrapperInput.setVisibility( View.INVISIBLE );
+                mTitle.setText( R.string.there_is_no_active_internet_connection );
+            }
         }
 
+    }
+
+    @OnClick( R.id.btn_tryAgain )
+    public void tryAgainClickHandler(){
+        if( app.isNetworkAvailable() ){
+            mBtn_tryAgain.setVisibility( View.INVISIBLE );
+            mWrapperInput.setVisibility( View.VISIBLE );
+            mTitle.setText( R.string.sign_in_using_your_student_credentials );
+        }
     }
 
     @OnClick( R.id.btn_info )

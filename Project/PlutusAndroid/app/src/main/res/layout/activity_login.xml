@@ -38,6 +38,15 @@
             android:layout_marginTop="@dimen/spacing_form"
             android:id="@+id/wrapperForm">
 
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btn_tryAgain"
+                android:text="@string/try_again"
+                android:visibility="invisible"
+                android:layout_marginTop="125dp"/>
+
         <ProgressBar
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
