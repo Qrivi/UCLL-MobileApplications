@@ -43,7 +43,7 @@ public class PlutusAndroid extends Application{
         IOService = new IOService( getAppContext() );
         networkClient = new NetworkClient();
 
-        homeScreen = IOService.getHomeScreen().equals( "" ) ? Config.APP_DEFAULT_HOMESCREEN : IOService.getHomeScreen();
+        homeScreen = IOService.getHomeScreen().equals( "" ) ? Config.SETTINGS_DEFAULT_HOMESCREEN : IOService.getHomeScreen();
     }
 
     public static Context getAppContext(){
