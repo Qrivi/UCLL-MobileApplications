@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
@@ -38,7 +39,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         this.df = new DecimalFormat( "#0.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions( List<Transaction> transactions ){
         this.transactions = transactions;
     }
 
@@ -69,7 +70,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     class TransactionViewHolder extends RecyclerView.ViewHolder{
 
         @Bind( R.id.tr_wrapperDate )
-        RelativeLayout mWrapperDate;
+        LinearLayout mWrapperDate;
 
         @Bind( R.id.tr_month )
         TextView mMonth;
@@ -92,10 +93,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
 
         public void setTransactionType( String transactionType ){
-            if( transactionType.equals( "expense" ) )
-                mAmount.setTextColor( ContextCompat.getColor( context, R.color.plutus_red ) );
-            if( transactionType.equals( "topup" ) )
-                mAmount.setTextColor( ContextCompat.getColor( context, R.color.plutus_green ) );
+            switch( transactionType ){
+                case "expense":
+                    mAmount.setTextColor( ContextCompat.getColor( context, R.color.transaction_expense ) );
+                    break;
+                case "topup":
+                    mAmount.setTextColor( ContextCompat.getColor( context, R.color.transaction_topup ) );
+                    break;
+            }
         }
     }
 }

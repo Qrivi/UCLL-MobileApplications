@@ -17,6 +17,6 @@
             android:id="@+id/tmp_moneyfield"
             android:text="lemme load dat moneyz"
             android:layout_below="@id/tmp_swagfield"
-            android:layout_marginTop="@dimen/activity_margin_extra"/>
+            android:layout_marginTop="@dimen/padding_activity_extra"/>
 
 </RelativeLayout>

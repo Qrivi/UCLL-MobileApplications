@@ -1,40 +1,29 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/drawer_height"
-        android:background="@color/ucll_pink"
+        android:layout_height="@dimen/drawer_header"
+        android:padding="@dimen/padding_activity_default"
+        android:background="@drawable/img_header"
         android:fitsSystemWindows="true">
 
-    <ImageView
+    <!-- extract styles and make this follow Material specs -->
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lbl_studentId"
+            android:layout_marginBottom="@dimen/drawer_padding_text"
+            android:id="@+id/lbl_studentName"
+            android:textStyle="bold"
+            android:textColor="@color/ucll_light"
+            android:text="@string/not_applicable_short"/>
+
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:id="@+id/imageView"
-            android:src="@drawable/plutus_header"
-            android:scaleType="fitStart"/>
+            android:id="@+id/lbl_studentId"
+            android:textColor="@color/ucll_light"
+            android:text="@string/not_applicable_short"/>
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/activity_margin_default">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/lbl_studentId"
-                android:layout_marginBottom="@dimen/drawer_textSpacing"
-                android:text="@string/not_applicable_short"
-                android:textStyle="bold"
-                android:textColor="@color/ucll_light"
-                android:id="@+id/lbl_studentName"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="@string/not_applicable_short"
-                android:textColor="@color/ucll_light"
-                android:id="@+id/lbl_studentId"/>
-
-    </RelativeLayout>
 </RelativeLayout>

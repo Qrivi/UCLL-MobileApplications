@@ -1,18 +1,25 @@
 <resources>
 
-    <dimen name="activity_margin_default">16dp</dimen>
-    <dimen name="activity_margin_extra">48dp</dimen>
+    <dimen name="padding_activity_default">16dp</dimen><!-- material -->
+    <dimen name="padding_activity_extra">48dp</dimen>
 
-    <dimen name="drawer_height">190dp</dimen>
-    <dimen name="drawer_textSize">14sp</dimen>
-    <dimen name="drawer_textSpacing">4dp</dimen>
+    <dimen name="padding_form">32dp</dimen>
+    <dimen name="padding_border">16dp</dimen>
+    <dimen name="padding_contentarea">8dp</dimen>
+    <dimen name="padding_list_with_icons">72sp</dimen><!-- material -->
+    <dimen name="padding_list_title">2sp</dimen>
 
-    <dimen name="spacing_contentarea">8dp</dimen>
-    <dimen name="spacing_border">16dp</dimen>
-    <dimen name="spacing_form">32dp</dimen>
+    <dimen name="drawer_header">170dp</dimen>
+    <dimen name="drawer_padding_text">4dp</dimen>
 
     <dimen name="link_textSize">10sp</dimen>
     <dimen name="link_buttonSize">32dp</dimen>
+
+    <dimen name="app_list_title">14sp</dimen><!-- material body -->
+    <dimen name="app_list_subtitle">12sp</dimen><!-- material caption -->
+    <dimen name="app_knob">56dp</dimen><!-- material FAB -->
+    <dimen name="app_knob_small">40dp</dimen><!-- material FAB small -->
+    <dimen name="app_container_price_small">100dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

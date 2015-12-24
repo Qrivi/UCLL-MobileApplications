@@ -21,6 +21,26 @@
         <item name="android:background">@color/ucll_pink</item>
     </style>
 
+    <style name="Plutus.RowTitle">
+        <item name="android:textSize">@dimen/abc_text_size_body_1_material</item>
+        <item name="android:layout_marginBottom">@dimen/padding_list_title</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="Plutus.RowLocation">
+        <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
+        <item name="android:textColor">@color/text_soft</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="Plutus.RowMonth">
+        <item name="android:textColor">@color/ucll_light_blue</item>
+    </style>
+
+    <style name="Plutus.RowDay">
+        <item name="android:textColor">@color/ucll_light_blue</item>
+    </style>
+
     <style name="Plutus.Login" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/ucll_pink</item>
         <item name="colorPrimaryDark">@color/ucll_pink_alt</item>

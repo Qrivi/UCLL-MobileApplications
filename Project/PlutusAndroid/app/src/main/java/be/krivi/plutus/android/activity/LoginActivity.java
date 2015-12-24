@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity{
 
             @Override
             public void onFailure( VolleyError error ){
-                Message.obtrusive( app.getApplicationContext(), error.getMessage() );
+                Message.obtrusive( app.getApplicationContext(), getString( R.string.error_contacting_api) + error.getMessage() );
             }
         } );
     }
@@ -188,10 +188,6 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeLoginWindow(){
-
-        // TODO remove this
-         mPassword.setText( "Pass1234" );
-         mStudentId.setText( "r0123456" );
 
         if( !app.isNewInstallation() )
             mStudentId.setText( app.getStudentId() );

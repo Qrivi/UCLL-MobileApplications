@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         TextView lbl_studentId = (TextView)headerView.findViewById( R.id.lbl_studentId );
         lbl_studentId.setText( app.getCurrentUser().getStudentId() );
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
-        lbl_studentName.setText( app.getCurrentUser().getFirstname() );
+        lbl_studentName.setText( app.getCurrentUser().getFirstName() + " " + app.getCurrentUser().getLastName() );
 
         if( app.isNewInstallation() )
             mDrawerLayout.openDrawer( GravityCompat.START );
@@ -222,13 +222,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         app.loadData();
                         updateCurrentFragment( "Balance" );
                     }catch( JSONException e ){
-                        Message.obtrusive( app.getCurrentActivity(), "Error fetching balance: \n" + e.getMessage() );
+                        Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_balance) + e.getMessage() );
                     }
                 }
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_contacting_api) + error.getMessage() );
                 }
             } );
         }
@@ -282,7 +282,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private boolean isNetworkAvailable(){
 
         if( !app.isNetworkAvailable() ){
-            Message.toast( app.getCurrentActivity(), getString( R.string.no_internet_connection ) );
+            Message.snack( mDrawerLayout, getString( R.string.no_internet_connection ) );
             return false;
         }
         return true;

@@ -30,8 +30,8 @@ public class SPAdapter{
     public void saveCredentials( User user ){
         editor.putString( "student_id", user.getStudentId() );
         editor.putString( "password", user.getPassword() );
-        editor.putString( "first_name", user.getFirstname() );
-        editor.putString( "last_name", user.getLastname() );
+        editor.putString( "first_name", user.getFirstName() );
+        editor.putString( "last_name", user.getLastName() );
         editor.commit();
     }
 

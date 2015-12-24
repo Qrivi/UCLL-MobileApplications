@@ -127,7 +127,7 @@ public class PlutusAndroid extends Application{
         try{
             transactions = IOService.getAllTransactions();
         }catch( ParseException e ){
-            Message.obtrusive( currentActivity, "Error loading data into application: \n" + e.getMessage() );
+            Message.obtrusive( currentActivity, getString( R.string.error_loading_data_into_app ) + e.getMessage() );
         }
     }
 
@@ -224,16 +224,16 @@ public class PlutusAndroid extends Application{
                             JSONObject obj = new JSONObject( response );
                             if( !obj.has( "data" ) )
                                 throw new JSONException( "Response did not contain any data" );
-                            Message.toast( getAppContext(), getString( R.string.database_updated ) );
+                            Message.snack( currentActivity.findViewById( android.R.id.content ), getString( R.string.database_updated ) );
                         }catch( JSONException f ){
-                            Message.obtrusive( getCurrentActivity(), "Error fetching transactions: \n" + e.getMessage() );
+                            Message.obtrusive( getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                         }
                     }
                 }
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
+                    Message.obtrusive( getCurrentActivity(), getString( R.string.error_contacting_api ) + error.getMessage() );
                 }
             } );
         }

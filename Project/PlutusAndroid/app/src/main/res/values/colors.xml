@@ -13,11 +13,13 @@
         <color name="plutus_red">#D0021B</color>
 
 
-        <color name="transaction_topup">@color/plutus_green</color>
-        <color name="transaction_expense">@color/plutus_red</color>
-
         <color name="text_default">#4A4A4A</color>
         <color name="text_clickable">#333333</color>
+        <color name="text_soft">#A2A2A2</color>
+
+
+        <color name="transaction_topup">@color/plutus_green</color>
+        <color name="transaction_expense">@color/plutus_red</color>
 
         <!-- tot hier al gebruikt -->
 
