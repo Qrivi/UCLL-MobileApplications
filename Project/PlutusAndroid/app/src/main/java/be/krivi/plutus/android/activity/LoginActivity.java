@@ -136,7 +136,6 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onSuccess( String response ){
                 try{
-                    Log.v("LogResponse", response);
                     JSONObject data = new JSONObject( response ).getJSONObject( "data" );
                     if( data.getBoolean( "valid" ) ){
                         app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );

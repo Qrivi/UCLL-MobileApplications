@@ -191,14 +191,13 @@ public class PlutusAndroid extends Application{
     }
 
     public void completeDatabase( final int page ){
-        //TODO elke pagina met transactions afgaan
 
         if( isNetworkAvailable() ){
             Map<String, String> params = new HashMap<>();
             params.put( "studentId", getCurrentUser().getStudentId() );
             params.put( "password", getCurrentUser().getPassword() );
 
-            contactAPI( params, Config.API_TRANSACTIONS + "/" + page, new VolleyCallback(){
+            contactAPI( params, Config.API_ENDPOINT_TRANSACTIONS + "/" + page, new VolleyCallback(){
                 @Override
                 public void onSuccess( String response ){
                     try{

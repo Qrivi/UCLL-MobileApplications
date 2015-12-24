@@ -13,7 +13,10 @@ import be.krivi.plutus.android.model.Transaction;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Krivi on 23/12/15.
@@ -23,8 +26,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private LayoutInflater inflater;
     private List<Transaction> transactions;
 
+    DecimalFormat df;
+
     public TransactionAdapter( Context context, List<Transaction> transactions ){
         inflater = LayoutInflater.from( context );
+        this.transactions = transactions;
+
+        df = new DecimalFormat( "#.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
     }
 
     @Override
@@ -36,16 +44,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder( TransactionViewHolder holder, int position ){
         Transaction transaction = transactions.get( position );
 
-        //TODO localize transaction data
-
-        holder.mMonth.setText( transaction.getMonth() + "" );
+        holder.mMonth.setText( transaction.getMonth( "short" ) );
         holder.mDay.setText( transaction.getDay() + "" );
 
         holder.mTitle.setText( transaction.getTitle() );
         holder.mLocation.setText( transaction.getLocation().getName() );
 
-        //
-        holder.mAmount.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + transaction.getAmount() );
+        //TODO Jan remove this line below whem timsestamp is 100% fixed -- date and time (Possibly already ok because I set the system locale)
+        holder.mLocation.setText( transaction.getTimestamp().toString() );
+
+        holder.mAmount.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + df.format( transaction.getAmount() ) );
 
         //TODO set font color of amount according to type
         holder.transactionType = transaction.getType();
@@ -53,7 +61,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public int getItemCount(){
-        return 0;
+        return transactions.size();
     }
 
     class TransactionViewHolder extends RecyclerView.ViewHolder{

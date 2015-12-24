@@ -9,9 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.view.Message;
@@ -28,10 +25,10 @@ import java.util.List;
  */
 public class TransactionsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
-    @Bind(R.id.swipeRefreshTransactions)
+    @Bind( R.id.swipeRefreshTransactions )
     SwipeRefreshLayout mSwipeRefresh;
 
-    @Bind(R.id.recyclerTransactions)
+    @Bind( R.id.recyclerTransactions )
     RecyclerView mRecycler;
 
     TransactionAdapter adapter;
@@ -49,7 +46,7 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
 
         mSwipeRefresh.setOnRefreshListener( this );
 
-        transactions = new LinkedList<>();
+        transactions = app.getTransactions();
         adapter = new TransactionAdapter( getActivity(), transactions );
 
         mRecycler.setAdapter( adapter );
@@ -63,6 +60,9 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
     public void updateView(){
 
         transactions = app.getTransactions();
+        adapter.notifyDataSetChanged();
+
+        //TODO send this line to Africa
         Message.toast( app.getApplicationContext(), app.getTransactions().size() + "" );
     }
 
@@ -71,6 +71,6 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
     public void onRefresh(){
         //TODO write cool code >:D
 
-        Message.toast( app.getApplicationContext(), "TRIGGERED xD xD" );
+        Message.toast( app.getApplicationContext(), "dank maymays xD" );
     }
 }

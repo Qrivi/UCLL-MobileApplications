@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mFilter = mToolbar.getMenu().findItem( R.id.action_filter );
 
         SearchView searchView = (SearchView)MenuItemCompat.getActionView( mSearch );
-        searchView.setQueryHint( getString( R.string.search_for_transaction ) );
+        searchView.setQueryHint( getString( R.string.find_a_transaction ) );
         searchView.setIconifiedByDefault( false );
 
         searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){

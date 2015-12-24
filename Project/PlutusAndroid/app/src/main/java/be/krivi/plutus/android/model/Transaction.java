@@ -9,25 +9,32 @@ import java.util.Date;
  */
 public class Transaction{
 
+    private Calendar cal;
+
     private Date timestamp;
-    private double amount;
-    private String type;
+    private int day;
+    private Month month;
 
     private String title, description;
     private Location location;
 
-    private Calendar cal;
+    private double amount;
+    private String type;
 
     public Transaction( Date timestamp, double amount, String type, String title, String description, Location location ){
+        cal = Calendar.getInstance();
+        cal.setTime( timestamp );
+
         setTimestamp( timestamp );
-        setAmount( amount );
-        setType( type );
+        setDay();
+        setMonth();
+
         setTitle( title );
         setDescription( description );
         setLocation( location );
 
-        cal = Calendar.getInstance();
-        cal.setTime( timestamp );
+        setAmount( amount );
+        setType( type );
     }
 
     public double getAmount(){
@@ -78,18 +85,62 @@ public class Transaction{
         this.location = location;
     }
 
-
     public int getDay(){
-        return cal.get( Calendar.DAY_OF_MONTH );
+        return day;
     }
 
-    public int getMonth(){
-        return cal.get( Calendar.MONTH );
+    private void setDay( ){
+        day = cal.get( Calendar.DAY_OF_MONTH );
     }
 
-    public String toString(){
-        //TODO remove me!
-        return "Date : " + timestamp.toString() + "\n" +
-                "title : " + type + "\n\n";
+    public String getMonth( String format ){
+        if( format.equals( "short" ) )
+            return month.toShortString();
+        else if( format.equals( "full" ) )
+            return month.toString();
+        return "";
+    }
+
+    public void setMonth(){
+        switch( cal.get( Calendar.MONTH ) ){
+            case 1:
+                month = Month.JANUARY;
+                break;
+            case 2:
+                month = Month.FEBRUARY;
+                break;
+            case 3:
+                month = Month.MARCH;
+                break;
+            case 4:
+                month = Month.APRIL;
+                break;
+            case 5:
+                month = Month.MAY;
+                break;
+            case 6:
+                month = Month.JUNE;
+                break;
+            case 7:
+                month = Month.JULY;
+                break;
+            case 8:
+                month = Month.AUGUST;
+                break;
+            case 9:
+                month = Month.SEPTEMBER;
+                break;
+            case 10:
+                month = Month.OCTOBER;
+                break;
+            case 11:
+                month = Month.NOVEMBER;
+                break;
+            case 12:
+                month = Month.DECEMBER;
+                break;
+            default:
+                month = Month.NONE;
+        }
     }
 }
