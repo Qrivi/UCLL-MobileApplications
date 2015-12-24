@@ -19,7 +19,14 @@
     <dimen name="app_list_subtitle">12sp</dimen><!-- material caption -->
     <dimen name="app_knob">56dp</dimen><!-- material FAB -->
     <dimen name="app_knob_small">40dp</dimen><!-- material FAB small -->
-    <dimen name="app_container_price_small">100dp</dimen>
+    <dimen name="app_price_small_container">100dp</dimen>
+
+    <dimen name="app_price_small">18sp</dimen>
+    <dimen name="app_date_day_small">14sp</dimen>
+    <dimen name="app_date_month_small">10sp</dimen>
+
+    <dimen name="padding_date_month_small">4sp</dimen>
+    <dimen name="padding_date_day_small">-3sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

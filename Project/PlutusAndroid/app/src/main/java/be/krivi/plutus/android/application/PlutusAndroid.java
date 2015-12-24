@@ -118,7 +118,7 @@ public class PlutusAndroid extends Application{
     }
 
     public boolean isNewInstallation(){
-        return IOService.getStudentId().equals( "" );
+        return IOService.isNewInstallation();
     }
 
     public void loadData(){

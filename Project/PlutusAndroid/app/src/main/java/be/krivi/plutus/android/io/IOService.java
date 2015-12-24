@@ -144,4 +144,7 @@ public class IOService{
     }
 
 
+    public boolean isNewInstallation(){
+        return spAdapter.isNewInstallation();
+    }
 }

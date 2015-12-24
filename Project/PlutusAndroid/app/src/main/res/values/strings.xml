@@ -47,7 +47,8 @@
     <string name="close_drawer">Close drawer</string>
     <string name="open_drawer">Open drawer</string>
     <string name="no_internet_connection">You are working offline</string>
-    <string name="database_updated">All data has been updated</string>
+    <string name="database_updated">The database has been updated</string>
+    <string name="database_setting_up">Setting up the database can take a while</string>
     <string name="try_again">Retry</string>
     <string name="there_is_no_active_internet_connection">There is no active internet connection</string>
     <string name="filters">Filters</string>

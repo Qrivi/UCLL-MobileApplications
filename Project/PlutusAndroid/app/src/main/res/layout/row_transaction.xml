@@ -24,17 +24,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tr_month"
-                android:gravity="center"
                 style="@style/Plutus.RowMonth"
-                android:text="nov"/>
+                android:text="@string/not_applicable_short"/>
 
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tr_day"
-                android:gravity="center"
                 style="@style/Plutus.RowDay"
-                android:text="28"/>
+                android:text="@string/not_applicable_short"/>
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +41,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:paddingLeft="@dimen/padding_list_with_icons"
-            android:paddingRight="@dimen/app_container_price_small"
+            android:paddingRight="@dimen/app_price_small_container"
             android:orientation="vertical"
             android:id="@+id/linearLayout">
         <TextView
@@ -51,14 +49,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tr_title"
                 style="@style/Plutus.RowTitle"
-                android:text="Drankenautomaat TEST"/>
+                android:text="@string/not_applicable_full"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tr_location"
                 style="@style/Plutus.RowLocation"
-                android:text="UCLL Campus Proximus"/>
+                android:text="@string/not_applicable_full"/>
     </LinearLayout>
 
     <TextView
@@ -67,7 +65,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/tr_amount"
-            android:gravity="right"
-            android:text="$ 5,12"/>
+            style="@style/Plutus.RowAmount"
+            android:text="@string/not_applicable_short"/>
 
 </RelativeLayout>

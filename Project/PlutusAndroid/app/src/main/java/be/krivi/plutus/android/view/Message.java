@@ -3,6 +3,7 @@ package be.krivi.plutus.android.view;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
@@ -19,13 +20,14 @@ public abstract class Message{
 
     public static void snack( View view, String message ){
         Snackbar.make( view, message, Snackbar.LENGTH_LONG )
+                .setActionTextColor( ContextCompat.getColor( view.getContext(), R.color.ucll_light_blue ) )
                 .setAction( R.string.dismiss, new View.OnClickListener(){
                     @Override
                     public void onClick( View v ){
                         // empty dismisses snackbar
                     }
-                } ).show();
-
+                } )
+                .show();
     }
 
     public static void obtrusive( Context context, String message ){
@@ -36,7 +38,8 @@ public abstract class Message{
                     public void onClick( DialogInterface dialog, int which ){
                         // empty dismisses dialog
                     }
-                } ).show();
+                } )
+                .show();
     }
 
 

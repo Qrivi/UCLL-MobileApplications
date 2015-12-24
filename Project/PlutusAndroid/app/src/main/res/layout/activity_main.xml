@@ -32,9 +32,7 @@
             app:headerLayout="@layout/app_drawer"
             app:menu="@menu/app_drawer"
             app:itemIconTint="@color/drawer_item_text_color"
-            app:itemTextColor="@color/drawer_item_text_color">
-
-
-    </android.support.design.widget.NavigationView>
+            app:itemTextColor="@color/drawer_item_text_color"/>
+    <!-- Try to add the login button at the bottom of the drawer before closing the bracket -->
 
 </android.support.v4.widget.DrawerLayout>

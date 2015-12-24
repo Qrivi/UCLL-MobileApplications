@@ -2,6 +2,7 @@ package be.krivi.plutus.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -85,8 +86,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstName() + " " + app.getCurrentUser().getLastName() );
 
-        if( app.isNewInstallation() )
+        if( app.isNewInstallation() ){
             mDrawerLayout.openDrawer( GravityCompat.START );
+            Message.snack( mDrawerLayout, getString( R.string.database_setting_up ) );
+        }
     }
 
     @Override

@@ -27,6 +27,14 @@ public class SPAdapter{
         return ( sharedPreferences.contains( "student_id" ) && sharedPreferences.contains( "password" ) );
     }
 
+    public boolean isNewInstallation(){
+        return Boolean.parseBoolean( sharedPreferences.getString( "new_install", "true" ) );
+    }
+
+    public void saveNewInstallation(boolean bool){
+        editor.putString( "new_install", bool + "" );
+    }
+
     public void saveCredentials( User user ){
         editor.putString( "student_id", user.getStudentId() );
         editor.putString( "password", user.getPassword() );
@@ -56,6 +64,7 @@ public class SPAdapter{
         editor.remove( "last_name" );
         editor.remove( "balance" );
         editor.remove( "pause_time" );
+        editor.remove( "new_install" );
         editor.commit();
     }
 
@@ -94,6 +103,4 @@ public class SPAdapter{
             return null;
         return new Date( milliseconds );
     }
-
-
 }
