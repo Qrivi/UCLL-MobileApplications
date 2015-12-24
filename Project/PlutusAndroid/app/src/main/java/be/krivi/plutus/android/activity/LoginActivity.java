@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class LoginActivity extends BaseActivity{
 
-    InputMethodManager imm;
+
 
     Animation aFadeIn;
     Animation aFadeOut;
@@ -158,7 +158,9 @@ public class LoginActivity extends BaseActivity{
     private void showFadeOut( String text ){
         mWrapperInput.startAnimation( aFadeOut );
 
-        imm.toggleSoftInput( InputMethodManager.SHOW_FORCED, 0 );
+
+       imm.toggleSoftInput( InputMethodManager.HIDE_IMPLICIT_ONLY, 0 );
+
         mTitle.setText( text );
     }
 
@@ -193,8 +195,6 @@ public class LoginActivity extends BaseActivity{
 
         if( !app.isNewInstallation() )
             mStudentId.setText( app.getStudentId() );
-
-        imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
 
         aFadeIn = AnimationUtils.loadAnimation( app, R.anim.fade_in );
         aFadeOut = AnimationUtils.loadAnimation( app, R.anim.fade_out );

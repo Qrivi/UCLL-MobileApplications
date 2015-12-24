@@ -1,6 +1,7 @@
 package be.krivi.plutus.android.view;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,16 +24,18 @@ import java.util.Locale;
  */
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>{
 
+    private Context context;
     private LayoutInflater inflater;
     private List<Transaction> transactions;
 
-    DecimalFormat df;
+    private DecimalFormat df;
 
     public TransactionAdapter( Context context, List<Transaction> transactions ){
-        inflater = LayoutInflater.from( context );
+        this.context = context;
+        this.inflater = LayoutInflater.from( context );
         this.transactions = transactions;
 
-        df = new DecimalFormat( "#.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
+        this.df = new DecimalFormat( "#0.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
     }
 
     @Override
@@ -50,13 +53,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.mTitle.setText( transaction.getTitle() );
         holder.mLocation.setText( transaction.getLocation().getName() );
 
-        //TODO Jan remove this line below whem timsestamp is 100% fixed -- date and time (Possibly already ok because I set the system locale)
-        holder.mLocation.setText( transaction.getTime() );
-
+        holder.setTransactionType( transaction.getType() );
         holder.mAmount.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + df.format( transaction.getAmount() ) );
-
-        //TODO set font color of amount according to type
-        holder.transactionType = transaction.getType();
     }
 
     @Override
@@ -84,11 +82,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         @Bind( R.id.tr_amount )
         TextView mAmount;
 
-        public String transactionType;
-
         public TransactionViewHolder( View view ){
             super( view );
             ButterKnife.bind( this, view );
+        }
+
+        public void setTransactionType( String transactionType ){
+            if( transactionType.equals( "expense" ) )
+                mAmount.setTextColor( ContextCompat.getColor( context, R.color.plutus_red ) );
+            if( transactionType.equals( "topup" ) )
+                mAmount.setTextColor( ContextCompat.getColor( context, R.color.plutus_green ) );
         }
     }
 }

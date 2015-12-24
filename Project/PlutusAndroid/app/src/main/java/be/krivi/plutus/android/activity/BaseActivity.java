@@ -1,9 +1,11 @@
 package be.krivi.plutus.android.activity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.view.inputmethod.InputMethodManager;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
@@ -24,12 +26,14 @@ import java.util.Map;
 public class BaseActivity extends AppCompatActivity{
 
     PlutusAndroid app;
+    InputMethodManager imm;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
-        app = (PlutusAndroid)this.getApplicationContext();
+        app = (PlutusAndroid) getApplicationContext();
+        imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
     }
 
     @Override
@@ -41,6 +45,7 @@ public class BaseActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         app.setCurrentActivity( this );
+        imm.toggleSoftInput( InputMethodManager.HIDE_IMPLICIT_ONLY, 0 );
     }
 
 
