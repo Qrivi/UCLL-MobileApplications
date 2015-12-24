@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class TransactionsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @Bind( R.id.swipeRefreshTransactions )
     SwipeRefreshLayout mSwipeRefresh;
@@ -34,6 +34,8 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
 
     TransactionAdapter adapter;
     List<Transaction> transactions;
+    private int set;
+    boolean loading = true;
 
     public TransactionsFragment(){
         // Required empty public constructor
@@ -47,26 +49,57 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
 
         mSwipeRefresh.setOnRefreshListener( this );
 
-        transactions = app.getTransactions();
+        set = 0;
+        transactions = new LinkedList<>();
         adapter = new TransactionAdapter( getActivity(), transactions );
 
         mRecycler.setAdapter( adapter );
         mRecycler.setLayoutManager( new LinearLayoutManager( getActivity() ) );
 
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)mRecycler.getLayoutManager();
+
+        mRecycler.addOnScrollListener( new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled( RecyclerView recyclerView, int dx, int dy ){
+                super.onScrolled( recyclerView, dx, dy );
+
+                int visibleItemCount = linearLayoutManager.getChildCount();
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
+
+                if( loading ){
+                    if( ( visibleItemCount + pastVisiblesItems ) >= totalItemCount ){
+                        //TODO maak mooiere code!
+                        loading = false;
+                        set++;
+
+                        List<Transaction> updatedTransactions = new LinkedList<Transaction>( );
+                        updatedTransactions.addAll(transactions);
+                        updatedTransactions.addAll( app.getTransactionsSet( set ));
+                        transactions = updatedTransactions;
+
+                        adapter.setTransactions( transactions );
+                        adapter.notifyDataSetChanged();
+
+                        //TODO REMOVE ME!
+                        Message.toast( app.getApplicationContext(), transactions.size() + "" );
+                    }
+                }
+            }
+        } );
         updateView();
         return view;
     }
 
-
     public void updateView(){
 
-        transactions = app.getTransactions();
+        transactions = app.getTransactionsSet( set );
+        adapter.setTransactions( transactions );
         adapter.notifyDataSetChanged();
 
         //TODO send this line to Africa
-        Message.toast( app.getApplicationContext(), app.getTransactions().size() + "" );
+        Message.toast( app.getApplicationContext(), transactions.size() + "" );
     }
-
 
     @Override
     public void onRefresh(){

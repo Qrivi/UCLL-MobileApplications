@@ -156,6 +156,21 @@ public class PlutusAndroid extends Application{
         return transactions;
     }
 
+    public List<Transaction> getTransactions( int entries ){
+        entries = entries > transactions.size() ? transactions.size() : entries;
+        return transactions.subList( 0, entries );
+    }
+
+    public List<Transaction> getTransactionsSet( int set ){
+
+        int start = set * Config.APP_DEFAULT_LIST_SIZE;
+        if( start > transactions.size() )
+            return null;
+
+        int end = start + Config.APP_DEFAULT_LIST_SIZE < transactions.size() ? start + Config.APP_DEFAULT_LIST_SIZE : transactions.size();
+        return transactions.subList( start, end );
+    }
+
     public String getHomeScreen(){
 
         return homeScreen;
@@ -202,7 +217,7 @@ public class PlutusAndroid extends Application{
                 public void onSuccess( String response ){
                     try{
                         JSONArray array = new JSONObject( response ).getJSONArray( "data" );
-                         if( writeTransactions( array ))
+                        if( writeTransactions( array ) )
                             completeDatabase( ( page ) + 1 );
                     }catch( JSONException e ){
                         try{

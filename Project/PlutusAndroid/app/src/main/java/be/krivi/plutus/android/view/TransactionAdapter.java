@@ -38,6 +38,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         this.df = new DecimalFormat( "#0.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
     }
 
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
     @Override
     public TransactionViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
         return new TransactionViewHolder( inflater.inflate( R.layout.row_transaction, parent, false ) );
