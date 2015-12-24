@@ -30,13 +30,17 @@ public class BaseActivity extends AppCompatActivity{
         super.onCreate( savedInstanceState );
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
         app = (PlutusAndroid)this.getApplicationContext();
-        app.setCurrentActivity( this );
     }
 
     @Override
     protected void onPause(){
         super.onPause();
         app.setCurrentActivity( null );
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        app.setCurrentActivity( this );
     }
 
 

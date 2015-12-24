@@ -51,7 +51,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.mLocation.setText( transaction.getLocation().getName() );
 
         //TODO Jan remove this line below whem timsestamp is 100% fixed -- date and time (Possibly already ok because I set the system locale)
-        holder.mLocation.setText( transaction.getTimestamp().toString() );
+        holder.mLocation.setText( transaction.getTime() );
 
         holder.mAmount.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + df.format( transaction.getAmount() ) );
 

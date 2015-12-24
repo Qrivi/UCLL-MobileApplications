@@ -6,16 +6,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class DBAdapter{
 
@@ -41,8 +39,7 @@ public class DBAdapter{
 
     public long insertTransaction( Transaction t ){
 
-        DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
-
+       DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
         if( checkIfDataAlreadyExist( DBHelper.TRANSACTIONS_TABLE_NAME, DBHelper.TRANSACTIONS_TIMESTAMP, f.format( t.getTimestamp() ) ) )
             return -1;
 
@@ -50,7 +47,7 @@ public class DBAdapter{
         values.put( DBHelper.TRANSACTIONS_TIMESTAMP, f.format( t.getTimestamp() ) );
         values.put( DBHelper.TRANSACTIONS_AMOUNT, t.getAmount() );
         values.put( DBHelper.TRANSACTIONS_TYPE, t.getType() );
-        values.put( DBHelper.TRANSACTIONS_TITLE, t.getType() );
+        values.put( DBHelper.TRANSACTIONS_TITLE, t.getTitle() );
         values.put( DBHelper.TRANSACTIONS_DESCRIPTION, t.getDescription() );
         values.put( DBHelper.TRANSACTIONS_LOCATION, t.getLocation().getName() );
         return db.insert( DBHelper.TRANSACTIONS_TABLE_NAME, null, values );
@@ -61,7 +58,7 @@ public class DBAdapter{
         String query = "SELECT * " +
                 "FROM " + DBHelper.TRANSACTIONS_TABLE_NAME + " t JOIN " + DBHelper.LOCATIONS_TABLE_NAME + " l " +
                 "ON t." + DBHelper.TRANSACTIONS_LOCATION + " = l." + DBHelper.LOCATIONS_NAME +
-                " ORDER BY " + DBHelper.TRANSACTIONS_TIMESTAMP;
+                " ORDER BY " + DBHelper.TRANSACTIONS_TIMESTAMP + " DESC";
 
 
         Cursor cursor = db.rawQuery( query, null );
@@ -88,8 +85,7 @@ public class DBAdapter{
 
     public Transaction getTransaction( Date timestamp ) throws ParseException{
 
-
-        DateFormat f = new SimpleDateFormat( "Y-m-d'TH:i:s", Locale.US );
+        DateFormat f = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
 
         String[] columns = {DBHelper.TRANSACTIONS_TIMESTAMP, DBHelper.TRANSACTIONS_AMOUNT, DBHelper.TRANSACTIONS_TYPE,
                 DBHelper.TRANSACTIONS_TITLE, DBHelper.TRANSACTIONS_TITLE, DBHelper.TRANSACTIONS_DESCRIPTION,

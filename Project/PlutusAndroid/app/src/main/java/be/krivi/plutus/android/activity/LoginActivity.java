@@ -188,8 +188,8 @@ public class LoginActivity extends BaseActivity{
     private void initializeLoginWindow(){
 
         // TODO remove this
-        //mPassword.setText( "Pass1234" );
-        // mStudentId.setText( "r0123456" );
+         mPassword.setText( "Pass1234" );
+         mStudentId.setText( "r0123456" );
 
         if( !app.isNewInstallation() )
             mStudentId.setText( app.getStudentId() );

@@ -1,6 +1,7 @@
 package be.krivi.plutus.android.io;
 
 import android.content.Context;
+import android.util.Log;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
@@ -11,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Jan on 10/12/2015.
@@ -89,7 +91,7 @@ public class IOService{
 
                 obj = JSONTransactions.getJSONObject( i );
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
+                SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
                 Date time = dateFormat.parse( obj.getString( "timestamp" ) );
 
                 double amount = obj.getDouble( "amount" );

@@ -14,6 +14,7 @@ public class Transaction{
     private Date timestamp;
     private int day;
     private Month month;
+    private String time;
 
     private String title, description;
     private Location location;
@@ -28,6 +29,7 @@ public class Transaction{
         setTimestamp( timestamp );
         setDay();
         setMonth();
+        setTime();
 
         setTitle( title );
         setDescription( description );
@@ -93,6 +95,14 @@ public class Transaction{
         day = cal.get( Calendar.DAY_OF_MONTH );
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime() {
+        time = cal.get( Calendar.HOUR_OF_DAY ) + ":" + cal.get( Calendar.MINUTE );
+    }
+
     public String getMonth( String format ){
         if( format.equals( "short" ) )
             return month.toShortString();
@@ -102,7 +112,7 @@ public class Transaction{
     }
 
     public void setMonth(){
-        switch( cal.get( Calendar.MONTH ) ){
+        switch( cal.get( Calendar.MONTH ) + 1 ){
             case 1:
                 month = Month.JANUARY;
                 break;
