@@ -14,6 +14,7 @@ public class Transaction{
     private Date timestamp;
     private int day;
     private Month month;
+    private int year;
     private String time;
 
     private String title, description;
@@ -29,6 +30,7 @@ public class Transaction{
         setTimestamp( timestamp );
         setDay();
         setMonth();
+        setYear();
         setTime();
 
         setTitle( title );
@@ -91,16 +93,24 @@ public class Transaction{
         return day;
     }
 
-    private void setDay( ){
+    private void setDay(){
         day = cal.get( Calendar.DAY_OF_MONTH );
     }
 
-    public String getTime() {
+    public String getTime(){
         return time;
     }
 
-    public void setTime() {
+    private void setTime(){
         time = cal.get( Calendar.HOUR_OF_DAY ) + ":" + cal.get( Calendar.MINUTE );
+    }
+
+    public int getYear(){
+        return year;
+    }
+
+    private void setYear(){
+        year = cal.get( Calendar.YEAR );
     }
 
     public String getMonth( String format ){

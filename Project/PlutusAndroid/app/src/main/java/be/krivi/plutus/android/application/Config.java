@@ -19,8 +19,7 @@ public abstract class Config{
 
     public static String API_DEFAULT_CURRENCY_SYMBOL = "€";
 
-    //TODO change me to 60 minutes or something!
-    public static int APP_DEFAULT_SNOOZE_TIME = 1;
+    public static int APP_DEFAULT_SNOOZE_TIME = 60;
     public static int APP_DEFAULT_LIST_SIZE = 25;
 
     public static boolean SETTINGS_DEFAULT_BALANCE_REPRESENTATION = true;

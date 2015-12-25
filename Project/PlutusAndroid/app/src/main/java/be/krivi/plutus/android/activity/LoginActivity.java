@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity{
 
             @Override
             public void onFailure( VolleyError error ){
-                Message.obtrusive( app.getApplicationContext(), getString( R.string.error_contacting_api) + error.getMessage() );
+                Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_contacting_api) + error.getMessage() );
             }
         } );
     }

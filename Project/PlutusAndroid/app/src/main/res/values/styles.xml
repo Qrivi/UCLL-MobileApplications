@@ -21,6 +21,13 @@
         <item name="android:background">@color/ucll_pink</item>
     </style>
 
+    <style name="Plutus.RowHeader">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/app_list_header</item>
+        <item name="android:textColor">@color/text_soft</item>
+        <item name="android:gravity">left</item>
+    </style>
+
     <style name="Plutus.RowTitle">
         <item name="android:textSize">@dimen/app_list_title</item>
         <item name="android:layout_marginBottom">@dimen/padding_list_title</item>
@@ -50,6 +57,7 @@
     </style>
 
     <style name="Plutus.RowAmount">
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/app_price_small</item>
         <item name="android:gravity">right</item>
         <item name="android:layout_marginTop">@dimen/padding_contentarea</item>
@@ -83,6 +91,12 @@
         <item name="android:textColor">@color/ucll_light</item>
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">right</item>
+    </style>
+
+    <style name="Plutus.Separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/app_list_separator</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 
 </resources>

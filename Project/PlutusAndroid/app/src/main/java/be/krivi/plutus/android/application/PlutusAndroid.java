@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.BaseActivity;
+import be.krivi.plutus.android.activity.MainActivity;
 import be.krivi.plutus.android.io.IOService;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
@@ -224,7 +225,8 @@ public class PlutusAndroid extends Application{
                             JSONObject obj = new JSONObject( response );
                             if( !obj.has( "data" ) )
                                 throw new JSONException( "Response did not contain any data" );
-                            Message.snack( currentActivity.findViewById( android.R.id.content ), getString( R.string.database_updated ) );
+                            MainActivity main = (MainActivity) currentActivity;
+                            Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
                         }catch( JSONException f ){
                             Message.obtrusive( getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                         }

@@ -38,11 +38,12 @@ import java.util.Map;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    @Bind( R.id.wrapperMain )
+    public DrawerLayout mDrawerLayout;
+    // public for easy access setting SnackBars from elsewhere
+
     @Bind( R.id.toolbar )
     Toolbar mToolbar;
-
-    @Bind( R.id.wrapperMain )
-    DrawerLayout mDrawerLayout;
 
     @Bind( R.id.wrapperDrawer )
     NavigationView mNavigationView;
@@ -87,8 +88,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         lbl_studentName.setText( app.getCurrentUser().getFirstName() + " " + app.getCurrentUser().getLastName() );
 
         if( app.isNewInstallation() ){
-            mDrawerLayout.openDrawer( GravityCompat.START );
             Message.snack( mDrawerLayout, getString( R.string.database_setting_up ) );
+            mDrawerLayout.openDrawer( GravityCompat.START );
         }
     }
 
@@ -254,13 +255,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         app.completeDatabase( 2 );
                         updateCurrentFragment( "Transactions" );
                     }catch( JSONException e ){
-                        Message.obtrusive( app.getCurrentActivity(), "Error fetching transactions: \n" + e.getMessage() );
+                        Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                     }
                 }
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), "Error contacting API: \n" + error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_contacting_api ) + error.getMessage() );
                 }
             } );
         }

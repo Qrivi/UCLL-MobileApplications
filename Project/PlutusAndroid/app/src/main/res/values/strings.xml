@@ -62,8 +62,8 @@
     <string name="dismiss">Dismiss</string>
     <string name="something_went_wrong">Oops, something went wrong!</string>
     <string name="error_fetching_balance">Error fetching balance:\n</string>
-    <string name="error_contacting_api">Error contacting API:\n</string>
-    <string name="error_loading_data_into_app">Error loading data into application:\n</string>
+    <string name="error_contacting_api">Error reaching API:\n</string>
+    <string name="error_loading_data_into_app">Error loading transaction into application:\n</string>
     <string name="error_fetching_transactions">Error fetching transactions:\n</string>
 
 
