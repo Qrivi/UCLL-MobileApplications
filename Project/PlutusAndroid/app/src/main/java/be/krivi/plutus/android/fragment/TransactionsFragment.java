@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,11 +88,23 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
     public void updateView(){
         transactions = app.getTransactionsSet( set );
         adapter.setRowData( transactions );
-        //adapter.notifyDataSetChanged();
 
+        mSwipeRefresh.setEnabled( true );
         mSwipeRefresh.setRefreshing( false );
 
         //TODO send this line to Africa
         Message.toast( app.getApplicationContext(), transactions.size() + " loads" );
+    }
+
+    public void filterTransactions( String filter ){
+        mSwipeRefresh.setEnabled( false );
+        List<Transaction> filteredList = new LinkedList<>();
+        CharSequence f = filter.toLowerCase();
+
+        for( Transaction t : transactions )
+            if( t.getTitle().toLowerCase().contains( f)  )
+                filteredList.add( t );
+
+        adapter.setRowData( filteredList );
     }
 }

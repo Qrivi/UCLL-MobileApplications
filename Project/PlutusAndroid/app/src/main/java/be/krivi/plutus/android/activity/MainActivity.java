@@ -6,8 +6,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.CreditFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
+import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -106,23 +109,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         this.mToolbarMenu = menu;
         getMenuInflater().inflate( R.menu.menu_main, menu );
 
-        //        SearchView searchView = (SearchView)MenuItemCompat.getActionView( mMenuSearch );
-        //        searchView.setQueryHint( getString( R.string.find_a_transaction ) );
-        //        searchView.setIconifiedByDefault( false );
-        //
-        //        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){
-        //
-        //            @Override
-        //            public boolean onQueryTextSubmit( String query ){
-        //                return false;
-        //            }
-        //
-        //            @Override
-        //            public boolean onQueryTextChange( String newText ){
-        //                Log.v( "IK HEB DIT ", newText );
-        //                return false;
-        //            }
-        //        } );
+        SearchView searchView = (SearchView)MenuItemCompat.getActionView( mToolbarMenu.findItem( R.id.menu_search ) );
+        searchView.setQueryHint( getString( R.string.find_a_transaction ) );
+        searchView.setSubmitButtonEnabled( false );
+
+        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit( String query ){
+                // filter alle transacties ooit
+                // TODO niet in versie voor Vogels
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange( String text ){
+                if( currentFragment instanceof TransactionsFragment){
+                    TransactionsFragment fragment = ( TransactionsFragment)currentFragment;
+                    fragment.filterTransactions( text );
+                }
+                return false;
+            }
+        } );
+        searchView.setOnCloseListener( new SearchView.OnCloseListener(){
+            @Override
+            public boolean onClose(){
+                updateFragment();
+
+                Log.v( "SIZE OF LE LIST", " o lal a "  );
+                return false;
+            }
+        } );
+
         setMenuOptions( mToolbar.getTitle().toString() );
         return true;
     }
@@ -238,7 +254,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                         app.writeUserCredit( credit, fetchDate );
                         app.loadData();
-                        updateFragment( "Credit" );
+                        updateFragment();
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_credit ) + e.getMessage() );
                     }
@@ -267,7 +283,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         JSONArray array = new JSONObject( response ).getJSONArray( "data" );
                         app.writeTransactions( array );
                         app.completeDatabase( 2 );
-                        updateFragment( "Transactions" );
+                        updateFragment();
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                     }
@@ -281,10 +297,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    private void updateFragment( String fragmentTitle ){
+    private void updateFragment(){
 
-        if( mToolbar.getTitle().toString().equals( fragmentTitle ) ){
-            switch( fragmentTitle ){
+            switch( mToolbar.getTitle().toString() ){
                 case "Credit":
                     CreditFragment bf = (CreditFragment)currentFragment;
                     bf.updateView();
@@ -294,7 +309,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     tf.updateView();
                     break;
             }
-        }
     }
 
     private boolean canConnectToInternet(){
