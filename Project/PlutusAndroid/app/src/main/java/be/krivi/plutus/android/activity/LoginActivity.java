@@ -189,7 +189,7 @@ public class LoginActivity extends BaseActivity{
 
     private void initializeLoginWindow(){
 
-        if( !app.isNewInstallation() )
+        if( !app.getStudentId().equals( "" ) )
             mStudentId.setText( app.getStudentId() );
 
         aFadeIn = AnimationUtils.loadAnimation( app, R.anim.fade_in );
