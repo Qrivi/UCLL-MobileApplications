@@ -1,12 +1,10 @@
 package be.krivi.plutus.android.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -28,7 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity{
-
 
 
     Animation aFadeIn;
@@ -99,7 +96,7 @@ public class LoginActivity extends BaseActivity{
 
     @OnClick( R.id.btn_info )
     public void infoClickHandler(){
-        startActivity( new Intent( Intent.ACTION_VIEW ).setData( Uri.parse( app.getProjectUri() ) ) );
+        startActivity( new Intent( Intent.ACTION_VIEW ).setData( Uri.parse( app.getProjectUrl() ) ) );
     }
 
     @OnClick( R.id.btn_signIn )
@@ -132,7 +129,7 @@ public class LoginActivity extends BaseActivity{
         params.put( "studentId", studentId );
         params.put( "password", password );
 
-        app.contactAPI( params, Config.API_ENPOINT_VERIFY, new VolleyCallback(){
+        app.contactAPI( params, Config.API_ENDPOINT_VERIFY, new VolleyCallback(){
             @Override
             public void onSuccess( String response ){
                 try{
@@ -140,8 +137,8 @@ public class LoginActivity extends BaseActivity{
                     if( data.getBoolean( "valid" ) ){
                         app.initializeUser( studentId, password, data.getString( "firstName" ), data.getString( "lastName" ) );
                         initializeMainWindow();
-                    } else {
-                        showError("OK", getString( R.string.password_is_incorrect ));
+                    }else{
+                        showError( "OK", getString( R.string.password_is_incorrect ) );
                     }
                 }catch( JSONException e ){
                     e.printStackTrace();
@@ -150,7 +147,7 @@ public class LoginActivity extends BaseActivity{
 
             @Override
             public void onFailure( VolleyError error ){
-                Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_contacting_api) + error.getMessage() );
+                Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_verify ) );
             }
         } );
     }
@@ -159,7 +156,7 @@ public class LoginActivity extends BaseActivity{
         mWrapperInput.startAnimation( aFadeOut );
 
 
-       imm.toggleSoftInput( InputMethodManager.HIDE_IMPLICIT_ONLY, 0 );
+        imm.toggleSoftInput( InputMethodManager.HIDE_IMPLICIT_ONLY, 0 );
 
         mTitle.setText( text );
     }

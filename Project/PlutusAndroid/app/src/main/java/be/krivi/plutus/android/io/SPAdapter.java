@@ -14,7 +14,6 @@ public class SPAdapter{
 
     // TODO encrypt/decrypt password rather that saving/reading plain text
 
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -31,8 +30,16 @@ public class SPAdapter{
         return Boolean.parseBoolean( sharedPreferences.getString( "new_install", "true" ) );
     }
 
+    public boolean isDatabaseIncomplete(){
+        return Boolean.parseBoolean( sharedPreferences.getString( "incomplete_db", "true" ) );
+    }
+
     public void saveNewInstallation(boolean bool){
         editor.putString( "new_install", bool + "" );
+    }
+
+    public void saveDatabaseIncomplete(boolean bool){
+        editor.putString( "incomplete_db", bool + "" );
     }
 
     public void saveCredentials( User user ){
@@ -48,13 +55,13 @@ public class SPAdapter{
         editor.commit();
     }
 
-    public void saveHomeScreen( String homeScreen ){
-        editor.putString( "home_screen", homeScreen );
+    public void saveFetchDate( Date fetchDate ){
+        editor.putLong( "fetch_date", fetchDate.getTime() );
         editor.commit();
     }
 
-    public void savePauseTimestamp( Date timestamp ){
-        editor.putLong( "pause_time", timestamp.getTime() );
+    public void saveHomeScreen( String homeScreen ){
+        editor.putString( "home_screen", homeScreen );
         editor.commit();
     }
 
@@ -63,13 +70,13 @@ public class SPAdapter{
         editor.remove( "first_name" );
         editor.remove( "last_name" );
         editor.remove( "credit" );
-        editor.remove( "pause_time" );
-        editor.remove( "new_install" );
+        editor.remove( "fetch_date" );
         editor.commit();
     }
 
     public void clearSharedPreferences(){
         editor.remove( "student_id" );
+        editor.remove( "new_install" );
         cleanSharedPreferences();
     }
 
@@ -85,11 +92,11 @@ public class SPAdapter{
         return Double.parseDouble( sharedPreferences.getString( "credit", "0" ) );
     }
 
-    public String getFirstname(){
+    public String getFirstName(){
         return sharedPreferences.getString( "first_name", "" );
     }
 
-    public String getLastname(){
+    public String getLastName(){
         return sharedPreferences.getString( "last_name", "" );
     }
 
@@ -97,8 +104,8 @@ public class SPAdapter{
         return sharedPreferences.getString( "home_screen", "" );
     }
 
-    public Date getPauseTimestamp(){
-        long milliseconds = sharedPreferences.getLong( "pause_time", 0 );
+    public Date getFetchDate(){
+        long milliseconds = sharedPreferences.getLong( "fetch_date", 0 );
         if( milliseconds == 0 )
             return null;
         return new Date( milliseconds );

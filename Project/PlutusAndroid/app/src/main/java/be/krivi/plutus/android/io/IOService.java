@@ -1,7 +1,6 @@
 package be.krivi.plutus.android.io;
 
 import android.content.Context;
-import android.util.Log;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
@@ -39,12 +38,12 @@ public class IOService{
         spAdapter.saveCredit( credit );
     }
 
-    public void saveHomeScreen( String homeScreen ){
-        spAdapter.saveHomeScreen( homeScreen );
+    public void saveFetchDate( Date fetchDate ){
+        spAdapter.saveFetchDate( fetchDate );
     }
 
-    public void savePauseTimestamp( Date timestamp ){
-        spAdapter.savePauseTimestamp( timestamp );
+    public void saveHomeScreen( String homeScreen ){
+        spAdapter.saveHomeScreen( homeScreen );
     }
 
     public void cleanSharedPreferences(){
@@ -68,20 +67,20 @@ public class IOService{
         return spAdapter.getCredit();
     }
 
+    public Date getFetchDate(){
+        return spAdapter.getFetchDate();
+    }
+
     public String getFirstname(){
-        return spAdapter.getFirstname();
+        return spAdapter.getFirstName();
     }
 
     public String getLastname(){
-        return spAdapter.getLastname();
+        return spAdapter.getLastName();
     }
 
     public String getHomeScreen(){
         return spAdapter.getHomeScreen();
-    }
-
-    public Date getPauseTimestamp(){
-        return spAdapter.getPauseTimestamp();
     }
 
     public boolean writeTransactions( JSONArray JSONTransactions ){
@@ -122,9 +121,7 @@ public class IOService{
 
     public boolean insertTransaction( Transaction t ){
         dbAdapter.insertLocation( t.getLocation() );
-        if( dbAdapter.insertTransaction( t ) < 0 )
-            return true;
-        return false;
+        return dbAdapter.insertTransaction( t ) < 0;
     }
 
     public List<Transaction> getAllTransactions() throws ParseException{
@@ -143,8 +140,19 @@ public class IOService{
         dbAdapter.dropTables();
     }
 
-
     public boolean isNewInstallation(){
         return spAdapter.isNewInstallation();
+    }
+
+    public boolean isDatabaseIncomplete(){
+        return spAdapter.isDatabaseIncomplete();
+    }
+
+    public void saveNewInstallation(boolean bool){
+        spAdapter.saveNewInstallation( bool );
+    }
+
+    public void saveDatabaseIncomplete(boolean bool){
+        spAdapter.saveDatabaseIncomplete( bool );
     }
 }

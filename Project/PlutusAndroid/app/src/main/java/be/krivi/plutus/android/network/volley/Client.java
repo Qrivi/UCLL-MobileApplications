@@ -24,6 +24,9 @@ public class Client{
 
     public void contactAPI( final Map<String, String> params, String endpoint, final VolleyCallback callback ){
 
+        //TODO remove line
+        Log.v( "Contacting API", endpoint);
+
         final String URL = Config.API_URL + Config.API_VERSION + endpoint;
 
         StringRequest request = new StringRequest( Request.Method.POST,

@@ -24,7 +24,7 @@ public enum Month{
     private int shortName;
     private int fullName;
 
-    private Month( int shortName, int fullName ){
+    Month( int shortName, int fullName ){
         this.shortName = shortName;
         this.fullName = fullName;
     }

@@ -40,7 +40,7 @@ public class CreditFragment extends BaseFragment{
 
 
     public void updateView(){
-        tmp_moneyfield.setText( tmp_moneyfield.getText() + " -> " + app.getCurrentUser().getCredit() );
+        tmp_moneyfield.setText( app.getCurrentUser().getCredit() + " on " + app.getCurrentUser().getFetchDate() );
     }
 
 

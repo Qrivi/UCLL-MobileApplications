@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
-import be.krivi.plutus.android.fragment.CreditFragment;
 import be.krivi.plutus.android.fragment.BaseFragment;
+import be.krivi.plutus.android.fragment.CreditFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
@@ -31,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +62,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         ButterKnife.bind( this );
 
         setSupportActionBar( mToolbar );
-
         setFragment( app.getHomeScreen() );
 
         mDrawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer ){
@@ -86,26 +84,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         TextView lbl_studentName = (TextView)headerView.findViewById( R.id.lbl_studentName );
         lbl_studentName.setText( app.getCurrentUser().getFirstName() + " " + app.getCurrentUser().getLastName() );
 
-        if( app.isNewInstallation() ){
-            Message.snack( mDrawerLayout, getString( R.string.database_setting_up ) );
+        if( app.isNewInstallation() )
             mDrawerLayout.openDrawer( GravityCompat.START );
-        }
+
+        if( app.isDatabaseIncomplete() )
+            Message.snack( mDrawerLayout, getString( R.string.database_setting_up ) );
+
+        canConnectToInternet();
     }
 
     @Override
     public void onResume(){
         super.onResume();
 
-        if( app.fetchRequired() )
+        if( app.fetchRequired() ){
             fetchAllData();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-
-        if( !loggingOut )
-            app.savePauseTimestamp( new Date( System.currentTimeMillis() ) );
+            Log.v( "Data status", "outdated -- fetching..." );
+        }
     }
 
     @Override
@@ -202,7 +197,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void fetchAllData(){
-        if( isNetworkAvailable() ){
+        if( canConnectToInternet() ){
             fetchCreditData();
             fetchTransactionsData();
         }
@@ -210,7 +205,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void fetchCreditData(){
 
-        if( isNetworkAvailable() ){
+        if( canConnectToInternet() ){
             Map<String, String> params = new HashMap<>();
             params.put( "studentId", app.getCurrentUser().getStudentId() );
             params.put( "password", app.getCurrentUser().getPassword() );
@@ -219,19 +214,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 @Override
                 public void onSuccess( String response ){
                     try{
+                        JSONObject meta = new JSONObject( response ).getJSONObject( "meta" );
+                        String fetchDate = meta.getString( "timestamp" );
+
                         JSONObject data = new JSONObject( response ).getJSONObject( "data" );
-                        double credit = data.getDouble( "credit" );
-                        app.writeUserCredit( credit );
+                        double credit = data.getDouble( "amount" );
+
+                        app.writeUserCredit( credit, fetchDate );
                         app.loadData();
-                        updateCurrentFragment( "Credit" );
+                        updateFragment( "Credit" );
                     }catch( JSONException e ){
-                        Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_credit) + e.getMessage() );
+                        Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_credit ) + e.getMessage() );
                     }
                 }
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_contacting_api) + error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_credit ) );
                 }
             } );
         }
@@ -239,7 +238,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void fetchTransactionsData(){
 
-        if( isNetworkAvailable() ){
+        if( canConnectToInternet() ){
             Map<String, String> params = new HashMap<>();
             params.put( "studentId", app.getCurrentUser().getStudentId() );
             params.put( "password", app.getCurrentUser().getPassword() );
@@ -252,7 +251,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         JSONArray array = new JSONObject( response ).getJSONArray( "data" );
                         app.writeTransactions( array );
                         app.completeDatabase( 2 );
-                        updateCurrentFragment( "Transactions" );
+                        updateFragment( "Transactions" );
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                     }
@@ -260,13 +259,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 @Override
                 public void onFailure( VolleyError error ){
-                    Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_contacting_api ) + error.getMessage() );
+                    Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_transactions ) );
                 }
             } );
         }
     }
 
-    private void updateCurrentFragment( String fragmentTitle ){
+    private void updateFragment( String fragmentTitle ){
 
         if( mToolbar.getTitle().toString().equals( fragmentTitle ) ){
             switch( fragmentTitle ){
@@ -282,7 +281,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    private boolean isNetworkAvailable(){
+    private boolean canConnectToInternet(){
 
         if( !app.isNetworkAvailable() ){
             Message.snack( mDrawerLayout, getString( R.string.no_internet_connection ) );

@@ -74,9 +74,14 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void onRefresh(){
-        set = 0;
         MainActivity main = (MainActivity)getActivity();
-        main.fetchTransactionsData();
+        if( app.isNetworkAvailable() ){
+            set = 0;
+            main.fetchTransactionsData();
+        }else{
+            Message.snack( main.mDrawerLayout, getString( R.string.no_internet_connection ) );
+            mSwipeRefresh.setRefreshing( false );
+        }
     }
 
     public void updateView(){
