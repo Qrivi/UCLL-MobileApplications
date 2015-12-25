@@ -2,7 +2,6 @@ package be.krivi.plutus.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
-import be.krivi.plutus.android.fragment.BalanceFragment;
+import be.krivi.plutus.android.fragment.CreditFragment;
 import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
@@ -177,9 +176,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         int menuItem = 0;
 
         switch( fragmentTitle ){
-            case "Balance":
-                menuItem = R.id.navigation_balance;
-                currentFragment = new BalanceFragment();
+            case "Credit":
+                menuItem = R.id.navigation_credit;
+                currentFragment = new CreditFragment();
                 break;
             case "Transactions":
                 menuItem = R.id.navigation_transactions;
@@ -204,29 +203,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void fetchAllData(){
         if( isNetworkAvailable() ){
-            fetchBalanceData();
+            fetchCreditData();
             fetchTransactionsData();
         }
     }
 
-    public void fetchBalanceData(){
+    public void fetchCreditData(){
 
         if( isNetworkAvailable() ){
             Map<String, String> params = new HashMap<>();
             params.put( "studentId", app.getCurrentUser().getStudentId() );
             params.put( "password", app.getCurrentUser().getPassword() );
 
-            app.contactAPI( params, Config.API_ENDPOINT_BALANCE, new VolleyCallback(){
+            app.contactAPI( params, Config.API_ENDPOINT_CREDIT, new VolleyCallback(){
                 @Override
                 public void onSuccess( String response ){
                     try{
                         JSONObject data = new JSONObject( response ).getJSONObject( "data" );
-                        double balance = data.getDouble( "credit" );
-                        app.initializeUserBalance( balance );
+                        double credit = data.getDouble( "credit" );
+                        app.writeUserCredit( credit );
                         app.loadData();
-                        updateCurrentFragment( "Balance" );
+                        updateCurrentFragment( "Credit" );
                     }catch( JSONException e ){
-                        Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_balance) + e.getMessage() );
+                        Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_credit) + e.getMessage() );
                     }
                 }
 
@@ -271,8 +270,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if( mToolbar.getTitle().toString().equals( fragmentTitle ) ){
             switch( fragmentTitle ){
-                case "Balance":
-                    BalanceFragment bf = (BalanceFragment)currentFragment;
+                case "Credit":
+                    CreditFragment bf = (CreditFragment)currentFragment;
                     bf.updateView();
                     break;
                 case "Transactions":

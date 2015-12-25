@@ -11,7 +11,7 @@ public class User{
     private String firstName;
     private String lastName;
 
-    private double balance;
+    private double credit;
 
     public User(){}
 
@@ -24,25 +24,25 @@ public class User{
         this(studentId, password );
         setFirstName( firstName );
         setLastName( lastName );
-        setBalance( balance );
+        setCredit( credit );
     }
 
-    public User( String studentId, String password, String firstName, String lastName, double balance) {
+    public User( String studentId, String password, String firstName, String lastName, double credit ) {
         this(studentId, password, firstName, lastName );
-        setBalance( balance );
+        setCredit( credit );
     }
 
-    public User( String studentId, String password, double balance ){
+    public User( String studentId, String password, double credit ){
         this(studentId, password );
-        setBalance( balance );
+        setCredit( credit );
     }
 
-    public double getBalance(){
-        return balance;
+    public double getCredit(){
+        return credit;
     }
 
-    public void setBalance( double balance ){
-        this.balance = balance;
+    public void setCredit( double credit ){
+        this.credit = credit;
     }
 
     public String getStudentId(){

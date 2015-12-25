@@ -35,8 +35,8 @@ public class IOService{
         spAdapter.saveCredentials( user );
     }
 
-    public void saveBalance( double balance ){
-        spAdapter.saveBalance( balance );
+    public void saveCredit( double credit ){
+        spAdapter.saveCredit( credit );
     }
 
     public void saveHomeScreen( String homeScreen ){
@@ -64,8 +64,8 @@ public class IOService{
         return spAdapter.getPassword();
     }
 
-    public double getBalance(){
-        return spAdapter.getBalance();
+    public double getCredit(){
+        return spAdapter.getCredit();
     }
 
     public String getFirstname(){

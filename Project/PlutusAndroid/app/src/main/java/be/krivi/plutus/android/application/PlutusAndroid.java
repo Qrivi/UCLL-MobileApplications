@@ -57,9 +57,9 @@ public class PlutusAndroid extends Application{
         IOService.saveCredentials( getCurrentUser() );
     }
 
-    public void initializeUserBalance( double balance ){
-        this.user.setBalance( balance );
-        IOService.saveBalance( balance );
+    public void writeUserCredit( double credit ){
+        this.user.setCredit( credit );
+        IOService.saveCredit( credit );
         loadData();
     }
 
@@ -123,8 +123,10 @@ public class PlutusAndroid extends Application{
     }
 
     public void loadData(){
-        user = new User( IOService.getStudentId(), IOService.getPassword(), IOService.getFirstname(),
-                IOService.getLastname(), IOService.getBalance() );
+        user = new User(
+                IOService.getStudentId(), IOService.getPassword(),
+                IOService.getFirstname(), IOService.getLastname(),
+                IOService.getCredit() );
         try{
             transactions = IOService.getAllTransactions();
         }catch( ParseException e ){

@@ -8,9 +8,9 @@
             android:checkableBehavior="single">
 
         <item
-                android:id="@+id/navigation_balance"
+                android:id="@+id/navigation_credit"
                 android:icon="@drawable/ic_credit_card_black_24dp"
-                android:title="@string/balance"/>
+                android:title="@string/credit"/>
 
         <item
                 android:id="@+id/navigation_transactions"

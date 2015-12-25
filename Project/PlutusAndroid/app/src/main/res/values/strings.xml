@@ -39,7 +39,7 @@
     <string name="this_id_is_too_short">This ID is too short</string>
     <string name="this_id_does_not_exist">This ID does not exist</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="balance">Balance</string>
+    <string name="credit">Credit</string>
     <string name="transactions">Transactions</string>
     <string name="settings">Settings</string>
     <string name="password_is_incorrect">Password is incorrect</string>
@@ -61,7 +61,7 @@
     <string name="not_applicable_full">not applicable</string>
     <string name="dismiss">Dismiss</string>
     <string name="something_went_wrong">Oops, something went wrong!</string>
-    <string name="error_fetching_balance">Error fetching balance:\n</string>
+    <string name="error_fetching_credit">Error fetching credit:\n</string>
     <string name="error_contacting_api">Error reaching API:\n</string>
     <string name="error_loading_data_into_app">Error loading transaction into application:\n</string>
     <string name="error_fetching_transactions">Error fetching transactions:\n</string>

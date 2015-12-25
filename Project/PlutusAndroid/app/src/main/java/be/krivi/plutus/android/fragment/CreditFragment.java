@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BalanceFragment extends BaseFragment{
+public class CreditFragment extends BaseFragment{
 
 
     @Bind( R.id.tmp_moneyfield )
     TextView tmp_moneyfield;
 
-    public BalanceFragment(){
+    public CreditFragment(){
         // Required empty public constructor
     }
 
@@ -30,7 +30,7 @@ public class BalanceFragment extends BaseFragment{
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
 
         // Inflate the layout for this fragment
-        final View view = inflater.inflate( R.layout.fragment_balance, container, false );
+        final View view = inflater.inflate( R.layout.fragment_credit, container, false );
         ButterKnife.bind( this, view );
         //((MainActivity) getActivity()).getSupportActionBar().setTitle("Fragment Inbox");
 
@@ -40,7 +40,7 @@ public class BalanceFragment extends BaseFragment{
 
 
     public void updateView(){
-        tmp_moneyfield.setText( tmp_moneyfield.getText() + " -> " + app.getCurrentUser().getBalance() );
+        tmp_moneyfield.setText( tmp_moneyfield.getText() + " -> " + app.getCurrentUser().getCredit() );
     }
 
 

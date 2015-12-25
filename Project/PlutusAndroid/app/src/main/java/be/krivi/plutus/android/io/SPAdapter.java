@@ -43,8 +43,8 @@ public class SPAdapter{
         editor.commit();
     }
 
-    public void saveBalance( double balance ){
-        editor.putString( "balance", balance + "" );
+    public void saveCredit( double credit ){
+        editor.putString( "credit", credit + "" );
         editor.commit();
     }
 
@@ -62,7 +62,7 @@ public class SPAdapter{
         editor.remove( "password" );
         editor.remove( "first_name" );
         editor.remove( "last_name" );
-        editor.remove( "balance" );
+        editor.remove( "credit" );
         editor.remove( "pause_time" );
         editor.remove( "new_install" );
         editor.commit();
@@ -81,8 +81,8 @@ public class SPAdapter{
         return sharedPreferences.getString( "password", "" );
     }
 
-    public double getBalance(){
-        return Double.parseDouble( sharedPreferences.getString( "balance", "0" ) );
+    public double getCredit(){
+        return Double.parseDouble( sharedPreferences.getString( "credit", "0" ) );
     }
 
     public String getFirstname(){
