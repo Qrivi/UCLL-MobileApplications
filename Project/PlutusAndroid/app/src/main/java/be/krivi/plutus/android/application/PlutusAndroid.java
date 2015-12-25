@@ -209,7 +209,7 @@ public class PlutusAndroid extends Application{
 
         Date pauseDate = ioService.getFetchDate();
         if( pauseDate == null ){
-            Log.v( "Data status", "empty preferences -- no data" );
+            Log.i( "Data status", "empty preferences -- no data" );
             ioService.saveNewInstallation( false );
             return true;
         }
@@ -220,10 +220,10 @@ public class PlutusAndroid extends Application{
         cal.setTime( pauseDate );
         cal.add( Calendar.MINUTE, Config.APP_DEFAULT_SNOOZE_TIME );
 
-        Log.v( "Data status", "now: " + now );
-        Log.v( "Data status", "last: " + pauseDate );
-        Log.v( "Data status", "snooze: " + cal.getTime() );
-        Log.v( "Data status", "fetch required: " + now.after( cal.getTime() ) );
+        Log.i( "Data status", "now: " + now );
+        Log.i( "Data status", "last: " + pauseDate );
+        Log.i( "Data status", "snooze: " + cal.getTime() );
+        Log.i( "Data status", "fetch required: " + now.after( cal.getTime() ) );
 
         return now.after( cal.getTime() );
     }
@@ -251,7 +251,7 @@ public class PlutusAndroid extends Application{
                             MainActivity main = (MainActivity)currentActivity;
                             Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
                             ioService.saveDatabaseIncomplete( databaseIncomplete = false );
-                            Log.v( "Data status", "refreshed -- saved to db" );
+                            Log.i( "Data status", "refreshed -- saved to db" );
                             return; // safety first
                         }
                     }catch( JSONException e ){
@@ -262,7 +262,7 @@ public class PlutusAndroid extends Application{
                             MainActivity main = (MainActivity)currentActivity;
                             Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
                             ioService.saveDatabaseIncomplete( databaseIncomplete = false );
-                            Log.v( "Data status", "refreshed -- saved to db" );
+                            Log.i( "Data status", "refreshed -- saved to db" );
                         }catch( JSONException f ){
                             Message.obtrusive( getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                         }

@@ -6,10 +6,8 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -46,14 +44,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Bind( R.id.wrapperDrawer )
     NavigationView mNavigationView;
 
+    Menu mToolbarMenu;
     ActionBarDrawerToggle mDrawerToggle;
 
     BaseFragment currentFragment;
 
     boolean loggingOut;
 
-    MenuItem mFilter;
-    MenuItem mSearch;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -99,35 +96,34 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if( app.fetchRequired() ){
             fetchAllData();
-            Log.v( "Data status", "outdated -- fetching..." );
+            Log.i( "Data status", "outdated -- fetching..." );
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu( Menu menu ){
         // Inflate the menu; this adds items to the action bar if it is present.
+        this.mToolbarMenu = menu;
         getMenuInflater().inflate( R.menu.menu_main, menu );
 
-        mSearch = mToolbar.getMenu().findItem( R.id.action_search );
-        mFilter = mToolbar.getMenu().findItem( R.id.action_filter );
-
-        SearchView searchView = (SearchView)MenuItemCompat.getActionView( mSearch );
-        searchView.setQueryHint( getString( R.string.find_a_transaction ) );
-        searchView.setIconifiedByDefault( false );
-
-        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){
-
-            @Override
-            public boolean onQueryTextSubmit( String query ){
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange( String newText ){
-                Log.v( "IK HEB DIT ", newText );
-                return false;
-            }
-        } );
+        //        SearchView searchView = (SearchView)MenuItemCompat.getActionView( mMenuSearch );
+        //        searchView.setQueryHint( getString( R.string.find_a_transaction ) );
+        //        searchView.setIconifiedByDefault( false );
+        //
+        //        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener(){
+        //
+        //            @Override
+        //            public boolean onQueryTextSubmit( String query ){
+        //                return false;
+        //            }
+        //
+        //            @Override
+        //            public boolean onQueryTextChange( String newText ){
+        //                Log.v( "IK HEB DIT ", newText );
+        //                return false;
+        //            }
+        //        } );
+        setMenuOptions( mToolbar.getTitle().toString() );
         return true;
     }
 
@@ -167,33 +163,53 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void setFragment( String fragmentTitle ){
         FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        int menuItem = 0;
+        FragmentTransaction switcher = manager.beginTransaction();
+        int nav = 0;
 
         switch( fragmentTitle ){
             case "Credit":
-                menuItem = R.id.navigation_credit;
+                nav = R.id.navigation_credit;
                 currentFragment = new CreditFragment();
                 break;
             case "Transactions":
-                menuItem = R.id.navigation_transactions;
+                nav = R.id.navigation_transactions;
                 currentFragment = new TransactionsFragment();
                 break;
             case "Settings":
-                menuItem = R.id.navigation_settings;
+                nav = R.id.navigation_settings;
                 currentFragment = new SettingsFragment();
                 break;
         }
 
-        transaction.replace( R.id.wrapperFragment, currentFragment );
+        setMenuOptions( fragmentTitle );
+        switcher.replace( R.id.wrapperFragment, currentFragment );
 
-        if( menuItem != 0 )
-            mNavigationView.getMenu().findItem( menuItem ).setChecked( true );
+        if( nav != 0 )
+            mNavigationView.getMenu().findItem( nav ).setChecked( true );
         if( getSupportActionBar() != null )
             getSupportActionBar().setTitle( fragmentTitle );
 
         mToolbar.setTitle( fragmentTitle );
-        transaction.commit();
+        switcher.commit();
+    }
+
+    private void setMenuOptions( String fragmentTitle ){
+
+        if( mToolbarMenu != null ){
+            MenuItem search = mToolbarMenu.findItem( R.id.menu_filter );
+            MenuItem filter = mToolbarMenu.findItem( R.id.menu_search );
+
+            switch( fragmentTitle ){
+                case "Transactions":
+                    search.setVisible( true );
+                    filter.setVisible( true );
+                    break;
+                default:
+                    search.setVisible( false );
+                    filter.setVisible( false );
+                    break;
+            }
+        }
     }
 
     public void fetchAllData(){
