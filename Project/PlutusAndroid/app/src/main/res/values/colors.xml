@@ -6,12 +6,12 @@
         <color name="ucll_light_blue">#9FDAF9</color>
         <color name="ucll_light">#FFFFFF</color>
 
-        <color name="plutus_dark_gray">#4A4A4A</color>
+        <color name="plutus_dark_gray">#5A5A5A</color>
         <color name="plutus_dark_green">#417505</color>
         <color name="plutus_green">#7ED321</color>
         <color name="plutus_red">#D0021B</color>
 
-        <color name="text_default">#4A4A4A</color>
+        <color name="text_default">@color/plutus_dark_gray</color>
         <color name="text_clickable">#333333</color>
         <color name="text_soft">#A2A2A2</color>
 

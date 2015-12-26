@@ -1,7 +1,7 @@
 <resources>
 
     <style name="Plutus" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/ucll_pink</item>
+        <item name="colorPrimary">@color/ucll_light_blue</item>
         <item name="colorPrimaryDark">@color/ucll_pink_alt</item>
         <item name="colorAccent">@color/ucll_dark_blue</item>
         <item name="android:colorAccent">@color/ucll_dark_blue</item>
@@ -9,7 +9,7 @@
         <item name="android:textColorPrimary">@color/ucll_light</item>
         <item name="android:textColorSecondary">@color/ucll_light</item>
         <item name="colorControlHighlight">@color/ucll_light_blue</item>
-        <item name="android:textColor">@color/plutus_dark_gray</item>
+        <item name="android:textColor">@color/text_default</item>
         <item name="android:windowBackground">@color/ucll_light</item>
         <item name="android:actionModeBackground">@color/ucll_pink</item>
 
@@ -19,7 +19,10 @@
     </style>
 
     <style name="Plutus.Preferences" parent="PreferenceThemeOverlay">
-
+        <item name="android:padding">@dimen/padding_activity_none</item>
+        <item name="android:textColor">@color/text_default</item>
+        <item name="android:textColorPrimary">@color/text_default</item>
+        <item name="android:textColorSecondary">@color/text_soft</item>
     </style>
 
     <style name="Plutus.Toolbar" parent="ThemeOverlay.AppCompat">
@@ -44,12 +47,12 @@
     </style>
 
     <style name="Plutus.GaugeDate">
-        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/app_list_subtitle</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="Plutus.RowHeader">
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/app_list_header</item>
         <item name="android:textColor">@color/text_soft</item>
         <item name="android:gravity">left</item>
