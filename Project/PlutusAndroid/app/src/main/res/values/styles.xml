@@ -21,12 +21,24 @@
     <style name="Plutus.Preferences" parent="PreferenceThemeOverlay">
         <item name="android:padding">@dimen/padding_activity_none</item>
         <item name="android:textColor">@color/text_default</item>
+        <item name="android:textSize">@dimen/app_list_title</item>
         <item name="android:textColorPrimary">@color/text_default</item>
         <item name="android:textColorSecondary">@color/text_soft</item>
     </style>
 
     <style name="Plutus.Toolbar" parent="ThemeOverlay.AppCompat">
         <item name="android:background">@color/ucll_pink</item>
+    </style>
+
+    <style name="Plutus.NavUserName">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/drawer_text</item>
+        <item name="android:textColor">@color/ucll_light</item>
+    </style>
+
+    <style name="Plutus.NavUserInfo">
+        <item name="android:textSize">@dimen/drawer_text</item>
+        <item name="android:textColor">@color/ucll_light</item>
     </style>
 
     <style name="Plutus.GaugeEuros">

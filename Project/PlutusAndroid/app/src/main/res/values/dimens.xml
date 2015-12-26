@@ -13,6 +13,7 @@
 
     <dimen name="drawer_header">170dp</dimen>
     <dimen name="drawer_padding_text">4dp</dimen>
+    <dimen name="drawer_text">14sp</dimen>
 
     <dimen name="link_textSize">10sp</dimen>
     <dimen name="link_buttonSize">32dp</dimen>
