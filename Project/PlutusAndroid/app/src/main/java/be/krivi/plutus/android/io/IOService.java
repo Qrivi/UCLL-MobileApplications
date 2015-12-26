@@ -26,6 +26,47 @@ public class IOService{
         this.spAdapter = new SPAdapter( context );
     }
 
+    public void saveHomeScreen( String homeScreen ){
+        spAdapter.saveHomeScreen( homeScreen );
+    }
+
+    public void saveGaugeValue( float value ){
+        spAdapter.saveGaugeValue( value );
+    }
+
+    public void saveCreditRepresentation( boolean bool ){
+        spAdapter.saveCreditRepresentation( bool );
+    }
+
+    public void saveCreditRepresentationMin( int value ){
+        spAdapter.saveCreditRepresentationMin( value );
+    }
+
+    public void saveCreditRepresentationMax( int value ){
+        spAdapter.saveCreditRepresentationMax( value );
+    }
+
+    public String getHomeScreen(){
+        return spAdapter.getHomeScreen();
+    }
+
+    public float getGaugeValue(){
+        return spAdapter.getGaugeValue();
+    }
+
+    public boolean getCreditRepresentation(){
+        return spAdapter.getCreditRepresentation();
+    }
+
+    public int getCreditRepresentationMin(){
+        return spAdapter.getCreditRepresentationMin();
+    }
+
+    public int getCreditRepresentationMax(){
+        return spAdapter.getCreditRepresentationMax();
+    }
+
+
     public boolean isUserSaved(){
         return spAdapter.isUserSaved();
     }
@@ -40,10 +81,6 @@ public class IOService{
 
     public void saveFetchDate( Date fetchDate ){
         spAdapter.saveFetchDate( fetchDate );
-    }
-
-    public void saveHomeScreen( String homeScreen ){
-        spAdapter.saveHomeScreen( homeScreen );
     }
 
     public void cleanSharedPreferences(){
@@ -77,10 +114,6 @@ public class IOService{
 
     public String getLastname(){
         return spAdapter.getLastName();
-    }
-
-    public String getHomeScreen(){
-        return spAdapter.getHomeScreen();
     }
 
     public boolean writeTransactions( JSONArray JSONTransactions ){
@@ -148,11 +181,11 @@ public class IOService{
         return spAdapter.isDatabaseIncomplete();
     }
 
-    public void saveNewInstallation(boolean bool){
+    public void saveNewInstallation( boolean bool ){
         spAdapter.saveNewInstallation( bool );
     }
 
-    public void saveDatabaseIncomplete(boolean bool){
+    public void saveDatabaseIncomplete( boolean bool ){
         spAdapter.saveDatabaseIncomplete( bool );
     }
 }

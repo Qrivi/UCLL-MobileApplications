@@ -24,9 +24,9 @@ public abstract class Config{
     public static int APP_DEFAULT_LIST_SIZE = 25;
 
     public static boolean SETTINGS_DEFAULT_CREDIT_REPRESENTATION = true;
-    public static double SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN = 10;
-    public static double SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX = 50;
-    public static boolean SETTINGS_DEFAULT_NOTIFICATIONS = true;
+    public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN = 10;
+    public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX = 50;
+    public static boolean SETTINGS_DEFAULT_NOTIFICATIONS = false;
     public static String SETTINGS_DEFAULT_HOMESCREEN = "Credit";
 
 }

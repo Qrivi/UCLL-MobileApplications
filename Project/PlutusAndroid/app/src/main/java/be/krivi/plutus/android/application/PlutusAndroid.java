@@ -36,11 +36,16 @@ public class PlutusAndroid extends Application{
 
     private IOService ioService;
     private NetworkClient networkClient;
-
-    private String homeScreen;
     DateFormat format;
 
     boolean databaseIncomplete;
+
+    private String homeScreen;
+    private float gaugeValue;
+
+    private boolean creditRepresentation;
+    private int creditRepresentationMin;
+    private int creditRepresentationMax;
 
     @Override
     public void onCreate(){
@@ -50,12 +55,62 @@ public class PlutusAndroid extends Application{
         networkClient = new NetworkClient();
         format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
 
-        homeScreen = ioService.getHomeScreen().equals( "" ) ? Config.SETTINGS_DEFAULT_HOMESCREEN : ioService.getHomeScreen();
+        // get defaults
+        homeScreen = ioService.getHomeScreen();
+        gaugeValue = ioService.getGaugeValue();
         databaseIncomplete = ioService.isDatabaseIncomplete();
+        creditRepresentation = ioService.getCreditRepresentation();
+        creditRepresentationMin = ioService.getCreditRepresentationMin();
+        creditRepresentationMax = ioService.getCreditRepresentationMax();
     }
 
     public static Context getAppContext(){
         return instance.getApplicationContext();
+    }
+
+    public void setHomeScreen( String homeScreen ){
+        this.homeScreen = homeScreen;
+        ioService.saveHomeScreen( homeScreen );
+    }
+
+    public void setGaugeValue( float value ){
+        this.gaugeValue = value;
+        ioService.saveGaugeValue( value );
+    }
+
+    public void setCreditRepresentation( boolean bool ){
+        this.creditRepresentation = bool;
+        ioService.saveCreditRepresentation( bool );
+    }
+
+    public void setCreditRepresentationMin( int value ){
+        this.creditRepresentationMin = value;
+        ioService.saveCreditRepresentationMin( value );
+    }
+
+    public void setCreditRepresentationMax( int value ){
+        this.creditRepresentationMax = value;
+        ioService.saveCreditRepresentationMax( value );
+    }
+
+    public String getHomeScreen(){
+        return homeScreen;
+    }
+
+    public float getGaugeValue(){
+        return gaugeValue;
+    }
+
+    public boolean getCreditRepresentation(){
+        return creditRepresentation;
+    }
+
+    public int getCreditRepresentationMin(){
+        return creditRepresentationMin;
+    }
+
+    public int getCreditRepresentationMax(){
+        return creditRepresentationMax;
     }
 
 
@@ -192,16 +247,6 @@ public class PlutusAndroid extends Application{
 
         int end = start + Config.APP_DEFAULT_LIST_SIZE < transactions.size() ? start + Config.APP_DEFAULT_LIST_SIZE : transactions.size();
         return transactions.subList( start, end );
-    }
-
-    public String getHomeScreen(){
-
-        return homeScreen;
-    }
-
-    public void setHomeScreen( String homeScreen ){
-        this.homeScreen = homeScreen;
-        ioService.saveHomeScreen( homeScreen );
     }
 
     public boolean fetchRequired(){

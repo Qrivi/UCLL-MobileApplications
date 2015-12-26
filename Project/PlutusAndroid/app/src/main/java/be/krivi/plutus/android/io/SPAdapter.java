@@ -2,6 +2,7 @@ package be.krivi.plutus.android.io;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.model.User;
 
 import java.util.Date;
@@ -22,6 +23,45 @@ public class SPAdapter{
         editor = sharedPreferences.edit();
     }
 
+
+    public void saveHomeScreen( String homeScreen ){
+        editor.putString( "home_screen", homeScreen );
+        editor.commit();
+    }
+    public void saveGaugeValue( float value ){
+        editor.putFloat( "gauge_value", value );
+        editor.commit();
+    }
+    public void saveCreditRepresentation( boolean bool ){
+        editor.putString( "credit_rep", bool + "");
+        editor.commit();
+    }
+    public void saveCreditRepresentationMin( int value ){
+        editor.putInt( "credit_rep_min", value );
+        editor.commit();
+    }
+    public void saveCreditRepresentationMax( int value ){
+        editor.putInt( "credit_rep_max", value );
+        editor.commit();
+    }
+
+    public String getHomeScreen( ){
+        return sharedPreferences.getString( "home_screen", Config.SETTINGS_DEFAULT_HOMESCREEN );
+    }
+    public float getGaugeValue( ){
+        return sharedPreferences.getFloat( "gauge_value", 0.0f );
+    }
+    public boolean getCreditRepresentation(  ){
+        return Boolean.parseBoolean( sharedPreferences.getString( "credit_rep", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION + "" ) );
+    }
+    public int getCreditRepresentationMin(  ){
+        return sharedPreferences.getInt( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN );
+    }
+    public int getCreditRepresentationMax(  ){
+        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX );
+    }
+    
+
     public boolean isUserSaved(){
         return ( sharedPreferences.contains( "student_id" ) && sharedPreferences.contains( "password" ) );
     }
@@ -36,10 +76,12 @@ public class SPAdapter{
 
     public void saveNewInstallation(boolean bool){
         editor.putString( "new_install", bool + "" );
+        editor.commit();
     }
 
     public void saveDatabaseIncomplete(boolean bool){
         editor.putString( "incomplete_db", bool + "" );
+        editor.commit();
     }
 
     public void saveCredentials( User user ){
@@ -60,11 +102,6 @@ public class SPAdapter{
         editor.commit();
     }
 
-    public void saveHomeScreen( String homeScreen ){
-        editor.putString( "home_screen", homeScreen );
-        editor.commit();
-    }
-
     public void cleanSharedPreferences(){
         editor.remove( "password" );
         editor.remove( "first_name" );
@@ -77,6 +114,10 @@ public class SPAdapter{
     public void clearSharedPreferences(){
         editor.remove( "student_id" );
         editor.remove( "new_install" );
+        editor.remove( "home_screen" );
+        editor.remove( "credit_rep" );
+        editor.remove( "credit_min" );
+        editor.remove( "credit_max" );
         cleanSharedPreferences();
     }
 
@@ -98,10 +139,6 @@ public class SPAdapter{
 
     public String getLastName(){
         return sharedPreferences.getString( "last_name", "" );
-    }
-
-    public String getHomeScreen(){
-        return sharedPreferences.getString( "home_screen", "" );
     }
 
     public Date getFetchDate(){
