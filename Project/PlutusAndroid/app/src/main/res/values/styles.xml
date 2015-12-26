@@ -21,8 +21,30 @@
         <item name="android:background">@color/ucll_pink</item>
     </style>
 
-    <style name="Plutus.RowHeader">
+    <style name="Plutus.GaugeEuros">
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/app_gauge_euros</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="Plutus.GaugeCents">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/app_gauge_cents</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="Plutus.GaugeCurrency">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/app_gauge_currency</item>
+    </style>
+
+    <style name="Plutus.GaugeDate">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/app_list_subtitle</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Plutus.RowHeader">
         <item name="android:textSize">@dimen/app_list_header</item>
         <item name="android:textColor">@color/text_soft</item>
         <item name="android:gravity">left</item>

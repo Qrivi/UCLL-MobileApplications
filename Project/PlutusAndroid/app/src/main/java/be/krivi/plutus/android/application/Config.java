@@ -17,6 +17,7 @@ public abstract class Config{
     public static String API_ENDPOINT_CREDIT = "/credit";
     public static String API_ENDPOINT_TRANSACTIONS = "/transactions";
 
+    public static String API_DEFAULT_CURRENCY = "EUR";
     public static String API_DEFAULT_CURRENCY_SYMBOL = "€";
 
     public static int APP_DEFAULT_SNOOZE_TIME = 60;

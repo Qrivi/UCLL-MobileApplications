@@ -3,10 +3,10 @@ package be.krivi.plutus.android.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +34,7 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
     @Bind( R.id.recyclerTransactions )
     RecyclerView mRecycler;
 
+    private MainActivity main;
     private TransactionsAdapter adapter;
     private List<Transaction> transactions;
     private int set;
@@ -48,6 +49,8 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
         final View view = inflater.inflate( R.layout.fragment_transactions, container, false );
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         ButterKnife.bind( this, view );
+
+        main = (MainActivity) getActivity();
 
         set = 0;
         transactions = new LinkedList<>();
@@ -89,6 +92,7 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
         transactions = app.getTransactionsSet( set );
         adapter.setRowData( transactions );
 
+        main.mDrawerLayout.setDrawerLockMode( DrawerLayout.LOCK_MODE_UNLOCKED );
         mSwipeRefresh.setEnabled( true );
         mSwipeRefresh.setRefreshing( false );
 
@@ -97,14 +101,15 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
     }
 
     public void filterTransactions( String filter ){
-        mSwipeRefresh.setEnabled( false );
         List<Transaction> filteredList = new LinkedList<>();
         CharSequence f = filter.toLowerCase();
 
         for( Transaction t : transactions )
-            if( t.getTitle().toLowerCase().contains( f)  )
+            if( t.getTitle().toLowerCase().contains( f ) )
                 filteredList.add( t );
 
+        main.mDrawerLayout.setDrawerLockMode( DrawerLayout.LOCK_MODE_LOCKED_CLOSED );
+        mSwipeRefresh.setEnabled( false );
         adapter.setRowData( filteredList );
     }
 }

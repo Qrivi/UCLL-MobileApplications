@@ -25,6 +25,9 @@
     <dimen name="app_knob_small">40dp</dimen><!-- material FAB small -->
     <dimen name="app_price_small_container">100dp</dimen>
 
+    <dimen name="app_gauge_euros">48sp</dimen>
+    <dimen name="app_gauge_cents">38sp</dimen>
+    <dimen name="app_gauge_currency">20sp</dimen>
     <dimen name="app_price_small">18sp</dimen>
     <dimen name="app_date_day_small">14sp</dimen>
     <dimen name="app_date_month_small">10sp</dimen>

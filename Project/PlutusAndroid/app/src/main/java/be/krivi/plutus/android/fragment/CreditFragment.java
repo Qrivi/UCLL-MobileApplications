@@ -18,8 +18,6 @@ import butterknife.ButterKnife;
 public class CreditFragment extends BaseFragment{
 
 
-    @Bind( R.id.tmp_moneyfield )
-    TextView tmp_moneyfield;
 
     public CreditFragment(){
         // Required empty public constructor
@@ -40,7 +38,7 @@ public class CreditFragment extends BaseFragment{
 
 
     public void updateView(){
-        tmp_moneyfield.setText( app.getCurrentUser().getCredit() + " on " + app.getCurrentUser().getFetchDate() );
+       // tmp_moneyfield.setText( app.getCurrentUser().getCredit() + " on " + app.getCurrentUser().getFetchDate() );
     }
 
 

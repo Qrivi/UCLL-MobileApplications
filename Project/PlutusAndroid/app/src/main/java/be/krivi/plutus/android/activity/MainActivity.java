@@ -22,7 +22,6 @@ import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.CreditFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
-import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -120,22 +119,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 // TODO niet in versie voor Vogels
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange( String text ){
-                if( currentFragment instanceof TransactionsFragment){
-                    TransactionsFragment fragment = ( TransactionsFragment)currentFragment;
+                if( currentFragment instanceof TransactionsFragment ){
+                    TransactionsFragment fragment = (TransactionsFragment)currentFragment;
                     fragment.filterTransactions( text );
                 }
                 return false;
             }
         } );
-        searchView.setOnCloseListener( new SearchView.OnCloseListener(){
+        searchView.addOnAttachStateChangeListener( new View.OnAttachStateChangeListener(){
             @Override
-            public boolean onClose(){
-                updateFragment();
+            public void onViewDetachedFromWindow( View arg0 ){
+                if( currentFragment instanceof TransactionsFragment ){
+                    TransactionsFragment fragment = (TransactionsFragment)currentFragment;
+                    fragment.updateView();
+                }
+            }
 
-                Log.v( "SIZE OF LE LIST", " o lal a "  );
-                return false;
+            @Override
+            public void onViewAttachedToWindow( View arg0 ){
+                // search was opened
             }
         } );
 
@@ -145,12 +150,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onOptionsItemSelected( MenuItem item ){
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        //if( item.getTitle().toString().equals( getString( R.string.search ) ) )
-
+        if( item.getItemId() == R.id.menu_filter ){
+            // TODO filters
+        }
 
         return super.onOptionsItemSelected( item );
     }
@@ -299,16 +301,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void updateFragment(){
 
-            switch( mToolbar.getTitle().toString() ){
-                case "Credit":
-                    CreditFragment bf = (CreditFragment)currentFragment;
-                    bf.updateView();
-                    break;
-                case "Transactions":
-                    TransactionsFragment tf = (TransactionsFragment)currentFragment;
-                    tf.updateView();
-                    break;
-            }
+        switch( mToolbar.getTitle().toString() ){
+            case "Credit":
+                CreditFragment bf = (CreditFragment)currentFragment;
+                bf.updateView();
+                break;
+            case "Transactions":
+                TransactionsFragment tf = (TransactionsFragment)currentFragment;
+                tf.updateView();
+                break;
+        }
     }
 
     private boolean canConnectToInternet(){
