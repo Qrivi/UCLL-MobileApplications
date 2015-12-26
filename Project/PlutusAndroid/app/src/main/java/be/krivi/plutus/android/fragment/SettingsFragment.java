@@ -3,8 +3,9 @@ package be.krivi.plutus.android.fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.EditTextPreference;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.text.InputType;
+import android.util.Log;
 import be.krivi.plutus.android.R;
 
 
@@ -34,22 +35,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onSharedPreferenceChanged( SharedPreferences sharedPreferences, String key ){
-
         if( key.equals( "credit_rep_min" ) ){
             int min = Integer.parseInt( sharedPreferences.getString( key, "-1" ) );
-            if( min < 0 || min > 100 ){
+            int max = Integer.parseInt( sharedPreferences.getString( "credit_rep_max", "0" ) );
+            if( min >= max || min < 0 || min > 100 ){
                 EditTextPreference minimum = (EditTextPreference)findPreference( "credit_rep_min" );
                 minimum.setText( "0" );
             }
+            updateView();
         }else if( key.equals( "credit_rep_max" ) ){
-            int min = Integer.parseInt( sharedPreferences.getString( "credit_rep_min", "-1" ) );
+            int min = Integer.parseInt( sharedPreferences.getString( "credit_rep_min", "0" ) );
             int max = Integer.parseInt( sharedPreferences.getString( key, "-1" ) );
             if( max <= min || max < 0 || max > 100 ){
+                Log.v( "hierbenikMAX", max + "" );
                 EditTextPreference maximum = (EditTextPreference)findPreference( "credit_rep_max" );
                 maximum.setText( "69" );
             }
-        }
-        updateView();
+            updateView();
+        }else if( key.equals( "language" ) )
+            updateView();
     }
 
     private void updateView(){
@@ -60,5 +64,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         EditTextPreference maximum = (EditTextPreference)findPreference( "credit_rep_max" );
         maximum.setSummary( "€ " + sp.getString( "credit_rep_max", "0" ) );
+
+        ListPreference language = (ListPreference)findPreference( "language" );
+        language.setSummary( sp.getString( "language", "System language" ) );
     }
 }
