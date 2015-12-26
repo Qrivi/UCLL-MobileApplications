@@ -1,6 +1,7 @@
 package be.krivi.plutus.android.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.MainActivity;
 import be.krivi.plutus.android.application.Config;
+import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.view.GaugeAnimation;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -27,7 +29,7 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class CreditFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     @Bind( R.id.wrapperCredit )
     SwipeRefreshLayout mSwipeRefresh;
@@ -53,6 +55,9 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
     @Bind( R.id.txt_fetchTime )
     TextView mTime;
 
+    private PlutusAndroid app;
+    private MainActivity main;
+
     private DecimalFormat df;
     private SimpleDateFormat sdfTime;
     private SimpleDateFormat sdfDate;
@@ -67,6 +72,9 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
 
         final View view = inflater.inflate( R.layout.fragment_credit, container, false );
         ButterKnife.bind( this, view );
+
+        main = (MainActivity) getActivity();
+        app = (PlutusAndroid) main.getApplication();
 
         df = new DecimalFormat( "#0.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
 
@@ -145,7 +153,6 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onRefresh(){
-        MainActivity main = (MainActivity)getActivity();
         if( app.isNetworkAvailable() ){
             main.fetchCreditData();
         }else{

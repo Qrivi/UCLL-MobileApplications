@@ -15,6 +15,11 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="preferenceTheme">@style/Plutus.Preferences</item>
+    </style>
+
+    <style name="Plutus.Preferences" parent="PreferenceThemeOverlay">
+
     </style>
 
     <style name="Plutus.Toolbar" parent="ThemeOverlay.AppCompat">

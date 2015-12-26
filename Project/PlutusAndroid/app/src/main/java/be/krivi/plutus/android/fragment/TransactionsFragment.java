@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.MainActivity;
+import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.view.Message;
 import be.krivi.plutus.android.view.TransactionsAdapter;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class TransactionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     @Bind( R.id.swipeRefreshTransactions )
     SwipeRefreshLayout mSwipeRefresh;
@@ -35,6 +36,7 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
     @Bind( R.id.recyclerTransactions )
     RecyclerView mRecycler;
 
+    private PlutusAndroid app;
     private MainActivity main;
     private TransactionsAdapter adapter;
     private List<Transaction> transactions;
@@ -52,7 +54,8 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
         final View view = inflater.inflate( R.layout.fragment_transactions, container, false );
         ButterKnife.bind( this, view );
 
-        main = (MainActivity)getActivity();
+        main = (MainActivity) getActivity();
+        app = (PlutusAndroid) main.getApplication();
 
         set = 0;
         linearLayoutManager = new LinearLayoutManager( getActivity() );
@@ -90,7 +93,7 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
 
                         transactions = updatedList;
                         adapter.setRowData( transactions );
-                        Message.toast( getContext(), "loading set " + current_set );
+                        //Message.toast( getContext(), "loading set " + current_set );
                     }
                 }
             }
@@ -99,7 +102,6 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void onRefresh(){
-        MainActivity main = (MainActivity)getActivity();
         if( app.isNetworkAvailable() ){
             set = 0;
             main.fetchTransactionsData();
@@ -120,8 +122,7 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
         mSwipeRefresh.setEnabled( true );
         mSwipeRefresh.setRefreshing( false );
 
-        //TODO send this line to Africa
-        Message.toast( app.getApplicationContext(), transactions.size() + " loads" );
+        //Message.toast( app.getApplicationContext(), transactions.size() + " loads" );
     }
 
     public void filterTransactions( String filter ){

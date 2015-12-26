@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+    <PreferenceCategory
+            android:title="eerste">
+
+        <CheckBoxPreference
+                android:key="checkbox_preference"
+                android:title="@string/app_name"
+                android:summary="Coolboy jan"
+        />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

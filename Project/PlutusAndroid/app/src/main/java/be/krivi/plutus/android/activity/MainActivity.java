@@ -3,6 +3,7 @@ package be.krivi.plutus.android.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -18,10 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
-import be.krivi.plutus.android.fragment.BaseFragment;
-import be.krivi.plutus.android.fragment.CreditFragment;
-import be.krivi.plutus.android.fragment.SettingsFragment;
-import be.krivi.plutus.android.fragment.TransactionsFragment;
+import be.krivi.plutus.android.fragment.*;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -49,7 +47,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     Menu mToolbarMenu;
     ActionBarDrawerToggle mDrawerToggle;
 
-    BaseFragment currentFragment;
+    Fragment currentFragment;
 
     boolean loggingOut;
 
