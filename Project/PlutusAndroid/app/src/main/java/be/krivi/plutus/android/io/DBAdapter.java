@@ -74,10 +74,10 @@ public class DBAdapter{
             String title = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_TITLE ) );
             String description = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_DESCRIPTION ) );
             String location = cursor.getString( cursor.getColumnIndex( DBHelper.TRANSACTIONS_LOCATION ) );
-            Double lng = cursor.getDouble( cursor.getColumnIndex(DBHelper.LOCATIONS_LNG) );
             Double lat = cursor.getDouble( cursor.getColumnIndex(DBHelper.LOCATIONS_LAT) );
+            Double lng = cursor.getDouble( cursor.getColumnIndex(DBHelper.LOCATIONS_LNG) );
 
-            transactions.add( new Transaction( timestamp, amount, type, title, description, new Location( location, lng, lat) ) );
+            transactions.add( new Transaction( timestamp, amount, type, title, description, new Location( location, lat, lng) ) );
 
         }
         //TODO not sure if should be closed right here or later

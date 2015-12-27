@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case "Settings":
                 nav = R.id.navigation_settings;
-                currentFragment = new SettingsFragment();
+                currentFragment = new SettingsAltFragment();
                 break;
         }
 

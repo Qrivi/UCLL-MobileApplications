@@ -6,6 +6,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.MainActivity;
 import be.krivi.plutus.android.application.PlutusAndroid;
@@ -24,7 +25,7 @@ public class SettingsAltFragment extends Fragment{
 
 
     @Bind( R.id.pref_switchCreditGauge )
-    SwitchCompat switchCreaditGauge;
+    Switch switchCreditGauge;
 
     private PlutusAndroid app;
     private MainActivity main;
@@ -47,10 +48,7 @@ public class SettingsAltFragment extends Fragment{
     @OnClick(R.id.pref_wrapperCredit_gaugeSwitch)
     public void onGaugeSwitchClicked() {
 
-        //switchCreaditGauge.setEnabled(  );
-
-
-
+        switchCreditGauge.setEnabled( true );
     }
 
 
