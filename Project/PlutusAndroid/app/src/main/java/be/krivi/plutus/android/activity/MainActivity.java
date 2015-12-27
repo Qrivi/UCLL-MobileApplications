@@ -150,6 +150,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected( MenuItem item ){
         if( item.getItemId() == R.id.menu_filter ){
             // TODO filters
+            Message.toast( this, "Not yet implemented" );
         }
 
         return super.onOptionsItemSelected( item );
