@@ -27,13 +27,15 @@ import java.util.Locale;
  */
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.TransactionViewHolder>{
 
+    private static TransactionsOnClickListener clickListener;
     private Context context;
     private LayoutInflater inflater;
     private List<RowData> rowData;
 
     private DecimalFormat df;
 
-    public TransactionsAdapter( Context context, List<Transaction> transactions ){
+    public TransactionsAdapter( Context context, List<Transaction> transactions, TransactionsOnClickListener clickListener ){
+        this.clickListener = clickListener;
         this.context = context;
         this.inflater = LayoutInflater.from( context );
         this.rowData = formatData( transactions );
@@ -80,6 +82,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
                 holder.setTransactionType( t.getType() );
                 holder.mAmount.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + df.format( t.getAmount() ) );
+
+                holder.transaction = t;
                 break;
         }
     }
@@ -96,9 +100,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         for( Transaction t : list ){
             if( !t.getMonth( "full" ).equals( currentMonth ) ){
                 currentMonth = t.getMonth( "full" );
-                currentData.add( new RowData( currentMonth +" " + t.getYear() ) );
+                currentData.add( new RowData( currentMonth + " " + t.getYear() ) );
             }
-            currentData.add( new RowData( t ) );
+            currentData.add( new RowData( t, list.indexOf( t ) ) );
         }
         return currentData;
     }
@@ -106,15 +110,18 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
     class RowData{
         public String header;
         public Transaction transaction;
+        public int index;
         public int type;
 
         public RowData( String header ){
             this.header = capitalize( header );
+            this.index = -1;
             this.type = 0;
         }
 
-        public RowData( Transaction transaction ){
+        public RowData( Transaction transaction, int index ){
             this.transaction = transaction;
+            this.index = index;
             this.type = 1;
         }
 
@@ -125,7 +132,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         }
     }
 
-    class TransactionViewHolder extends RecyclerView.ViewHolder{
+    class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @Bind( R.id.tr_rowHeader )
         LinearLayout mRowHeader;
@@ -154,9 +161,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         @Bind( R.id.tr_amount )
         TextView mAmount;
 
+        public Transaction transaction;
+
         public TransactionViewHolder( View view ){
             super( view );
             ButterKnife.bind( this, view );
+            mRowData.setOnClickListener( this );
         }
 
         public void setTransactionType( String transactionType ){
@@ -168,6 +178,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
                     mAmount.setTextColor( ContextCompat.getColor( context, R.color.transaction_topup ) );
                     break;
             }
+        }
+
+        @Override
+        public void onClick( View view ){
+            if( transaction != null )
+                clickListener.transactionClicked( transaction );
         }
     }
 }

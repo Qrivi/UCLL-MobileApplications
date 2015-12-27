@@ -1,22 +1,24 @@
 package be.krivi.plutus.android.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.activity.DetailActivity;
 import be.krivi.plutus.android.activity.MainActivity;
 import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.view.Message;
 import be.krivi.plutus.android.view.TransactionsAdapter;
+import be.krivi.plutus.android.view.TransactionsOnClickListener;
 import be.krivi.plutus.android.view.TransactionsOnScrollListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,7 +30,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class TransactionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, TransactionsOnClickListener{
 
     @Bind( R.id.swipeRefreshTransactions )
     SwipeRefreshLayout mSwipeRefresh;
@@ -54,13 +56,13 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
         final View view = inflater.inflate( R.layout.fragment_transactions, container, false );
         ButterKnife.bind( this, view );
 
-        main = (MainActivity) getActivity();
-        app = (PlutusAndroid) main.getApplication();
+        main = (MainActivity)getActivity();
+        app = (PlutusAndroid)main.getApplication();
 
         set = 0;
         linearLayoutManager = new LinearLayoutManager( getActivity() );
         transactions = new LinkedList<>();
-        adapter = new TransactionsAdapter( getActivity(), transactions );
+        adapter = new TransactionsAdapter( getActivity(), transactions, this );
 
         mRecycler.setAdapter( adapter );
         mRecycler.setLayoutManager( linearLayoutManager );
@@ -78,12 +80,12 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
         return view;
     }
 
-    private TransactionsOnScrollListener getOnScrollListener(LinearLayoutManager linearLayoutManager) {
+    private TransactionsOnScrollListener getOnScrollListener( LinearLayoutManager linearLayoutManager ){
 
         return new TransactionsOnScrollListener( linearLayoutManager ){
             @Override
             public void onLoadMore( int current_set ){
-                if( app.isNetworkAvailable()){
+                if( app.isNetworkAvailable() ){
                     List<Transaction> newTransactions = app.getTransactionsSet( current_set );
 
                     if( newTransactions != null ){
@@ -106,7 +108,7 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
             set = 0;
             main.fetchTransactionsData();
             mRecycler.removeOnScrollListener( scrollListener );
-            scrollListener = getOnScrollListener( linearLayoutManager);
+            scrollListener = getOnScrollListener( linearLayoutManager );
             mRecycler.addOnScrollListener( scrollListener );
         }else{
             Message.snack( main.mDrawerLayout, getString( R.string.no_internet_connection ) );
@@ -136,5 +138,11 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
         main.mDrawerLayout.setDrawerLockMode( DrawerLayout.LOCK_MODE_LOCKED_CLOSED );
         mSwipeRefresh.setEnabled( false );
         adapter.setRowData( filteredList );
+    }
+
+    @Override
+    public void transactionClicked( Transaction t ){
+        app.setTransactionDetail( t );
+        startActivity( new Intent( getContext(), DetailActivity.class ));
     }
 }

@@ -34,6 +34,8 @@ public class PlutusAndroid extends Application{
     private User user;
     private List<Transaction> transactions;
 
+    private Transaction transactionDetail;
+
     private IOService ioService;
     private NetworkClient networkClient;
     DateFormat format;
@@ -321,5 +323,13 @@ public class PlutusAndroid extends Application{
             } );
         }
 
+    }
+
+    public void setTransactionDetail( Transaction transactionDetail ){
+        this.transactionDetail = transactionDetail;
+    }
+
+    public Transaction getTransactionDetail(){
+        return transactionDetail;
     }
 }

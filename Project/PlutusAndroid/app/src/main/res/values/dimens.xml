@@ -6,6 +6,7 @@
 
     <dimen name="padding_form">32dp</dimen>
     <dimen name="padding_list">24dp</dimen>
+    <dimen name="padding_header">10dp</dimen>
     <dimen name="padding_border">16dp</dimen>
     <dimen name="padding_contentarea">8dp</dimen>
     <dimen name="padding_list_with_icons">72sp</dimen><!-- material -->
@@ -19,7 +20,7 @@
     <dimen name="link_buttonSize">32dp</dimen>
 
     <dimen name="app_list_separator">1dp</dimen>
-    <dimen name="app_list_item">20dp</dimen>
+    <dimen name="app_list_item">10dp</dimen>
     <dimen name="app_list_header">14sp</dimen>
     <dimen name="app_list_title">14sp</dimen><!-- material body -->
     <dimen name="app_list_subtitle">12sp</dimen><!-- material caption -->
