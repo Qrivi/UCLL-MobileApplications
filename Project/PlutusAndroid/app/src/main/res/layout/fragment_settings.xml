@@ -13,35 +13,39 @@
 
     <LinearLayout
             android:id="@+id/pref_wrapperCredit_gaugeSwitch"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground">
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/show_credit_gauge"
                     style="@style/Plutus.RowTitle"/>
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/visualy_display_your_current_credit"
                     style="@style/Plutus.RowSubTitle"/>
         </LinearLayout>
         <Switch
                 android:id="@+id/pref_switchCreditGauge"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
@@ -51,7 +55,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -63,7 +71,8 @@
                     android:id="@+id/pref_hintCreditGaugeMin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Plutus.RowSubTitle"/>
+                    style="@style/Plutus.RowSubTitle"
+                    android:text="@string/not_applicable_short"/>
         </LinearLayout>
 
         <LinearLayout
@@ -71,7 +80,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -83,7 +96,8 @@
                     android:id="@+id/pref_hintCreditGaugeMax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Plutus.RowSubTitle"/>
+                    style="@style/Plutus.RowSubTitle"
+                    android:text="@string/not_applicable_short"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -96,13 +110,17 @@
 
     <LinearLayout
             android:id="@+id/pref_wrapperNotifications_notificationSwitch"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground">
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
@@ -121,7 +139,7 @@
 
         <Switch
                 android:id="@+id/pref_switchNotifications"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
     </LinearLayout>
@@ -148,7 +166,7 @@
                 android:id="@+id/pref_hintLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/system_language"
+                android:text="@string/not_applicable_full"
                 style="@style/Plutus.RowSubTitle"/>
 
     </LinearLayout>
@@ -166,10 +184,11 @@
                 style="@style/Plutus.RowTitle"/>
         <Button
                 android:id="@+id/pref_btnResetApplication"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:text="@string/reset"
-                style="@style/Plutus.RowSubTitle"/>
+                />
     </LinearLayout>
 
 
