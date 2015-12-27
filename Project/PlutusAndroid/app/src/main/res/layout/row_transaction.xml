@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tr_location"
-                    style="@style/Plutus.RowLocation"
+                    style="@style/Plutus.RowSubTitle"
                     android:text="@string/not_applicable_full"/>
         </LinearLayout>
 

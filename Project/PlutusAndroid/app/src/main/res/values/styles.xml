@@ -76,7 +76,7 @@
         <item name="android:gravity">left</item>
     </style>
 
-    <style name="Plutus.RowLocation">
+    <style name="Plutus.RowSubTitle">
         <item name="android:textSize">@dimen/app_list_subtitle</item>
         <item name="android:textColor">@color/text_soft</item>
         <item name="android:gravity">left</item>
