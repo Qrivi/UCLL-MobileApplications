@@ -66,6 +66,8 @@
     <string name="error_endpoint_verify">Plutus was unable to verify your credentials. Make sure that you are using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try again later or consider contacting us about this issue.</string>
     <string name="error_endpoint_credit">Plutus was unable to check your remaining credit. The current data might be outdated.\n\nMake sure that you are using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try again later or consider contacting us about this issue.</string>
     <string name="error_endpoint_transactions">Plutus was unable to check for new transactions. The current data might be outdated.\n\nMake sure that you are using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try again later or consider contacting us about this issue.</string>
+    <string name="error_loading_map">There was an error loading the map for this transaction. This should not prevent Plutus from working correctly, however.</string>
+    <string name="error_loading_transaction">There was an error loading the details for this transaction. Make sure that you are using the latest version of Plutus. If this problem persist, please consider contacting us about this issue.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
