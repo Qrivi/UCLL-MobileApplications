@@ -1,6 +1,183 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="be.krivi.plutus.android.fragment.SettingsFragment">
-</FrameLayout>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/wrapperSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/balance"
+            style="@style/Plutus.RowHeader"/>
+
+    <LinearLayout
+            android:id="@+id/pref_wrapperCredit_gaugeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_credit_gauge"
+                    style="@style/Plutus.RowTitle"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visualy_display_your_current_credit"
+                    style="@style/Plutus.RowSubTitle"/>
+
+            <SwitchCompat
+                    android:id="@+id/pref_switchCreditGauge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+            <LinearLayout
+                    android:id="@+id/pef_wrapperCredit_gaugeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/minimum"
+                        style="@style/Plutus.RowTitle"/>
+
+                <TextView
+                        android:id="@+id/pref_hintCreditGaugeMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Plutus.RowSubTitle"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/pef_wrapperCredit_gaugeMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/maximum"
+                        style="@style/Plutus.RowTitle"/>
+
+                <TextView
+                        android:id="@+id/pref_hintCreditGaugeMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Plutus.RowSubTitle"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notifications"
+            style="@style/Plutus.RowHeader"/>
+
+    <LinearLayout
+            android:id="@+id/pref_wrapperNotifications_notificationSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/enable_notifications"
+                    style="@style/Plutus.RowTitle"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Notifcations"
+                    style="@style/Plutus.RowSubTitle"/>
+
+            <SwitchCompat
+                    android:id="@+id/pref_switchNotifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/application"
+            style="@style/Plutus.RowHeader"/>
+
+    <LinearLayout
+            android:id="@+id/pref_wrapperNotifications_language"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/set_language"
+                style="@style/Plutus.RowTitle"/>
+
+        <TextView
+                android:id="@+id/pref_hintLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/system_language"
+                style="@style/Plutus.RowSubTitle"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/pref_wrapperNotifications_reset"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/if_the_application_is_malfunctioning"
+                style="@style/Plutus.RowTitle"/>
+        <Button
+                android:id="@+id/pref_btnResetApplication"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/reset"
+                style="@style/Plutus.RowSubTitle"/>
+    </LinearLayout>
+
+
+</LinearLayout>
