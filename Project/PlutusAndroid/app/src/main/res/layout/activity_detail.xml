@@ -4,41 +4,123 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="bottom"
-        app:umanoPanelHeight="68dp"
-        app:umanoShadowHeight="4dp"
+        app:umanoPanelHeight="180dp"
+        app:umanoFadeColor="@android:color/transparent"
+        app:umanoClipPanel="false"
+        app:umanoShadowHeight="0dp"
+        app:umanoInitialState="expanded"
+        app:umanoOverlay="true"
         tools:context="be.krivi.plutus.android.activity.DetailActivity">
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
             android:id="@+id/wrapperMap">
 
         <include
                 layout="@layout/app_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
                 android:id="@+id/toolbar"/>
 
         <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/toolbar"
                 android:id="@+id/map"
-                android:name="com.google.android.gms.maps.MapFragment"/>
+                android:name="com.google.android.gms.maps.MapFragment"
+                tools:layout="@layout/abc_action_bar_title_item"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/wrapperDetail">
+            android:layout_height="match_parent"
+            android:layout_weight=".7"
+            android:id="@+id/wrapperDetail"
+            android:background="@android:color/transparent">
 
-        <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="\nHello\nHello\nHello\nHello\nHello"/>
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="40dp"
+                android:padding="@dimen/padding_activity_default"
+                android:orientation="horizontal"
+                android:id="@+id/det_dragzone"
+                android:background="@color/ucll_light_blue">
 
-    </LinearLayout>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Drankenwshizzlemaat"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UCLL Campus Saturnus"/>
+            </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 EUR"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/det_dragzone"
+                android:orientation="vertical"
+                android:background="@color/ucll_light">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hire nog het uur graag"/>
+            <WebView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="@dimen/app_knob"
+                android:layout_height="@dimen/app_knob"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="@dimen/padding_activity_default"
+                android:layout_marginRight="@dimen/padding_activity_default"
+                android:orientation="vertical"
+                android:background="@drawable/shape_date_holder">
+
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/det_month"
+                    style="@style/Plutus.RowMonth"
+                    android:text="@string/not_applicable_short"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/det_day"
+                    style="@style/Plutus.RowDay"
+                    android:text="@string/not_applicable_short"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/det_year"
+                    style="@style/Plutus.RowMonth"
+                    android:text="@string/not_applicable_short"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

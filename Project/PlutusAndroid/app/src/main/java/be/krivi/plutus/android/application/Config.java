@@ -27,6 +27,6 @@ public abstract class Config{
     public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN = 10;
     public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX = 50;
     public static boolean SETTINGS_DEFAULT_NOTIFICATIONS = false;
-    public static String SETTINGS_DEFAULT_HOMESCREEN = "Settings";
+    public static String SETTINGS_DEFAULT_HOMESCREEN = "Transactions";
 
 }

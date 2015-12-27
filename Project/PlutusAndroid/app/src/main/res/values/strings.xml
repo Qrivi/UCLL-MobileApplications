@@ -43,6 +43,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="credit">Credit</string>
     <string name="transactions">Transactions</string>
+    <string name="transaction_detail">Transaction details</string>
     <string name="settings">Settings</string>
     <string name="password_is_incorrect">Password is incorrect</string>
     <string name="sign_out">Sign out</string>
@@ -69,13 +70,11 @@
     <string name="error_loading_map">There was an error loading the map for this transaction. This should not prevent Plutus from working correctly, however.</string>
     <string name="error_loading_transaction">There was an error loading the details for this transaction. Make sure that you are using the latest version of Plutus. If this problem persist, please consider contacting us about this issue.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="plutus_has_not_yet_checked_your_credit">Plutus has not yet checked your current credit</string>
     <string name="pull_down_to_refresh">Pull down to refresh</string>
-    <string name="title_activity_detail">DetailActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+
     <string name="if_the_application_is_malfunctioning">If application is malfunctioning or displays incorrect data, you
         can reset it here.
     </string>
