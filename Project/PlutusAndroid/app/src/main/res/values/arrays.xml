@@ -5,4 +5,8 @@
         <item>Nederlands</item>
         <item>English</item>
     </string-array>
+    <string-array name="reset">
+        <item>Yes</item>
+        <item>Cancel </item>
+    </string-array>
 </resources>

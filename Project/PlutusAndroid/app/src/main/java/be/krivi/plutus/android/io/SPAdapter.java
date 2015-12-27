@@ -28,39 +28,47 @@ public class SPAdapter{
         editor.putString( "home_screen", homeScreen );
         editor.commit();
     }
+
     public void saveGaugeValue( float value ){
         editor.putFloat( "gauge_value", value );
         editor.commit();
     }
+
     public void saveCreditRepresentation( boolean bool ){
-        editor.putString( "credit_rep", bool + "");
-        editor.commit();
-    }
-    public void saveCreditRepresentationMin( int value ){
-        editor.putInt( "credit_rep_min", value );
-        editor.commit();
-    }
-    public void saveCreditRepresentationMax( int value ){
-        editor.putInt( "credit_rep_max", value );
+        editor.putString( "credit_rep", bool + "" );
         editor.commit();
     }
 
-    public String getHomeScreen( ){
+    public void saveCreditRepresentationMin( int value ){
+        editor.putString( "credit_rep_min", value + "" );
+        editor.commit();
+    }
+
+    public void saveCreditRepresentationMax( int value ){
+        editor.putString( "credit_rep_max", value + "" );
+        editor.commit();
+    }
+
+    public String getHomeScreen(){
         return sharedPreferences.getString( "home_screen", Config.SETTINGS_DEFAULT_HOMESCREEN );
     }
-    public float getGaugeValue( ){
+
+    public float getGaugeValue(){
         return sharedPreferences.getFloat( "gauge_value", 0.0f );
     }
-    public boolean getCreditRepresentation(  ){
+
+    public boolean getCreditRepresentation(){
         return Boolean.parseBoolean( sharedPreferences.getString( "credit_rep", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION + "" ) );
     }
-    public int getCreditRepresentationMin(  ){
-        return sharedPreferences.getInt( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN );
+
+    public int getCreditRepresentationMin(){
+        return Integer.parseInt( sharedPreferences.getString( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN + "" ));
     }
-    public int getCreditRepresentationMax(  ){
-        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX );
+
+    public int getCreditRepresentationMax(){
+        return Integer.parseInt( sharedPreferences.getString( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX + "" ));
     }
-    
+
 
     public boolean isUserSaved(){
         return ( sharedPreferences.contains( "student_id" ) && sharedPreferences.contains( "password" ) );
@@ -74,12 +82,12 @@ public class SPAdapter{
         return Boolean.parseBoolean( sharedPreferences.getString( "incomplete_db", "true" ) );
     }
 
-    public void saveNewInstallation(boolean bool){
+    public void saveNewInstallation( boolean bool ){
         editor.putString( "new_install", bool + "" );
         editor.commit();
     }
 
-    public void saveDatabaseIncomplete(boolean bool){
+    public void saveDatabaseIncomplete( boolean bool ){
         editor.putString( "incomplete_db", bool + "" );
         editor.commit();
     }
