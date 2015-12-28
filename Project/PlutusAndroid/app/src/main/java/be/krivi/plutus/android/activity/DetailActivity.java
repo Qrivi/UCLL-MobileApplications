@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
@@ -77,7 +76,8 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
     private SimpleDateFormat sdfTime;
     private SimpleDateFormat sdfDate;
 
-    private boolean expanded;
+    int colorLight, colorLightBlue, colorCurrent;
+    boolean sliding;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -87,6 +87,9 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
         detail = this;
 
         this.df = new DecimalFormat( "#0.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
+        this.colorLight = ContextCompat.getColor( detail, R.color.ucll_light );
+        this.colorLightBlue = ContextCompat.getColor( detail, R.color.ucll_light_blue );
+        this.colorCurrent = colorLightBlue;
 
         setSupportActionBar( mToolbar );
         if( getSupportActionBar() != null )
@@ -95,6 +98,10 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
 
         mSlide.setPanelSlideListener( new SlidingUpPanelLayout.PanelSlideListener(){
             public void onPanelSlide( View panel, float slideOffset ){
+                if( !sliding && colorCurrent == colorLight ){
+                    colorizeDragZone( colorLightBlue );
+                    sliding = true;
+                }
             }
 
             public void onPanelAnchored( View panel ){
@@ -104,37 +111,17 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
             }
 
             public void onPanelCollapsed( View panel ){
+                if( colorCurrent == colorLightBlue )
+                    colorizeDragZone( colorLight );
                 moveMapIfCollapsed();
-
-                if( !expanded ){
-                    ObjectAnimator colorFade = ObjectAnimator.ofObject(
-                            mDragZone,
-                            "backgroundColor",
-                            new ArgbEvaluator(),
-                            ContextCompat.getColor( detail, R.color.ucll_light_blue ),
-                            ContextCompat.getColor( detail, R.color.ucll_light )
-                    );
-                    colorFade.setDuration( 500 );
-                    colorFade.start();
-                }
-                expanded = true;
+                sliding = false;
             }
 
             public void onPanelExpanded( View panel ){
+                if( colorCurrent == colorLight )
+                    colorizeDragZone( colorLightBlue );
                 moveMapIfExpanded();
-
-                if( expanded ){
-                    ObjectAnimator colorFade = ObjectAnimator.ofObject(
-                            mDragZone,
-                            "backgroundColor",
-                            new ArgbEvaluator(),
-                            ContextCompat.getColor( detail, R.color.ucll_light ),
-                            ContextCompat.getColor( detail, R.color.ucll_light_blue )
-                    );
-                    colorFade.setDuration( 500 );
-                    colorFade.start();
-                }
-                expanded = false;
+                sliding = false;
             }
         } );
     }
@@ -240,6 +227,19 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
         }
     }
 
+    private void colorizeDragZone( int color ){
+        ObjectAnimator colorFade = ObjectAnimator.ofObject(
+                mDragZone,
+                "backgroundColor",
+                new ArgbEvaluator(),
+                colorCurrent,
+                color
+        );
+        colorFade.setDuration( 400 );
+        colorFade.start();
+        colorCurrent = color;
+    }
+
     @OnClick( R.id.det_btnMaps )
     public void launchMaps(){
         if( transaction != null ){
@@ -259,5 +259,4 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
             }
         }
     }
-
 }

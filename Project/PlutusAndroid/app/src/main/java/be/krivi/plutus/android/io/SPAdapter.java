@@ -125,6 +125,7 @@ public class SPAdapter{
         editor.remove( "last_name" );
         editor.remove( "credit" );
         editor.remove( "fetch_date" );
+        editor.remove( "incomplete_db" );
         editor.commit();
     }
 

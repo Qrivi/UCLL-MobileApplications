@@ -81,6 +81,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/app_date_month_small</item>
         <item name="android:textColor">@color/ucll_light_blue</item>
+        <item name="android:layout_marginTop">@dimen/padding_date_month</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -88,6 +89,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/app_date_day</item>
         <item name="android:textColor">@color/ucll_light_blue</item>
+        <item name="android:layout_marginTop">@dimen/padding_date_day</item>
         <item name="android:gravity">center</item>
     </style>
 

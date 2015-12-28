@@ -39,7 +39,9 @@
     <dimen name="app_date_month_small">10sp</dimen>
     <dimen name="app_date_month">7sp</dimen>
 
+    <dimen name="padding_date_month">10sp</dimen>
     <dimen name="padding_date_month_small">4sp</dimen>
+    <dimen name="padding_date_day">-3sp</dimen>
     <dimen name="padding_date_day_small">-3sp</dimen>
 
     <dimen name="elevation_fab">6dp</dimen><!-- material -->

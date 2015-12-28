@@ -49,6 +49,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/tr_wrapperDate"
+                android:clipToPadding="false"
                 android:background="@drawable/shape_date_holder">
             <LinearLayout
                     android:layout_width="fill_parent"
@@ -56,12 +57,14 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
                     android:orientation="vertical"
+                    android:clipToPadding="false"
                     android:background="@drawable/shape_date_holder">
 
                 <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tr_month"
+                        android:clipToPadding="false"
                         style="@style/Plutus.RowMonth"
                         android:text="@string/not_applicable_short"/>
 
@@ -69,6 +72,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tr_day"
+                        android:clipToPadding="false"
                         style="@style/Plutus.RowDay"
                         android:text="@string/not_applicable_short"/>
             </LinearLayout>
