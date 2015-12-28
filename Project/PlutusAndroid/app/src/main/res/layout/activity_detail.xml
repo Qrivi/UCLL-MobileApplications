@@ -137,36 +137,37 @@
         <RelativeLayout
                 android:layout_width="@dimen/app_knob"
                 android:layout_height="@dimen/app_knob"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:layout_marginLeft="@dimen/padding_activity_default"
                 android:layout_marginRight="@dimen/padding_activity_default"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/tr_wrapperDate"
                 android:background="@drawable/shape_date_holder"
                 android:elevation="@dimen/elevation_fab"
                 android:clipToPadding="false"
                 android:transitionName="transition_date">
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_date_holder">
 
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/det_day"
-                    style="@style/Plutus.DetailDay"
-                    android:text="@string/not_applicable_short"/>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/det_day"
-                    android:id="@+id/det_month"
-                    style="@style/Plutus.DetailMonth"
-                    android:text="@string/not_applicable_short"/>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/det_day"
-                    android:id="@+id/det_year"
-                    style="@style/Plutus.DetailYear"
-                    android:text="@string/not_applicable_short"/>
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/det_month"
+                        style="@style/Plutus.DetailMonth"
+                        android:text="@string/not_applicable_short"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/det_day"
+                        style="@style/Plutus.DetailDay"
+                        android:text="@string/not_applicable_short"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </RelativeLayout>

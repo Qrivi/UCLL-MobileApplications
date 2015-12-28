@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
@@ -59,9 +60,6 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
 
     @Bind( R.id.det_month )
     TextView mMonth;
-
-    @Bind( R.id.det_year )
-    TextView mYear;
 
     @Bind( R.id.det_date )
     TextView mDate;
@@ -180,7 +178,6 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
 
             mDay.setText( transaction.getDay() + "" );
             mMonth.setText( transaction.getMonth( "short" ) );
-            mYear.setText( transaction.getYear() + "" );
 
             Date timestamp = transaction.getTimestamp();
 

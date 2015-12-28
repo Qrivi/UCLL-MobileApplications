@@ -9,7 +9,7 @@
     <dimen name="padding_header">10dp</dimen>
     <dimen name="padding_border">16dp</dimen>
     <dimen name="padding_contentarea">8dp</dimen>
-    <dimen name="padding_list_with_icons">72sp</dimen><!-- material -->
+    <dimen name="padding_list_with_icons">56dp</dimen><!-- material in combinatie met activity padding -->
     <dimen name="padding_list_title">2sp</dimen>
 
     <dimen name="drawer_header">170dp</dimen>

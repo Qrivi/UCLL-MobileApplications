@@ -147,12 +147,11 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
         // startActivity( new Intent( getContext(), DetailActivity.class ));
 
         View smallDateHolder = view.findViewById( R.id.tr_wrapperDate );
-        Message.toast( getContext(), smallDateHolder.getBackground().toString() );
-        smallDateHolder.setTransitionName("transition_date");
-       // smallDateHolder.setVisibility(View.INVISIBLE);
+        smallDateHolder.setTransitionName( "transition_date" );
 
         Intent intent = new Intent( getContext(), DetailActivity.class );
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation( main, smallDateHolder, "transition_date" );
         main.startActivity( intent, options.toBundle() );
+        main.overridePendingTransition( R.anim.pull_up, R.anim.push_out );
     }
 }

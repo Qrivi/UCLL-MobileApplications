@@ -150,7 +150,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         TextView mHeader;
 
         @Bind( R.id.tr_wrapperDate )
-        LinearLayout mWrapperDate;
+        RelativeLayout mWrapperDate;
 
         @Bind( R.id.tr_month )
         TextView mMonth;

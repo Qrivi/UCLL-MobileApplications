@@ -43,29 +43,36 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:background="?android:attr/selectableItemBackground">
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="@dimen/app_knob_small"
                 android:layout_height="@dimen/app_knob_small"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:orientation="vertical"
                 android:id="@+id/tr_wrapperDate"
                 android:background="@drawable/shape_date_holder">
-
-            <TextView
+            <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tr_month"
-                    style="@style/Plutus.RowMonth"
-                    android:text="@string/not_applicable_short"/>
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_date_holder">
 
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tr_day"
-                    style="@style/Plutus.RowDay"
-                    android:text="@string/not_applicable_short"/>
-        </LinearLayout>
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tr_month"
+                        style="@style/Plutus.RowMonth"
+                        android:text="@string/not_applicable_short"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tr_day"
+                        style="@style/Plutus.RowDay"
+                        android:text="@string/not_applicable_short"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -91,7 +98,7 @@
         </LinearLayout>
 
         <TextView
-                android:layout_width="100dp"
+                android:layout_width="@dimen/app_price_small_container"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
