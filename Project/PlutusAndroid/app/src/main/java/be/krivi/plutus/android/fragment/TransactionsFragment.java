@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +77,7 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
                 R.color.ucll_pink );
 
         scrollListener = getOnScrollListener( linearLayoutManager );
-        mRecycler.addOnScrollListener( getOnScrollListener( linearLayoutManager ) );
+        mRecycler.addOnScrollListener( scrollListener );
 
         updateView();
         return view;
@@ -87,6 +89,7 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
             @Override
             public void onLoadMore( int current_set ){
                 if( app.isNetworkAvailable() ){
+                    //Message.toast( getContext(), "loading set " + current_set );
                     List<Transaction> newTransactions = app.getTransactionsSet( current_set );
 
                     if( newTransactions != null ){
@@ -96,7 +99,6 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
 
                         transactions = updatedList;
                         adapter.setRowData( transactions );
-                        //Message.toast( getContext(), "loading set " + current_set );
                     }
                 }
             }
@@ -148,10 +150,22 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
 
         View smallDateHolder = view.findViewById( R.id.tr_wrapperDate );
         smallDateHolder.setTransitionName( "transition_date" );
+        View smallDateDay = smallDateHolder.findViewById( R.id.tr_day );
+        smallDateDay.setTransitionName( "transition_date_day" );
+        View smallDateMonth = smallDateHolder.findViewById( R.id.tr_month );
+        smallDateMonth.setTransitionName( "transition_date_month" );
+
+        Pair<View, String> holder = Pair.create( smallDateHolder, "transition_date" );
+        Pair<View, String> day = Pair.create( smallDateDay, "transition_date_day" );
+        Pair<View, String> month = Pair.create( smallDateMonth, "transition_date_month" );
 
         Intent intent = new Intent( getContext(), DetailActivity.class );
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation( main, smallDateHolder, "transition_date" );
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                main,
+                holder, day, month
+        );
+
         main.startActivity( intent, options.toBundle() );
-        main.overridePendingTransition( R.anim.pull_up, R.anim.push_out );
+        //main.overridePendingTransition( R.anim.pull_up, R.anim.push_out );
     }
 }

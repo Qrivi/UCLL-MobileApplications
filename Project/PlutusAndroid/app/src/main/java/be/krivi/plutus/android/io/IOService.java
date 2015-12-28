@@ -1,6 +1,7 @@
 package be.krivi.plutus.android.io;
 
 import android.content.Context;
+import android.util.Log;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;
@@ -112,16 +113,16 @@ public class IOService{
         return spAdapter.getFirstName();
     }
 
-    public String getLastname(){
+    public String getLastName(){
         return spAdapter.getLastName();
     }
 
-    public boolean writeTransactions( JSONArray JSONTransactions ){
+    public boolean writeTransactions( JSONArray jsonTransactions ){
         try{
-            for( int i = 0; i < JSONTransactions.length(); i++ ){
+            for( int i = 0; i < jsonTransactions.length(); i++ ){
                 JSONObject obj;
 
-                obj = JSONTransactions.getJSONObject( i );
+                obj = jsonTransactions.getJSONObject( i );
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
                 Date time = dateFormat.parse( obj.getString( "timestamp" ) );

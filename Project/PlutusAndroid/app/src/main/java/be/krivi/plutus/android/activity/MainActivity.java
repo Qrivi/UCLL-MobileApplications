@@ -251,7 +251,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         double credit = data.getDouble( "amount" );
 
                         app.writeUserCredit( credit, fetchDate );
-                        app.loadData();
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_credit ) + e.getMessage() );
                     }
