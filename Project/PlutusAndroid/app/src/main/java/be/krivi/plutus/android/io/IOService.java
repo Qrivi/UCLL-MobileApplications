@@ -47,6 +47,10 @@ public class IOService{
         spAdapter.saveCreditRepresentationMax( value );
     }
 
+    public void saveLanguage(String language) {
+        spAdapter.saveLanguage( language );
+    }
+
     public String getHomeScreen(){
         return spAdapter.getHomeScreen();
     }
@@ -65,6 +69,10 @@ public class IOService{
 
     public int getCreditRepresentationMax(){
         return spAdapter.getCreditRepresentationMax();
+    }
+
+    public String getLanguage(){
+        return spAdapter.getLanguage();
     }
 
 
@@ -109,7 +117,7 @@ public class IOService{
         return spAdapter.getFetchDate();
     }
 
-    public String getFirstname(){
+    public String getFirstName(){
         return spAdapter.getFirstName();
     }
 
@@ -172,7 +180,9 @@ public class IOService{
 
     public void clearDatabase(){
         dbAdapter.dropTables();
+        dbAdapter.deleteDatabase();
     }
+
 
     public boolean isNewInstallation(){
         return spAdapter.isNewInstallation();

@@ -108,5 +108,10 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="not_in_beta">Not yet present in this beta</string>
+    <string name="locally_stored_data_wont_be_localized">Locally storedd data won\'t be localized until the application
+        gets reset
+    </string>
+    <string name="language">Language</string>
+    <string name="home_screen">homeScreen</string>
 
 </resources>

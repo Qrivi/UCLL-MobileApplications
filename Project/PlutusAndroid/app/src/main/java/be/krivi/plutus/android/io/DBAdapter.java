@@ -19,10 +19,12 @@ public class DBAdapter{
 
     DBHelper helper;
     SQLiteDatabase db;
+    Context context;
 
     public DBAdapter( Context context ){
         helper = new DBHelper( context );
         db = helper.getWritableDatabase();
+        this.context = context;
     }
 
     public long insertLocation( Location l ){
@@ -80,7 +82,6 @@ public class DBAdapter{
             transactions.add( new Transaction( timestamp, amount, type, title, description, new Location( location, lat, lng) ) );
 
         }
-        //TODO not sure if should be closed right here or later
         cursor.close();
         return transactions;
     }
@@ -111,7 +112,6 @@ public class DBAdapter{
         double lng = cursor.getDouble( 7 );
         double lat = cursor.getDouble( 8 );
 
-        //TODO not sure if should be closed right here or later
         cursor.close();
 
         return new Transaction( t, amount, type, title, description, new Location( location, lng, lat ) );
@@ -130,8 +130,12 @@ public class DBAdapter{
     }
 
     public void dropTables(){
-        db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.TRANSACTIONS_LOCATION );
+        db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.TRANSACTIONS_TABLE_NAME );
         db.execSQL( "DROP TABLE IF EXISTS " + DBHelper.LOCATIONS_TABLE_NAME );
+    }
+
+    public void deleteDatabase() {
+        context.deleteDatabase( DBHelper.DB_NAME );
     }
 
     public void truncateTables(){
@@ -157,7 +161,6 @@ public class DBAdapter{
         private static final String LOCATIONS_NAME = "Name";
         private static final String LOCATIONS_LNG = "Lng";
         private static final String LOCATIONS_LAT = "Lat";
-
 
         public DBHelper( Context context ){
             super( context, DB_NAME, null, DB_VERSION );

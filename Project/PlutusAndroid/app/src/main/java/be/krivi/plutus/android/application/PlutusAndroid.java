@@ -104,6 +104,10 @@ public class PlutusAndroid extends Application{
         ioService.saveCreditRepresentationMax( value );
     }
 
+    public void setLanguage(String language) {
+        ioService.saveLanguage( language );
+    }
+
     public String getHomeScreen(){
         return homeScreen;
     }
@@ -122,6 +126,10 @@ public class PlutusAndroid extends Application{
 
     public int getCreditRepresentationMax(){
         return creditRepresentationMax;
+    }
+
+    public String getLanguage() {
+        return ioService.getLanguage();
     }
 
 
@@ -213,7 +221,7 @@ public class PlutusAndroid extends Application{
         try{
             user = new User(
                     ioService.getStudentId(), ioService.getPassword(),
-                    ioService.getFirstname(), ioService.getLastName(),
+                    ioService.getFirstName(), ioService.getLastName(),
                     ioService.getCredit(), ioService.getFetchDate() );
             transactions = ioService.getAllTransactions();
         }catch( ParseException e ){
@@ -227,6 +235,11 @@ public class PlutusAndroid extends Application{
         loadConfiguration();
     }
 
+    public void resetApp() {
+        ioService.clearDatabase();
+        ioService.clearSharedPreferences();
+        loadConfiguration();
+    }
 
     public boolean isNetworkAvailable(){
         final ConnectivityManager connectivityManager = ( (ConnectivityManager)getAppContext().getSystemService( Context.CONNECTIVITY_SERVICE ) );
