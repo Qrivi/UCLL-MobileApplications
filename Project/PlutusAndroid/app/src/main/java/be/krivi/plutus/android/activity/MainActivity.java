@@ -49,9 +49,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     Fragment currentFragment;
 
-    boolean loggingOut;
-
-
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
@@ -150,7 +147,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected( MenuItem item ){
         if( item.getItemId() == R.id.menu_filter ){
             // TODO filters
-            Message.toast( this, "Not yet present in this beta" );
+            Message.toast( this, getString( R.string.not_in_beta) );
         }
 
         return super.onOptionsItemSelected( item );
@@ -325,7 +322,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void logout(){
-        loggingOut = true;
         app.logoutUser();
         startActivity( new Intent( app.getApplicationContext(), LoginActivity.class ) );
         finish();

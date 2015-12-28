@@ -117,7 +117,7 @@ public class CreditFragment extends Fragment implements SwipeRefreshLayout.OnRef
             if( newValue > 75 ) newValue = 75;
 
             GaugeAnimation animation = new GaugeAnimation( mGauge, gaugeValue, newValue );
-            animation.setDuration( 2500 );
+            animation.setDuration( 1000 );
 
             mGauge.startAnimation( animation );
             app.setGaugeValue( newValue );

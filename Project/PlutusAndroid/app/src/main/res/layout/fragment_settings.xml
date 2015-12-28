@@ -1,9 +1,13 @@
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/wrapperSettings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
 
     <TextView
             android:layout_width="wrap_content"
@@ -20,7 +24,9 @@
             android:focusable="true"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:background="?android:attr/selectableItemBackground">
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingTop="@dimen/padding_header"
+            android:paddingBottom="@dimen/padding_header">
 
         <LinearLayout
                 android:layout_width="fill_parent"
@@ -39,16 +45,21 @@
                     android:text="@string/visualy_display_your_current_credit"
                     style="@style/Plutus.RowSubTitle"/>
         </LinearLayout>
-        <Switch
+
+        <android.support.v7.widget.SwitchCompat
                 android:id="@+id/pref_switchCreditGauge"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:showText="false"/>
     </LinearLayout>
+
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:paddingTop="@dimen/padding_header"
+            android:paddingBottom="@dimen/padding_header">
 
         <LinearLayout
                 android:id="@+id/pef_wrapperCredit_gaugeMin"
@@ -102,11 +113,16 @@
 
     </LinearLayout>
 
+    <View
+            style="@style/Plutus.Separator"
+            android:layout_marginTop="@dimen/app_list_item"/>
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notifications"
-            style="@style/Plutus.RowHeader"/>
+            style="@style/Plutus.RowHeader"
+            android:paddingTop="@dimen/padding_header"/>
 
     <LinearLayout
             android:id="@+id/pref_wrapperNotifications_notificationSwitch"
@@ -117,7 +133,9 @@
             android:focusable="true"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:background="?android:attr/selectableItemBackground">
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingTop="@dimen/padding_header"
+            android:paddingBottom="@dimen/padding_header">
 
         <LinearLayout
                 android:layout_width="fill_parent"
@@ -137,24 +155,32 @@
                     style="@style/Plutus.RowSubTitle"/>
         </LinearLayout>
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
                 android:id="@+id/pref_switchNotifications"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:showText="false"/>
 
     </LinearLayout>
+
+    <View
+            style="@style/Plutus.Separator"
+            android:layout_marginTop="@dimen/app_list_item"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/application"
-            style="@style/Plutus.RowHeader"/>
+            style="@style/Plutus.RowHeader"
+            android:paddingTop="@dimen/padding_header"/>
 
     <LinearLayout
             android:id="@+id/pref_wrapperNotifications_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_header"
+            android:paddingBottom="@dimen/padding_header">
 
         <TextView
                 android:layout_width="match_parent"
@@ -175,20 +201,23 @@
             android:id="@+id/pref_wrapperNotifications_reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_header"
+            android:paddingBottom="@dimen/padding_header">
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/if_the_application_is_malfunctioning"
+                android:textStyle="bold"
+                android:gravity="center"
                 style="@style/Plutus.RowTitle"/>
         <Button
                 android:id="@+id/pref_btnResetApplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="@string/reset"
-                />
+                android:text="@string/reset"/>
     </LinearLayout>
 
 

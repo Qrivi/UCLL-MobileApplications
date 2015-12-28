@@ -90,11 +90,15 @@ public class PlutusAndroid extends Application{
     }
 
     public void setCreditRepresentationMin( int value ){
+        if(value > getCreditRepresentationMax() || value < 0 || value > 99 )
+            value = 0;
         this.creditRepresentationMin = value;
         ioService.saveCreditRepresentationMin( value );
     }
 
     public void setCreditRepresentationMax( int value ){
+        if(value < getCreditRepresentationMin() || value < 0 || value > 99 )
+            value = 100;
         this.creditRepresentationMax = value;
         ioService.saveCreditRepresentationMax( value );
     }

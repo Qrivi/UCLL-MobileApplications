@@ -105,5 +105,8 @@
     <string name="maximum">Maximum</string>
     <string name="minimum">Minimum</string>
     <string name="notifications">Notifications</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="not_in_beta">Not yet present in this beta</string>
 
 </resources>
