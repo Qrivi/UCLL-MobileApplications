@@ -63,7 +63,8 @@
             android:id="@+id/wrapperDetail"
             android:background="@android:color/transparent"
             android:elevation="@dimen/elevation_fab"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:clickable="true">
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -115,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_list"
-                    android:layout_marginBottom="@dimen/padding_border"
+                    android:layout_marginBottom="@dimen/padding_list"
                     style="@style/Plutus.RowHeader"
                     android:id="@+id/det_date"
                     android:text="@string/not_applicable_full"/>

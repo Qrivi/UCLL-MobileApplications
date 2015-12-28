@@ -11,6 +11,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
