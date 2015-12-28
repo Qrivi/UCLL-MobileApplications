@@ -175,30 +175,72 @@
             android:paddingTop="@dimen/padding_header"/>
 
     <LinearLayout
-            android:id="@+id/pref_wrapperNotifications_language"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="@dimen/padding_header"
             android:paddingBottom="@dimen/padding_header">
 
-        <TextView
+        <LinearLayout
+                android:id="@+id/pref_wrapperNotifications_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/set_language"
-                style="@style/Plutus.RowTitle"/>
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_header"
+                android:paddingBottom="@dimen/padding_header"
+                android:focusable="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground">
 
-        <TextView
-                android:id="@+id/pref_hintLanguage"
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_language"
+                    style="@style/Plutus.RowTitle"/>
+
+            <TextView
+                    android:id="@+id/pref_hintLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_applicable_full"
+                    style="@style/Plutus.RowSubTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/pref_wrapperHomeScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/not_applicable_full"
-                style="@style/Plutus.RowSubTitle"/>
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_header"
+                android:paddingBottom="@dimen/padding_header"
+                android:focusable="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set homescreen"
+                    style="@style/Plutus.RowTitle"/>
+
+            <TextView
+                    android:id="@+id/pref_hintHomescreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_applicable_full"
+                    style="@style/Plutus.RowSubTitle"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
+
     <LinearLayout
-            android:id="@+id/pref_wrapperNotifications_reset"
+            android:id="@+id/pref_wrapper_reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

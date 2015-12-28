@@ -46,6 +46,10 @@ public class IOService{
         spAdapter.saveCreditRepresentationMax( value );
     }
 
+    public void saveLanguage(String language) {
+        spAdapter.saveLanguage( language );
+    }
+
     public String getHomeScreen(){
         return spAdapter.getHomeScreen();
     }
@@ -64,6 +68,10 @@ public class IOService{
 
     public int getCreditRepresentationMax(){
         return spAdapter.getCreditRepresentationMax();
+    }
+
+    public String getLanguage(){
+        return spAdapter.getLanguage();
     }
 
 

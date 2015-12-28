@@ -49,6 +49,8 @@ public class PlutusAndroid extends Application{
     private int creditRepresentationMin;
     private int creditRepresentationMax;
 
+    private String language;
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -68,6 +70,7 @@ public class PlutusAndroid extends Application{
         creditRepresentation = ioService.getCreditRepresentation();
         creditRepresentationMin = ioService.getCreditRepresentationMin();
         creditRepresentationMax = ioService.getCreditRepresentationMax();
+        language = ioService.getLanguage();
     }
 
     public static Context getAppContext(){
@@ -90,17 +93,22 @@ public class PlutusAndroid extends Application{
     }
 
     public void setCreditRepresentationMin( int value ){
-        if(value > getCreditRepresentationMax() || value < 0 || value > 99 )
+        if( value >= getCreditRepresentationMax() || value < 0 || value > 99 )
             value = 0;
         this.creditRepresentationMin = value;
         ioService.saveCreditRepresentationMin( value );
     }
 
     public void setCreditRepresentationMax( int value ){
-        if(value < getCreditRepresentationMin() || value < 0 || value > 99 )
+        if( value <= getCreditRepresentationMin() || value < 0 || value > 99 )
             value = 100;
         this.creditRepresentationMax = value;
         ioService.saveCreditRepresentationMax( value );
+    }
+
+    public void setLanguage( String language ){
+        this.language = language;
+        ioService.saveLanguage( language );
     }
 
     public String getHomeScreen(){
@@ -123,6 +131,9 @@ public class PlutusAndroid extends Application{
         return creditRepresentationMax;
     }
 
+    public String getLanguage() {
+        return language;
+    }
 
     public void initializeUser( String studentId, String password, String firstname, String lastname ){
         this.user = new User( studentId, password, firstname, lastname );
@@ -224,7 +235,6 @@ public class PlutusAndroid extends Application{
         ioService.cleanSharedPreferences();
         ioService.cleanDatabase();
     }
-
 
     public boolean isNetworkAvailable(){
         final ConnectivityManager connectivityManager = ( (ConnectivityManager)getAppContext().getSystemService( Context.CONNECTIVITY_SERVICE ) );

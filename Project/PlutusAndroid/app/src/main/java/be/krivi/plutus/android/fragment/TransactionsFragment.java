@@ -75,7 +75,7 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
                 R.color.ucll_pink );
 
         scrollListener = getOnScrollListener( linearLayoutManager );
-        mRecycler.addOnScrollListener( getOnScrollListener( linearLayoutManager ) );
+        mRecycler.addOnScrollListener( scrollListener );
 
         updateView();
         return view;

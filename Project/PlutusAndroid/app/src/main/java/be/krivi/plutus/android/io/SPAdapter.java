@@ -40,12 +40,17 @@ public class SPAdapter{
     }
 
     public void saveCreditRepresentationMin( int value ){
-        editor.putString( "credit_rep_min", value + "" );
+        editor.putInt( "credit_rep_min", value );
         editor.commit();
     }
 
     public void saveCreditRepresentationMax( int value ){
-        editor.putString( "credit_rep_max", value + "" );
+        editor.putInt( "credit_rep_max", value);
+        editor.commit();
+    }
+
+    public void saveLanguage(String language) {
+        editor.putString( "language", language );
         editor.commit();
     }
 
@@ -62,11 +67,15 @@ public class SPAdapter{
     }
 
     public int getCreditRepresentationMin(){
-        return Integer.parseInt( sharedPreferences.getString( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN + "" ));
+        return sharedPreferences.getInt( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN );
     }
 
     public int getCreditRepresentationMax(){
-        return Integer.parseInt( sharedPreferences.getString( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX + "" ));
+        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX);
+    }
+
+    public String getLanguage(){
+        return sharedPreferences.getString( "language", "Nederlands" );
     }
 
 
