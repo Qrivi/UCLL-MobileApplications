@@ -10,8 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
@@ -81,6 +79,8 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
     private SimpleDateFormat sdfTime;
     private SimpleDateFormat sdfDate;
 
+    private boolean expanded;
+
     @Override
     protected void onCreate( Bundle savedInstanceState ){
         super.onCreate( savedInstanceState );
@@ -108,29 +108,35 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
             public void onPanelCollapsed( View panel ){
                 moveMapIfCollapsed();
 
-                ObjectAnimator colorFade = ObjectAnimator.ofObject(
-                        mDragZone,
-                        "backgroundColor",
-                        new ArgbEvaluator(),
-                        ContextCompat.getColor( detail, R.color.ucll_light_blue ),
-                        ContextCompat.getColor( detail, R.color.ucll_light )
-                );
-                colorFade.setDuration( 500 );
-                colorFade.start();
+                if( !expanded ){
+                    ObjectAnimator colorFade = ObjectAnimator.ofObject(
+                            mDragZone,
+                            "backgroundColor",
+                            new ArgbEvaluator(),
+                            ContextCompat.getColor( detail, R.color.ucll_light_blue ),
+                            ContextCompat.getColor( detail, R.color.ucll_light )
+                    );
+                    colorFade.setDuration( 500 );
+                    colorFade.start();
+                }
+                expanded = true;
             }
 
             public void onPanelExpanded( View panel ){
                 moveMapIfExpanded();
 
-                ObjectAnimator colorFade = ObjectAnimator.ofObject(
-                        mDragZone,
-                        "backgroundColor",
-                        new ArgbEvaluator(),
-                        ContextCompat.getColor( detail, R.color.ucll_light ),
-                        ContextCompat.getColor( detail, R.color.ucll_light_blue )
-                );
-                colorFade.setDuration( 500 );
-                colorFade.start();
+                if( expanded ){
+                    ObjectAnimator colorFade = ObjectAnimator.ofObject(
+                            mDragZone,
+                            "backgroundColor",
+                            new ArgbEvaluator(),
+                            ContextCompat.getColor( detail, R.color.ucll_light ),
+                            ContextCompat.getColor( detail, R.color.ucll_light_blue )
+                    );
+                    colorFade.setDuration( 500 );
+                    colorFade.start();
+                }
+                expanded = false;
             }
         } );
     }
@@ -195,7 +201,7 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
                 // onmogelijk hier te geraken
             }
 
-            mDescription.setText( Html.fromHtml( transaction.getDescription()));
+            mDescription.setText( Html.fromHtml( transaction.getDescription() ) );
         }
     }
 
