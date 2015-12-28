@@ -155,7 +155,10 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
             app.setHomeScreen( screens.get( id ) );
             dialog.getDialog().cancel();
         }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
-            Message.obtrusive( getContext(), "BOEM DIED!" );
+            app.resetApp();
+            main.finish();
+            createConfirmationDialog( "App is reset" );
+            System.exit( 0 );
         }
         updateView();
     }

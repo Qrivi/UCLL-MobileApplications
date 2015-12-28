@@ -117,7 +117,7 @@ public class IOService{
         return spAdapter.getFetchDate();
     }
 
-    public String getFirstname(){
+    public String getFirstName(){
         return spAdapter.getFirstName();
     }
 
@@ -180,7 +180,9 @@ public class IOService{
 
     public void clearDatabase(){
         dbAdapter.dropTables();
+        dbAdapter.deleteDatabase();
     }
+
 
     public boolean isNewInstallation(){
         return spAdapter.isNewInstallation();

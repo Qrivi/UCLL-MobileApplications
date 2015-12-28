@@ -49,8 +49,6 @@ public class PlutusAndroid extends Application{
     private int creditRepresentationMin;
     private int creditRepresentationMax;
 
-    private String language;
-
     @Override
     public void onCreate(){
         super.onCreate();
@@ -61,7 +59,7 @@ public class PlutusAndroid extends Application{
 
         // get defaults
         loadConfiguration();
-        databaseIncomplete = ioService.isDatabaseIncomplete();
+        Log.v("APP HAS BEEN INIT", "EN IS DB INCOMPLETE: "+databaseIncomplete);
     }
 
     private void loadConfiguration(){
@@ -70,7 +68,7 @@ public class PlutusAndroid extends Application{
         creditRepresentation = ioService.getCreditRepresentation();
         creditRepresentationMin = ioService.getCreditRepresentationMin();
         creditRepresentationMax = ioService.getCreditRepresentationMax();
-        language = ioService.getLanguage();
+        databaseIncomplete = ioService.isDatabaseIncomplete();
     }
 
     public static Context getAppContext(){
@@ -93,21 +91,20 @@ public class PlutusAndroid extends Application{
     }
 
     public void setCreditRepresentationMin( int value ){
-        if( value >= getCreditRepresentationMax() || value < 0 || value > 99 )
+        if( value > getCreditRepresentationMax() || value < 0 || value > 99 )
             value = 0;
         this.creditRepresentationMin = value;
         ioService.saveCreditRepresentationMin( value );
     }
 
     public void setCreditRepresentationMax( int value ){
-        if( value <= getCreditRepresentationMin() || value < 0 || value > 99 )
+        if( value < getCreditRepresentationMin() || value < 0 || value > 99 )
             value = 100;
         this.creditRepresentationMax = value;
         ioService.saveCreditRepresentationMax( value );
     }
 
-    public void setLanguage( String language ){
-        this.language = language;
+    public void setLanguage(String language) {
         ioService.saveLanguage( language );
     }
 
@@ -132,8 +129,9 @@ public class PlutusAndroid extends Application{
     }
 
     public String getLanguage() {
-        return language;
+        return ioService.getLanguage();
     }
+
 
     public void initializeUser( String studentId, String password, String firstname, String lastname ){
         this.user = new User( studentId, password, firstname, lastname );
@@ -201,7 +199,7 @@ public class PlutusAndroid extends Application{
             return "OK";
 
         }else{
-            Log.e( "PlutusAndroid", "Trying to verify credentials but user is not in LoginActivity" );
+            Log.e( "Plutus internal error", "Trying to verify credentials but user is not in LoginActivity" );
             return "";
         }
     }
@@ -223,7 +221,7 @@ public class PlutusAndroid extends Application{
         try{
             user = new User(
                     ioService.getStudentId(), ioService.getPassword(),
-                    ioService.getFirstname(), ioService.getLastname(),
+                    ioService.getFirstName(), ioService.getLastName(),
                     ioService.getCredit(), ioService.getFetchDate() );
             transactions = ioService.getAllTransactions();
         }catch( ParseException e ){
@@ -234,6 +232,13 @@ public class PlutusAndroid extends Application{
     public void logoutUser(){
         ioService.cleanSharedPreferences();
         ioService.cleanDatabase();
+        loadConfiguration();
+    }
+
+    public void resetApp() {
+        ioService.clearDatabase();
+        ioService.clearSharedPreferences();
+        loadConfiguration();
     }
 
     public boolean isNetworkAvailable(){
@@ -245,8 +250,8 @@ public class PlutusAndroid extends Application{
         networkClient.contactAPI( params, endpoint, callback );
     }
 
-    public boolean writeTransactions( JSONArray JSONTransactions ){
-        boolean writeSuccessful = ioService.writeTransactions( JSONTransactions );
+    public boolean writeTransactions( JSONArray jsonTransactions ){
+        boolean writeSuccessful = ioService.writeTransactions( jsonTransactions );
         loadData();
         return writeSuccessful;
     }
@@ -261,12 +266,12 @@ public class PlutusAndroid extends Application{
     }
 
     public List<Transaction> getTransactionsSet( int set ){
-
         int start = set * Config.APP_DEFAULT_LIST_SIZE;
         if( start > transactions.size() )
             return null;
 
         int end = start + Config.APP_DEFAULT_LIST_SIZE < transactions.size() ? start + Config.APP_DEFAULT_LIST_SIZE : transactions.size();
+
         return transactions.subList( start, end );
     }
 
@@ -313,14 +318,15 @@ public class PlutusAndroid extends Application{
                         if( writeTransactions( array ) && databaseIncomplete ){
                             int nextPage = page + 1;
                             completeDatabase( nextPage );
+                            Log.v( "Completing database", "page is " + nextPage );
                         }else{
                             if( currentActivity instanceof MainActivity ){
                                 MainActivity main = (MainActivity)currentActivity;
                                 Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
                             }
-                            ioService.saveDatabaseIncomplete( databaseIncomplete = false );
-                            Log.i( "Data status", "refreshed -- saved to db" );
-                            return; // safety first
+                            //ioService.saveDatabaseIncomplete( databaseIncomplete = false );
+                            Log.i( "Data status", "refreshed -- saved to db (1)" );
+                            //return; // safety first
                         }
                     }catch( JSONException e ){
                         try{
@@ -330,9 +336,9 @@ public class PlutusAndroid extends Application{
                             if( currentActivity instanceof MainActivity ){
                                 MainActivity main = (MainActivity)currentActivity;
                                 Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
-                                ioService.saveDatabaseIncomplete( databaseIncomplete = false );
                             }
-                            Log.i( "Data status", "refreshed -- saved to db" );
+                            ioService.saveDatabaseIncomplete( databaseIncomplete = false );
+                            Log.i( "Data status", "refreshed -- saved to db (2)" );
                         }catch( JSONException f ){
                             Message.obtrusive( getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                         }

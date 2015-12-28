@@ -45,11 +45,11 @@ public class SPAdapter{
     }
 
     public void saveCreditRepresentationMax( int value ){
-        editor.putInt( "credit_rep_max", value);
+        editor.putInt( "credit_rep_max", value );
         editor.commit();
     }
 
-    public void saveLanguage(String language) {
+    public void saveLanguage( String language ){
         editor.putString( "language", language );
         editor.commit();
     }
@@ -71,7 +71,7 @@ public class SPAdapter{
     }
 
     public int getCreditRepresentationMax(){
-        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX);
+        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX );
     }
 
     public String getLanguage(){
@@ -130,13 +130,8 @@ public class SPAdapter{
     }
 
     public void clearSharedPreferences(){
-        editor.remove( "student_id" );
-        editor.remove( "new_install" );
-        editor.remove( "home_screen" );
-        editor.remove( "credit_rep" );
-        editor.remove( "credit_min" );
-        editor.remove( "credit_max" );
-        cleanSharedPreferences();
+        editor.clear();
+        editor.commit();
     }
 
     public String getStudentId(){
