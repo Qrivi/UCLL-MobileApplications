@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        app:umanoPanelHeight="110dp"
+        app:umanoPanelHeight="115dp"
         app:umanoFadeColor="@android:color/transparent"
         app:umanoClipPanel="false"
         app:umanoShadowHeight="0dp"
@@ -45,7 +45,7 @@
                 android:layout_height="@dimen/app_knob"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="125dp"
+                android:layout_marginBottom="130dp"
                 android:layout_marginLeft="@dimen/padding_activity_default"
                 android:layout_marginRight="@dimen/padding_activity_default"
                 android:id="@+id/det_btnMaps"
@@ -66,12 +66,19 @@
             android:clipToPadding="false"
             android:clickable="true">
 
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="@dimen/padding_list"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/shadow"
+                android:src="@drawable/shape_shadow"/>
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="88dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="@dimen/padding_list"
+                android:layout_below="@id/shadow"
                 android:padding="@dimen/padding_activity_default"
                 android:id="@+id/det_dragZone"
                 android:background="@color/ucll_light_blue">
@@ -115,15 +122,15 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_list"
+                    android:layout_marginTop="@dimen/padding_header"
                     android:layout_marginBottom="@dimen/padding_list"
-                    style="@style/Plutus.RowHeader"
-                    android:id="@+id/det_date"
+                    android:id="@+id/det_description"
                     android:text="@string/not_applicable_full"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/det_description"
+                    style="@style/Plutus.RowHeader"
+                    android:id="@+id/det_date"
                     android:text="@string/not_applicable_full"/>
         </LinearLayout>
 
@@ -136,7 +143,8 @@
                 android:layout_marginRight="@dimen/padding_activity_default"
                 android:background="@drawable/shape_date_holder"
                 android:elevation="@dimen/elevation_fab"
-                android:clipToPadding="false">
+                android:clipToPadding="false"
+                android:transitionName="transition_date">
 
             <TextView
                     android:layout_width="fill_parent"

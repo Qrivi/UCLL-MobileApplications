@@ -16,6 +16,10 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
 
     <style name="Plutus.Toolbar" parent="ThemeOverlay.AppCompat">
@@ -97,7 +101,6 @@
     <style name="Plutus.RowHeader">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/app_list_header</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/text_soft</item>
         <item name="android:gravity">left</item>
     </style>

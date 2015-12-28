@@ -1,5 +1,6 @@
 package be.krivi.plutus.android.view;
 
+import android.view.View;
 import be.krivi.plutus.android.model.Transaction;
 
 /**
@@ -7,5 +8,5 @@ import be.krivi.plutus.android.model.Transaction;
  */
 public interface TransactionsOnClickListener{
 
-    public void transactionClicked( Transaction t );
+    void onTransactionClicked( View view, Transaction transaction );
 }

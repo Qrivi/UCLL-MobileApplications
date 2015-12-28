@@ -74,8 +74,7 @@
                 android:layout_alignParentStart="true"
                 android:paddingStart="@dimen/padding_list_with_icons"
                 android:paddingEnd="@dimen/app_price_small_container"
-                android:orientation="vertical"
-                android:id="@+id/linearLayout">
+                android:orientation="vertical">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -3,6 +3,7 @@ package be.krivi.plutus.android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -141,8 +142,17 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
     }
 
     @Override
-    public void transactionClicked( Transaction t ){
-        app.setTransactionDetail( t );
-        startActivity( new Intent( getContext(), DetailActivity.class ));
+    public void onTransactionClicked( View view, Transaction transaction ){
+        app.setTransactionDetail( transaction );
+        // startActivity( new Intent( getContext(), DetailActivity.class ));
+
+        View smallDateHolder = view.findViewById( R.id.tr_wrapperDate );
+        Message.toast( getContext(), smallDateHolder.getBackground().toString() );
+        smallDateHolder.setTransitionName("transition_date");
+       // smallDateHolder.setVisibility(View.INVISIBLE);
+
+        Intent intent = new Intent( getContext(), DetailActivity.class );
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation( main, smallDateHolder, "transition_date" );
+        main.startActivity( intent, options.toBundle() );
     }
 }

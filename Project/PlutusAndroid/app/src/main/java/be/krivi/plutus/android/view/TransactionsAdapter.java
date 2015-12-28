@@ -189,7 +189,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         @Override
         public void onClick( View view ){
             if( transaction != null )
-                clickListener.transactionClicked( transaction );
+                clickListener.onTransactionClicked( view, transaction );
         }
     }
 }
