@@ -3,7 +3,5 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:shape="oval">
 
-    <gradient
-            android:startColor="@color/ucll_dark_blue"
-            android:endColor="@color/ucll_dark_blue"/>
+    <solid android:color="@color/ucll_dark_blue"/>
 </shape>

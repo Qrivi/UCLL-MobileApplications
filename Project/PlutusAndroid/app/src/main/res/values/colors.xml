@@ -1,6 +1,5 @@
 <resources>
 
-        <color name="ucll_pink_alt">#820025</color>
         <color name="ucll_pink">#E00049</color>
         <color name="ucll_dark_blue">#002757</color>
         <color name="ucll_light_blue">#9FDAF9</color>
@@ -10,6 +9,8 @@
         <color name="plutus_dark_green">#417505</color>
         <color name="plutus_green">#7ED321</color>
         <color name="plutus_red">#D0021B</color>
+
+        <color name="ripple_pink">#820025</color>
 
         <color name="text_default">@color/plutus_dark_gray</color>
         <color name="text_clickable">#333333</color>

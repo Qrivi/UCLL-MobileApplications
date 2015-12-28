@@ -60,6 +60,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
         RowData data = rowData.get( position );
 
+        if( position < 1)
+            holder.mSeparator.setVisibility( View.GONE );
+
         switch( data.type ){
             case 0: // header
                 holder.mRowHeader.setVisibility( View.VISIBLE );
@@ -136,6 +139,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
         @Bind( R.id.tr_rowHeader )
         LinearLayout mRowHeader;
+
+        @Bind( R.id.tr_separator )
+        View mSeparator;
 
         @Bind( R.id.tr_rowData )
         RelativeLayout mRowData;

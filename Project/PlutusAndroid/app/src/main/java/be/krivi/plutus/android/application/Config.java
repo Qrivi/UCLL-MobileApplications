@@ -1,5 +1,7 @@
 package be.krivi.plutus.android.application;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Krivi on 13/12/15.
  */
@@ -22,6 +24,8 @@ public abstract class Config{
 
     public static int APP_DEFAULT_SNOOZE_TIME = 60;
     public static int APP_DEFAULT_LIST_SIZE = 25;
+    public static LatLng APP_DEFAULT_MAP_LATLNG = new LatLng( 50.711243,4.768066 ); // center of BE
+    public static int APP_DEFAULT_MAP_ZOOM = 20;
 
     public static boolean SETTINGS_DEFAULT_CREDIT_REPRESENTATION = true;
     public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN = 10;

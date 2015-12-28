@@ -19,6 +19,7 @@
     <dimen name="link_textSize">10sp</dimen>
     <dimen name="link_buttonSize">32dp</dimen>
 
+    <dimen name="app_detail_title">22sp</dimen>
     <dimen name="app_list_separator">1dp</dimen>
     <dimen name="app_list_item">10dp</dimen>
     <dimen name="app_list_header">14sp</dimen>
@@ -32,11 +33,16 @@
     <dimen name="app_gauge_cents">38sp</dimen>
     <dimen name="app_gauge_currency">20sp</dimen>
     <dimen name="app_price_small">18sp</dimen>
+    <dimen name="app_price">24sp</dimen>
     <dimen name="app_date_day_small">14sp</dimen>
+    <dimen name="app_date_day">18sp</dimen>
     <dimen name="app_date_month_small">10sp</dimen>
+    <dimen name="app_date_month">7sp</dimen>
 
     <dimen name="padding_date_month_small">4sp</dimen>
     <dimen name="padding_date_day_small">-3sp</dimen>
+
+    <dimen name="elevation_fab">6dp</dimen><!-- material -->
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

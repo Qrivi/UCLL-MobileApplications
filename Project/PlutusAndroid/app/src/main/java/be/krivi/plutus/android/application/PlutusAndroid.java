@@ -58,9 +58,13 @@ public class PlutusAndroid extends Application{
         format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
 
         // get defaults
+        loadConfiguration();
+        databaseIncomplete = ioService.isDatabaseIncomplete();
+    }
+
+    private void loadConfiguration(){
         homeScreen = ioService.getHomeScreen();
         gaugeValue = ioService.getGaugeValue();
-        databaseIncomplete = ioService.isDatabaseIncomplete();
         creditRepresentation = ioService.getCreditRepresentation();
         creditRepresentationMin = ioService.getCreditRepresentationMin();
         creditRepresentationMax = ioService.getCreditRepresentationMax();
@@ -119,6 +123,7 @@ public class PlutusAndroid extends Application{
     public void initializeUser( String studentId, String password, String firstname, String lastname ){
         this.user = new User( studentId, password, firstname, lastname );
         ioService.saveCredentials( getCurrentUser() );
+        loadConfiguration();
     }
 
     public void writeUserCredit( double credit, String fetchDate ){
@@ -295,8 +300,10 @@ public class PlutusAndroid extends Application{
                             int nextPage = page + 1;
                             completeDatabase( nextPage );
                         }else{
-                            MainActivity main = (MainActivity)currentActivity;
-                            Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
+                            if( currentActivity instanceof MainActivity ){
+                                MainActivity main = (MainActivity)currentActivity;
+                                Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
+                            }
                             ioService.saveDatabaseIncomplete( databaseIncomplete = false );
                             Log.i( "Data status", "refreshed -- saved to db" );
                             return; // safety first
@@ -306,9 +313,11 @@ public class PlutusAndroid extends Application{
                             JSONObject obj = new JSONObject( response );
                             if( !obj.has( "data" ) )
                                 throw new JSONException( "Response did not contain any data" );
-                            MainActivity main = (MainActivity)currentActivity;
-                            Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
-                            ioService.saveDatabaseIncomplete( databaseIncomplete = false );
+                            if( currentActivity instanceof MainActivity ){
+                                MainActivity main = (MainActivity)currentActivity;
+                                Message.snack( main.mDrawerLayout, getString( R.string.database_updated ) );
+                                ioService.saveDatabaseIncomplete( databaseIncomplete = false );
+                            }
                             Log.i( "Data status", "refreshed -- saved to db" );
                         }catch( JSONException f ){
                             Message.obtrusive( getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );

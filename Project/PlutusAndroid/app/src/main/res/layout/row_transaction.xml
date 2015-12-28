@@ -4,15 +4,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <!-- TODO extract values to dimen.xml -->
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/app_list_item"
             android:orientation="vertical"
             android:id="@+id/tr_rowHeader">
 
-        <View style="@style/Plutus.Separator"/>
+        <View
+                style="@style/Plutus.Separator"
+                android:layout_marginTop="@dimen/app_list_item"
+                android:id="@+id/tr_separator"/>
 
         <TextView
                 android:layout_width="match_parent"

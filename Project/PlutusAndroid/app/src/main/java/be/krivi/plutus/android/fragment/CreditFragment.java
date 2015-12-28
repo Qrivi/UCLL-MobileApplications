@@ -117,7 +117,7 @@ public class CreditFragment extends Fragment implements SwipeRefreshLayout.OnRef
             if( newValue > 75 ) newValue = 75;
 
             GaugeAnimation animation = new GaugeAnimation( mGauge, gaugeValue, newValue );
-            animation.setDuration( 1500 );
+            animation.setDuration( 2500 );
 
             mGauge.startAnimation( animation );
             app.setGaugeValue( newValue );
@@ -147,6 +147,7 @@ public class CreditFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 mTime.setText( getString( R.string.at_time, time ) );
             }catch( Exception e ){
                 e.printStackTrace();
+                // onmogelijk hier te geraken
             }
         }
     }

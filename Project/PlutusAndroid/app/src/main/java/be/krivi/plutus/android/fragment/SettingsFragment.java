@@ -21,7 +21,7 @@ import java.util.Locale;
 /**
  * Created by Jan on 27/12/2015.
  */
-public class SettingsAltFragment extends Fragment{
+public class SettingsFragment extends Fragment{
 
 
     @Bind( R.id.pref_switchCreditGauge )

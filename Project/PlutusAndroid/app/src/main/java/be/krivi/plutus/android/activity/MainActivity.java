@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected( MenuItem item ){
         if( item.getItemId() == R.id.menu_filter ){
             // TODO filters
-            Message.toast( this, "Not yet implemented" );
+            Message.toast( this, "Not yet present in this beta" );
         }
 
         return super.onOptionsItemSelected( item );
@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case "Settings":
                 nav = R.id.navigation_settings;
-                currentFragment = new SettingsAltFragment();
+                currentFragment = new SettingsFragment();
                 break;
         }
 
@@ -255,15 +255,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                         app.writeUserCredit( credit, fetchDate );
                         app.loadData();
-                        updateFragment();
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_credit ) + e.getMessage() );
                     }
+                    updateFragment();
                 }
 
                 @Override
                 public void onFailure( VolleyError error ){
                     Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_credit ) );
+                    updateFragment();
                 }
             } );
         }
@@ -284,15 +285,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         JSONArray array = new JSONObject( response ).getJSONArray( "data" );
                         app.writeTransactions( array );
                         app.completeDatabase( 2 );
-                        updateFragment();
                     }catch( JSONException e ){
                         Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_fetching_transactions ) + e.getMessage() );
                     }
+                    updateFragment();
                 }
 
                 @Override
                 public void onFailure( VolleyError error ){
                     Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_transactions ) );
+                    updateFragment();
                 }
             } );
         }
