@@ -1,42 +1,50 @@
 package be.krivi.plutus.android.application;
 
+import be.krivi.plutus.android.R;
+
 import java.util.Locale;
 
 /**
  * Created by Krivi on 28/12/15.
  */
 public enum Language{
-    DEFAULT( Locale.getDefault(), "", "", 0 ),
-    ENGLISH( Locale.forLanguageTag( "en" ), "English" , "en", 1 ),
-    DUTCH( Locale.forLanguageTag( "nl" ), "Nederlands", "nl", 2 ),
-    FRENCH( Locale.forLanguageTag( "fr" ), "Français", "fr", 3 );
+    DEFAULT( R.string.language_system, 0, "System default", "", Locale.getDefault() ),
+    ENGLISH( R.string.language_english, 1, "English", "en", Locale.forLanguageTag( "en" ) ),
+    DUTCH( R.string.language_dutch, 2, "Nederlands", "nl", Locale.forLanguageTag( "nl" ) ),
+    FRENCH( R.string.language_french, 3, "Français", "fr", Locale.forLanguageTag( "fr" ) );
 
-    private Locale locale;
-    private String name;
-    private String tag;
     private int id;
+    private int pos;
+    private String localized;
+    private String tag;
+    private Locale locale;
 
-    Language( Locale locale, String name, String tag, int id ){
-        this.locale = locale;
-        this.name = name;
-        this.tag = tag;
+    Language( int id, int pos, String localized, String tag, Locale locale ){
         this.id = id;
+        this.pos = pos;
+        this.localized = localized;
+        this.tag = tag;
+        this.locale = locale;
     }
 
-    public Locale toLocale(){
-        return locale;
+    public int getId(){
+        return id;
+    }
+
+    public int getPos(){
+        return pos;
     }
 
     @Override
     public String toString(){
-        return name;
+        return localized;
     }
 
-    public String toLanguageTag(){
+    public String getTag(){
         return tag;
     }
 
-    public int getId() {
-        return id;
+    public Locale getLocale(){
+        return locale;
     }
 }

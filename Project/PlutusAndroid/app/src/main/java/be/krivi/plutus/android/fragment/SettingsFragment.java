@@ -24,13 +24,13 @@ import butterknife.OnClick;
  */
 public class SettingsFragment extends BaseFragment implements EditTextDialog.NoticeDialogListener{
 
-    @Bind(R.id.pref_credit_gaugeMinMaxWrapper)
+    @Bind( R.id.pref_credit_gaugeMinMaxWrapper )
     LinearLayout mCreditMinMaxWrapper;
 
-    @Bind(R.id.pref_credit_gaugeSwitch)
+    @Bind( R.id.pref_credit_gaugeSwitch )
     SwitchCompat mCreditGaugeSwitch;
 
-    @Bind(R.id.pref_notifications_switch)
+    @Bind( R.id.pref_notifications_switch )
     SwitchCompat mNotificationsSwitch;
 
     @Bind( R.id.pref_hintCreditGaugeMin )
@@ -63,10 +63,10 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
             mCreditGaugeSwitch.setChecked( true );
         }
 
-        mApplicationHomeScreenHint.setText( getString( app.getHomeScreen().getReference() ) );
+        mApplicationHomeScreenHint.setText( getString( app.getHomeScreen().getId() ) );
         mCreditGaugeMinHint.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + app.getCreditRepresentationMin() );
         mCreditGaugeMaxHint.setText( Config.API_DEFAULT_CURRENCY_SYMBOL + " " + app.getCreditRepresentationMax() );
-        mApplicationLanguageHint.setText( app.getLanguage().toString() );
+        mApplicationLanguageHint.setText( getString( app.getLanguage().getId() ) );
     }
 
     ////////////////////////////////////////
@@ -142,49 +142,37 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public void onDialogPositiveClick( BaseDialog dialog, int id ){
-//        if( dialog.getType().equals( getString( R.string.minimum ) ) ){
-//            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
-//            app.setCreditRepresentationMin( Integer.parseInt( edit.getText().toString() ) );
-//        }else if( dialog.getType().equals( getString( R.string.maximum ) ) ){
-//            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
-//            app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
-//        }else if( dialog.getType().equals( getString( R.string.language ) ) ){
-//            app.setLanguage( Language.DEFAULT );
-//            dialog.getDialog().cancel();
-//        }else if( dialog.getType().equals( getString( R.string.home_screen ) ) ){
-//
-//            switch( screens.get( id ) ){
-//                case 0:
-//                    app.setHomeScreen( Window.CREDIT );
-//                    break;
-//                case 1:
-//                    app.setHomeScreen( Window.TRANSACTIONS );
-//                    break;
-//                case 2:
-//                    app.setHomeScreen( Window.SETTINGS );
-//                    break;
-//            }
-//            dialog.getDialog().cancel();
-//        }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
-//            app.resetApp();
-//            main.finish();
-//            System.exit( 0 );
-//        }
-//        updateView();
+        //        if( dialog.getType().equals( getString( R.string.minimum ) ) ){
+        //            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
+        //            app.setCreditRepresentationMin( Integer.parseInt( edit.getText().toString() ) );
+        //        }else if( dialog.getType().equals( getString( R.string.maximum ) ) ){
+        //            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
+        //            app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
+        //        }else if( dialog.getType().equals( getString( R.string.language ) ) ){
+        //            app.setLanguage( Language.DEFAULT );
+        //            dialog.getDialog().cancel();
+        //        }else if( dialog.getType().equals( getString( R.string.home_screen ) ) ){
+        //
+        //            switch( screens.get( id ) ){
+        //                case 0:
+        //                    app.setHomeScreen( Window.CREDIT );
+        //                    break;
+        //                case 1:
+        //                    app.setHomeScreen( Window.TRANSACTIONS );
+        //                    break;
+        //                case 2:
+        //                    app.setHomeScreen( Window.SETTINGS );
+        //                    break;
+        //            }
+        //            dialog.getDialog().cancel();
+        //        }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
+        //            app.resetApp();
+        //            main.finish();
+        //            System.exit( 0 );
+        //        }
+        //        updateView();
     }
 
     @Override

@@ -282,7 +282,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/if_the_application_is_malfunctioning"
+                    android:text="@string/reset_description"
                     style="@style/Plutus.RowTitle"/>
             <Button
                     android:id="@+id/pref_application_buttonReset"

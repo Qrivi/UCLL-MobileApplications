@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         FragmentTransaction switcher = manager.beginTransaction();
         int nav = 0;
 
-        switch( window.getId() ){
+        switch( window.getPos() ){
             case 0:
                 nav = R.id.navigation_credit;
                 currentFragment = new CreditFragment();
@@ -215,9 +215,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if( nav != 0 )
             mNavigationView.getMenu().findItem( nav ).setChecked( true );
         if( getSupportActionBar() != null )
-            getSupportActionBar().setTitle( getString( window.getReference() ) );
+            getSupportActionBar().setTitle( getString( window.getId() ) );
 
-        mToolbar.setTitle( getString( window.getReference() ) );
+        mToolbar.setTitle( getString( window.getId() ) );
         switcher.commit();
     }
 
@@ -227,7 +227,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             MenuItem search = mToolbarMenu.findItem( R.id.menu_filter );
             MenuItem filter = mToolbarMenu.findItem( R.id.menu_search );
 
-            switch( window.getId() ){
+            switch( window.getPos() ){
                 case 1:
                     search.setVisible( true );
                     filter.setVisible( true );

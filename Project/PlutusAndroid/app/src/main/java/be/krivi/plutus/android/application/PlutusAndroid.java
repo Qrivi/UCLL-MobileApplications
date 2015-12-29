@@ -104,7 +104,7 @@ public class PlutusAndroid extends Application{
 
     public void setHomeScreen( Window window ){
         this.homeScreen = window;
-        ioService.saveHomeScreen( window.getOrigin() );
+        ioService.saveHomeScreen( window.toString() );
     }
 
     public void setGaugeValue( float value ){
@@ -133,7 +133,7 @@ public class PlutusAndroid extends Application{
 
     public void setLanguage( Language language ){
         this.language = language;
-        ioService.saveLanguageTag( language.toLanguageTag() );
+        ioService.saveLanguageTag( language.getTag() );
     }
 
     public Window getHomeScreen(){

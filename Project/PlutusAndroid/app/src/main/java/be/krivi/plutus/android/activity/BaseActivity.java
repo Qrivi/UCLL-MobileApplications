@@ -31,9 +31,9 @@ public class BaseActivity extends AppCompatActivity{
 
         Language language = app.getLanguage();
         if( language != Language.DEFAULT ){
-            Locale.setDefault( language.toLocale() );
+            Locale.setDefault( language.getLocale() );
             Configuration config = new Configuration();
-            config.locale = language.toLocale();
+            config.locale = language.getLocale();
             this.getBaseContext().getResources().updateConfiguration( config, null );
         }
 
