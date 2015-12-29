@@ -54,11 +54,7 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
 
 
 
-        for(int i = 0; i < options.length; i++) {
-            this.options[i] =
-        }
-
-        this.options = options;
+        //this.options = options;
     }
 
     public void setMessage(String message) {

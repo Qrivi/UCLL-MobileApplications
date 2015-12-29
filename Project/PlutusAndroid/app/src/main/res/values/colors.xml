@@ -6,6 +6,7 @@
         <color name="ucll_light">#FFFFFF</color>
 
         <color name="plutus_dark_gray">#5A5A5A</color>
+        <color name="plutus_light_gray">#DDDDDD</color>
         <color name="plutus_dark_green">#417505</color>
         <color name="plutus_green">#7ED321</color>
         <color name="plutus_red">#D0021B</color>
@@ -21,25 +22,5 @@
         <color name="credit_gauge_max">@color/plutus_green</color>
         <color name="transaction_topup">@color/plutus_dark_green</color>
         <color name="transaction_expense">@color/plutus_red</color>
-
-        <!-- tot hier al gebruikt -->
-
-        <color name="text_subheader">#A2A2A2</color>
-        <color name="text_subline">#BBBBBB</color>
-
-        <color name="text_edittext">@color/text_clickable</color>
-        <color name="text_hint">#9B9B9B</color>
-        <color name="text_link">@color/ucll_light_blue</color>
-
-        <color name="text_dialog_title">#606060</color>
-        <color name="text_dialog_body">#666666</color>
-        <color name="text_dialog_positive">@color/ucll_dark_blue</color>
-        <color name="text_dialog_negative">@color/text_dialog_body</color>
-        <color name="text_dialog_warning">@color/plutus_red</color>
-        <color name="dialog_background">@color/ucll_light</color>
-
-
-        <color name="button_text">#F5F5F5</color>
-        <color name="button_background">#F5F5F5</color>
 
 </resources>

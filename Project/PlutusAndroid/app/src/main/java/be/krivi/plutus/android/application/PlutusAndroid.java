@@ -81,7 +81,7 @@ public class PlutusAndroid extends Application{
                 language = Language.FRENCH;
                 break;
             default:
-                language = Language.FRENCH;
+                language = Language.DEFAULT;
         }
 
         switch( ioService.getHomeScreen() ){

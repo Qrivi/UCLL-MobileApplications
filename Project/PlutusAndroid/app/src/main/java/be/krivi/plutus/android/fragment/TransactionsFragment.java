@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, TransactionsOnClickListener{
+public class TransactionsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, TransactionsOnClickListener{
 
     @Bind( R.id.swipeRefreshTransactions )
     SwipeRefreshLayout mSwipeRefresh;
@@ -41,8 +41,6 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
     @Bind( R.id.recyclerTransactions )
     RecyclerView mRecycler;
 
-    private PlutusAndroid app;
-    private MainActivity main;
     private TransactionsAdapter adapter;
     private List<Transaction> transactions;
     private TransactionsOnScrollListener scrollListener;
@@ -58,9 +56,6 @@ public class TransactionsFragment extends Fragment implements SwipeRefreshLayout
 
         final View view = inflater.inflate( R.layout.fragment_transactions, container, false );
         ButterKnife.bind( this, view );
-
-        main = (MainActivity)getActivity();
-        app = (PlutusAndroid)main.getApplication();
 
         set = 0;
         linearLayoutManager = new LinearLayoutManager( getActivity() );

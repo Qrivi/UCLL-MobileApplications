@@ -186,7 +186,7 @@
     <style name="Plutus.Separator">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/app_list_separator</item>
-        <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:background">@color/plutus_light_gray</item>
     </style>
 
 </resources>

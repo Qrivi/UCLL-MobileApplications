@@ -8,7 +8,7 @@ import be.krivi.plutus.android.R;
 /**
  * Created by Jan on 28/12/2015.
  */
-public class ListDialog extends BaseDialog{
+public class RadioButtonDialog extends BaseDialog{
 
 
     public Dialog onCreateDialog( Bundle savedInstanceState ){
