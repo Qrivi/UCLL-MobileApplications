@@ -64,8 +64,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         final View view = inflater.inflate( R.layout.fragment_settings, container, false );
         ButterKnife.bind( this, view );
 
-        collapse = new CollapseAnimation(mCreditMinMaxWrapper, CollapseAnimation.CollapseAnimationAction.COLLAPSE);
-        expand = new CollapseAnimation(mCreditMinMaxWrapper, CollapseAnimation.CollapseAnimationAction.EXPAND);
+        collapse = new CollapseAnimation( mCreditMinMaxWrapper, CollapseAnimation.CollapseAnimationAction.COLLAPSE );
+        expand = new CollapseAnimation( mCreditMinMaxWrapper, CollapseAnimation.CollapseAnimationAction.EXPAND );
 
         languages = new LinkedList<>();
         windows = new LinkedList<>();
@@ -147,7 +147,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     @OnClick( R.id.pref_application_languageWrapper )
     public void onLanguageWrapperClicked(){
-        createRadioButtonDialog( getString( R.string.set_language ), app.getLanguage().getPos(), languages );
+        createRadioButtonDialog( getString( R.string.set_language ), getString( R.string.set_language_message ), app.getLanguage().getPos(), languages );
     }
 
     ////////////////////////////////////////
@@ -158,7 +158,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     @OnClick( R.id.pref_application_homeScreenWrapper )
     public void onHomeScreenClicked(){
-        createRadioButtonDialog( getString( R.string.set_home_screen ), app.getHomeScreen().getPos(), windows );
+        createRadioButtonDialog( getString( R.string.set_home_screen ), getString( R.string.set_home_screen_message ), app.getHomeScreen().getPos(), windows );
     }
 
     @OnClick( R.id.pref_application_buttonReset )
@@ -235,8 +235,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         dialog.show( getFragmentManager(), type );
     }
 
-    private void createRadioButtonDialog( String type, int currentId, List<Integer> options ){
-        RadioButtonDialog dialog = RadioButtonDialog.newInstance( getContext(), type, currentId, options );
+    private void createRadioButtonDialog( String type, String message, int currentId, List<Integer> options ){
+        RadioButtonDialog dialog = RadioButtonDialog.newInstance( getContext(), type, message, currentId, options );
         dialog.setTargetFragment( this, 1 );
         dialog.show( getFragmentManager(), type );
     }

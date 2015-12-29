@@ -40,7 +40,7 @@ public class ConfirmationDialog extends BaseDialog{
         }
 
         setTitle( builder, getType() );
-        builder.setMessage( message );
+        setMessage( builder, message );
 
         final AlertDialog dialog = builder.create();
 

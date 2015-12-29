@@ -161,6 +161,9 @@
 
     <string name="placeholder">placeholder — do not translate this</string>
     <string name="application_has_been_reset">Application has been reset</string>
+    <string name="set_home_screen_message">Choose which window the application should start up with.</string>
+    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "
+    </string>
 
 
 </resources>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.view.Message;
 
 import java.util.List;
 
@@ -18,12 +19,13 @@ public class RadioButtonDialog extends BaseDialog{
     private String[] options;
     private Context context;
 
-    public static RadioButtonDialog newInstance( Context context, String type, int current, List<Integer> optionsList ){
+    public static RadioButtonDialog newInstance( Context context, String type, String message, int current, List<Integer> optionsList ){
         RadioButtonDialog dialog = new RadioButtonDialog();
         dialog.context = context;
         dialog.setDialogType( type );
         dialog.setCurrent( current );
         dialog.setOptions( optionsList );
+        dialog.initializeMessage( message );
         return dialog;
     }
 
@@ -36,6 +38,7 @@ public class RadioButtonDialog extends BaseDialog{
         builder.setSingleChoiceItems( options, current, this );
         setNegativeButton( builder, getString( R.string.cancel ) );
         setTitle( builder, getType() );
+        //setMessage( builder, message );
 
         return builder.create();
     }
