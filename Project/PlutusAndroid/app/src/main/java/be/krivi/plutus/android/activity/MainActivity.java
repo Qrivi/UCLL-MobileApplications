@@ -94,6 +94,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onResume(){
         super.onResume();
 
+        if( getIntent().getStringExtra( "localization" ) != null ){
+            Log.i( "Localization", "Application Locale was updated" );
+            setFragment( Window.SETTINGS );
+        }
+
         if( app.fetchRequired() ){
             fetchAllData();
             Log.i( "Data status", "outdated -- fetching..." );

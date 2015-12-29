@@ -29,7 +29,7 @@
 
     <!-- DATE AND TIME -->
 
-    <string name="on_date">le %1$s</string>
+    <string name="on_date">%1$s</string>
     <string name="at_time">à %1$s</string>
     <string name="on_timestamp">le %1$s à %2$s</string>
 
