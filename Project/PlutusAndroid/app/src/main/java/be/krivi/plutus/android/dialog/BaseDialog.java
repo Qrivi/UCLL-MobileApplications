@@ -50,7 +50,13 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
         this.closeDialog();
     }
 
-    public void setOptions(String[] options){
+    public void setOptions(int[] options){
+
+
+
+        for(int i = 0; i < options.length; i++) {
+            this.options[i] =
+        }
 
         this.options = options;
     }
