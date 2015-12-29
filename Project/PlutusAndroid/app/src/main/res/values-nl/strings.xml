@@ -4,162 +4,163 @@
 
     <string name="app_name">Plutus</string>
 
-    <string name="credit">Balance</string>
-    <string name="transactions">Transactions</string>
-    <string name="transaction_detail">Transaction details</string>
-    <string name="settings">Settings</string>
-    <string name="notifications">Notifications</string>
-    <string name="application">Application</string>
+    <string name="credit">Saldo</string>
+    <string name="transactions">Verrichtingen</string>
+    <string name="transaction_detail">Verrichtingsdetail</string>
+    <string name="settings">Instellingen</string>
+    <string name="notifications">Notificaties</string>
+    <string name="application">Applicatie</string>
 
-    <string name="close_drawer">Close</string>
+    <string name="close_drawer">Sluit</string>
     <string name="open_drawer">Open</string>
     <string name="filters">Filters</string>
-    <string name="search">Search</string>
-    <string name="find_a_transaction">Find a transaction</string>
+    <string name="search">Zoeken</string>
+    <string name="find_a_transaction">Vind een transactie</string>
 
-    <string name="not_applicable_short">n/a</string>
-    <string name="not_applicable_full">not applicable</string>
-    <string name="not_in_beta">Not available in this beta</string>
-    <string name="beta_feature">Beta feature - might be buggy</string>
+    <string name="not_applicable_short">n.v.t.</string>
+    <string name="not_applicable_full">niet van toepassing</string>
+    <string name="not_in_beta">Niet aanwezig in deze beta</string>
+    <string name="beta_feature">Betafeature - kan buggy zijn</string>
 
-    <string name="language_system">System default</string>
-    <string name="language_english">English</string>
-    <string name="language_dutch">Dutch</string>
-    <string name="language_french">French</string>
+    <string name="language_system">Taal van toestel</string>
+    <string name="language_english">Engels</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_french">Frans</string>
 
     <!-- DATE AND TIME -->
 
-    <string name="on_date">on %1$s</string>
-    <string name="at_time">at %1$s</string>
-    <string name="on_timestamp">on %1$s at %2$s</string>
+    <string name="on_date">op %1$s</string>
+    <string name="at_time">om %1$s</string>
+    <string name="on_timestamp">op %1$s om %2$s</string>
 
-    <string name="january_short">Jan</string>
-    <string name="february_short">Feb</string>
-    <string name="march_short">Mar</string>
-    <string name="april_short">Apr</string>
-    <string name="may_short">May</string>
-    <string name="june_short">Jun</string>
-    <string name="july_short">Jul</string>
-    <string name="august_short">Aug</string>
-    <string name="september_short">Sep</string>
-    <string name="october_short">Oct</string>
-    <string name="november_short">Nov</string>
-    <string name="december_short">Dec</string>
-    <string name="january_full">January</string>
-    <string name="february_full">February</string>
-    <string name="march_full">March</string>
-    <string name="april_full">April</string>
-    <string name="may_full">May</string>
-    <string name="june_full">June</string>
-    <string name="july_full">July</string>
-    <string name="august_full">August</string>
-    <string name="september_full">September</string>
-    <string name="october_full">October</string>
-    <string name="november_full">November</string>
-    <string name="december_full">December</string>
+    <string name="january_short">jan</string>
+    <string name="february_short">feb</string>
+    <string name="march_short">aar</string>
+    <string name="april_short">apr</string>
+    <string name="may_short">mei</string>
+    <string name="june_short">jun</string>
+    <string name="july_short">jul</string>
+    <string name="august_short">aug</string>
+    <string name="september_short">sep</string>
+    <string name="october_short">okt</string>
+    <string name="november_short">nov</string>
+    <string name="december_short">dec</string>
+    <string name="january_full">januari</string>
+    <string name="february_full">februari</string>
+    <string name="march_full">maart</string>
+    <string name="april_full">april</string>
+    <string name="may_full">mei</string>
+    <string name="june_full">juni</string>
+    <string name="july_full">juli</string>
+    <string name="august_full">augustus</string>
+    <string name="september_full">september</string>
+    <string name="october_full">oktober</string>
+    <string name="november_full">november</string>
+    <string name="december_full">december</string>
 
     <!-- IDENTIFICATION -->
 
-    <string name="student_id">Student ID</string>
-    <string name="password">Password</string>
-    <string name="remember_me">Remember me</string>
-    <string name="sign_in">Sign in</string>
-    <string name="sign_out">Sign out</string>
-    <string name="try_again">Retry</string>
+    <string name="student_id">Studentennummer</string>
+    <string name="password">Wachtwoord</string>
+    <string name="remember_me">Onthoud mij</string>
+    <string name="sign_in">Aanmelden</string>
+    <string name="sign_out">Afmelden</string>
+    <string name="try_again">Opnieuw</string>
 
-    <string name="sign_in_using_your_student_credentials">Sign in using your student credentials</string>
-    <string name="read_our_privacy_policy">Read our privacy policy</string>
-    <string name="verifying_credentials">Verifying credentials…</string>
-    <string name="populating_database">Populating database…</string>
+    <string name="sign_in_using_your_student_credentials">Aanmelden met je studentengegevens</string>
+    <string name="read_our_privacy_policy">Lees ons privacy-beleid</string>
+    <string name="verifying_credentials">Inloggegevens controleren…</string>
+    <string name="populating_database">Database bijwerken…</string>
 
-    <string name="this_field_is_required">This field is required</string>
-    <string name="this_id_is_too_short">This ID is too short</string>
-    <string name="this_id_does_not_exist">This ID does not exist</string>
-    <string name="password_is_incorrect">Password is incorrect</string>
+    <string name="this_field_is_required">Dit veld is verplicht</string>
+    <string name="this_id_is_too_short">Dit studentennummer is te kort</string>
+    <string name="this_id_does_not_exist">Dit studentennummer bestaat niet</string>
+    <string name="password_is_incorrect">Wachtwoord is niet correct</string>
 
     <!-- INTERACTION -->
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="dismiss">Afwijzen</string>
     <string name="reset">Reset</string>
-    <string name="pull_down_to_refresh">Pull down to refresh</string>
+    <string name="pull_down_to_refresh">Swipe om te vernieuwen</string>
 
-    <string name="database_setting_up">Setting up the database can take a while</string>
-    <string name="database_updated">The database has been updated</string>
-    <string name="plutus_has_not_yet_checked_your_credit">Plutus has not yet checked your current credit</string>
-    <string name="no_internet_connection">You are working offline</string>
-    <string name="there_is_no_active_internet_connection">There is no active internet connection</string>
+    <string name="database_setting_up">Database instellen kan even duren</string>
+    <string name="database_updated">Database is bijgewerkt</string>
+    <string name="plutus_has_not_yet_checked_your_credit">Plutus heeft je huidige saldo nog niet bijgewerkt</string>
+    <string name="no_internet_connection">Je bent offline</string>
+    <string name="there_is_no_active_internet_connection">Er is geen actieve internetverbinding</string>
 
     <!-- SETTINGS -->
 
-    <string name="show_credit_gauge">Show credit gauge</string>
-    <string name="visualy_display_your_current_credit">Visually display your current credit</string>
-    <string name="set_minimum">Set minimum</string>
-    <string name="setting_minimum_message">This will be used as the gauge\'s minimum value.</string>
-    <string name="set_maximum">Set maximum</string>
-    <string name="settings_maximum_message">This will be used as the gauge\'s maximum value.</string>
+    <string name="show_credit_gauge">Toon saldoteller</string>
+    <string name="visualy_display_your_current_credit">Toon visueel je huidige saldo</string>
+    <string name="set_minimum">Stel minimum in</string>
+    <string name="setting_minimum_message">Dit zal worden gebruikt als het minimum van de saldoteller.</string>
+    <string name="set_maximum">Stel maximum in</string>
+    <string name="settings_maximum_message">Dit zal worden gebruikt als het maximum van de saldoteller.</string>
 
-    <string name="enable_notifications">Enable notifications</string>
-    <string name="get_notified_about_your_credit">Get notified about your credit</string>
+    <string name="enable_notifications">Schakel notificaties in</string>
+    <string name="get_notified_about_your_credit">Krijg een melding over je saldo</string>
 
-    <string name="set_home_screen">Set home screen</string>
-    <string name="set_home_screen_message">Choose which window the application should start up with.</string>
-    <string name="set_language">Set language</string>
-    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "</string>
+    <string name="set_home_screen">Stel beginscherm in</string>
+    <string name="set_home_screen_message">Kies met welk scherm de applicatie moet opstarten.</string>
+    <string name="set_language">Stel taal in</string>
+    <string name="set_language_message">Sommige opgeslagen gegevens zullen niet worden vertaald zolang je de applicatie niet reset.</string>
 
-    <string name="reset_application">Reset application</string>
-    <string name="reset_database">Reset database</string>
-    <string name="reset_info_application">The application has been reset</string>
-    <string name="reset_info_database">The database has been reset</string>
+    <string name="reset_application">Reset de applicatie</string>
+    <string name="reset_database">Reset de database</string>
+    <string name="reset_info_application">De applicatie is gereset</string>
+    <string name="reset_info_database">De database is gereset</string>
     <string name="reset_description">
-        If Plutus seems malfunctioning or displays incorrect data, you can reset it here.
+        Als Plutus niet correct werkt, kun je hem hier resetten.
     </string>
     <string name="reset_warning">
-        Resetting Plutus will remove all locally stored files such as databases and preferences.
+        Het resetten van Plutus zal al de lokaal opgeslagen bestanden verwijderen zoals de database en voorkeuren.
     </string>
-    <string name="reset_info">Plutus will now close.</string>
+    <string name="reset_info">Plutus zal nu sluiten.</string>
 
     <!-- ERROR MESSAGES -->
 
     <string name="something_went_wrong">
-        Oops, something went wrong!
+        Oeps, er ging iets mis!
     </string>
     <string name="error_fetching_credit">
-        Error fetching credit:\n\n
+        Error ophalen saldo:\n\n
     </string>
     <string name="error_fetching_transactions">
-        Error fetching transactions:\n\n
+        Error ophalen verrichtingen:\n\n
     </string>
     <string name="error_loading_data_into_app">
-        Error loading data from API into application:\n\n
+        Error inladen gegevens van de API in de applicatie:\n\n
     </string>
     <string name="error_endpoint_verify">
-        Plutus was unable to verify your credentials. Make sure that you are using the latest version of Plutus. If this
-        problem persist, our servers might temporarily be down. Please try again later or consider contacting us about
-        this issue.
+        Plutus kan je gebruikersgegevens niet verifiëren. Zorg dat je de laatste versie van Plutus gebruikt.
+        Als dit probleem zich blijft voordoen kan het zijn dat onze servers niet meer werken. Probeer het later
+        opnieuw of overweeg ons te contacteren over dit probleem.
     </string>
     <string name="error_endpoint_credit">
-        Plutus was unable to check your remaining credit. The current data might be outdated.\n\nMake sure that you are
-        using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try
-        again later or consider contacting us about this issue.
+        Plutus kan je huidige saldo niet ophalen. De huidige gegevens kunnen verouderd zijn.\n\n Zorg dat je de laatste
+        versie van Plutus gebruikt. Als dit probleem zich blijft voordoen kan het zijn dat onze servers niet meer werken.
+        Probeer het later opnieuw of overweeg ons te contacteren over dit probleem.
     </string>
     <string name="error_endpoint_transactions">
-        Plutus was unable to check for new transactions. The current data might be outdated.\n\nMake sure that you are
-        using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try
-        again later or consider contacting us about this issue.
+        Plutus kan geen nieuwe verrichtingen ophalen. De huidige gegevens kunnen verouderd zijn.\n\n Zorg dat je de laatste
+        versie van Plutus gebruikt. Als dit probleem zich blijft voordoen kan het zijn dat onze servers niet meer werken.
+        Probeer het later opnieuw of overweeg ons te contacteren over dit probleem.
     </string>
     <string name="error_loading_map">
-        There was an error loading the map for this transaction. This should not prevent Plutus from working correctly,
-        however.
+        Er was een probleem met het inladen van de map voor deze verrichting. Dit zal er niet voor zorgen dat Plutus
+        niet correct kan werken.
     </string>
     <string name="error_loading_transaction">
-        There was an error loading the details for this transaction. Make sure that you are using the latest version of
-        Plutus. If this problem persist, please consider contacting us about thisissue.
+        Er was een probleem met het inladen van de details voor deze verrichting. Zorg dat je de laatste
+        versie van Plutus gebruikt. Als dit probleem zich blijft voordoen overweeg ons dan te contacteren
+        over dit probleem.
     </string>
     <string name="error_no_maps_app_installed">
-        Looks like you don\'t have an app installed that could help you with directions to this campus. Go grab one
-        quickly then come press our button again!
+        Ziet er naar uit dat je geen applicatie hebt geïnstalleerd dat je kan helpen met de weg naar deze campus.
+        Ga er snel eentje halen en kom terug duwen op deze knop!
     </string>
 
     <!-- NOT YET LOCALIZED -->
