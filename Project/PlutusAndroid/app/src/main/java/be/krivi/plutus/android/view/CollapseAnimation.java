@@ -19,121 +19,43 @@ public class CollapseAnimation extends Animation{
     private View view;
     private CollapseAnimationAction action;
 
-//    public CollapseAnimation( View view, CollapseAnimationAction action ){
-//        super();
-//        this.view = view;
-//        this.action = action;
-//
-//        view.measure( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
-//
-//        final int targetHeigtMin = wrapperGaugeMin.getMeasuredHeight();
-//    }
-//
-//    @Override
-//    protected void applyTransformation( float interpolatedTime, Transformation t ){
-//        view.getLayoutParams().height = interpolatedTime == 1
-//                ? ViewGroup.LayoutParams.WRAP_CONTENT
-//                : (int)( targetHeigtMin * interpolatedTime );
-//        view.requestLayout();
-//    }
-//
-//
-//    @Override
-//    protected void applyTransformation( float interpolatedTime, Transformation t ){
-//        if( interpolatedTime == 1 ){
-//            view.setVisibility( View.GONE );
-//        }else{
-//            view.getLayoutParams().height = initialHeightMin - (int)( initialHeightMin * interpolatedTime );
-//            view.requestLayout();
-//        }
-//    }
-//
-//    @Override
-//    public boolean willChangeBounds(){
-//        return true;
-//    }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    public void expand(){
-//
-//        wrapperGaugeMin.measure( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
-//        wrapperGaugeMin.measure( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
-//
-//        final int targetHeigtMin = wrapperGaugeMin.getMeasuredHeight();
-//        final int targetHeigtMax = wrapperGaugeMin.getMeasuredHeight();
-//
-//        wrapperGaugeMin.getLayoutParams().height = 1;
-//        wrapperGaugeMin.setVisibility( View.VISIBLE );
-//
-//        wrapperGaugeMax.getLayoutParams().height = 1;
-//        wrapperGaugeMax.setVisibility( View.VISIBLE );
-//
-//        Animation a = new Animation(){
-//            @Override
-//            protected void applyTransformation( float interpolatedTime, Transformation t ){
-//                wrapperGaugeMin.getLayoutParams().height = interpolatedTime == 1
-//                        ? ViewGroup.LayoutParams.WRAP_CONTENT
-//                        : (int)( targetHeigtMin * interpolatedTime );
-//                wrapperGaugeMin.requestLayout();
-//
-//                wrapperGaugeMax.getLayoutParams().height = interpolatedTime == 1
-//                        ? ViewGroup.LayoutParams.WRAP_CONTENT
-//                        : (int)( targetHeigtMax * interpolatedTime );
-//                wrapperGaugeMax.requestLayout();
-//            }
-//
-//            @Override
-//            public boolean willChangeBounds(){
-//                return true;
-//            }
-//        };
-//
-//        // 1dp/ms
-//        a.setDuration( (int)( targetHeigtMin / wrapperGaugeMin.getContext().getResources().getDisplayMetrics().density ) );
-//        a.setDuration( (int)( targetHeigtMax / wrapperGaugeMax.getContext().getResources().getDisplayMetrics().density ) );
-//        wrapperGaugeMin.startAnimation( a );
-//        wrapperGaugeMax.startAnimation( a );
-//    }
-//
-//    public void collapse(){
-//
-//        final int initialHeightMin = wrapperGaugeMin.getMeasuredHeight();
-//        final int initialHeightMax = wrapperGaugeMax.getMeasuredHeight();
-//
-//        Animation a = new Animation(){
-//            @Override
-//            protected void applyTransformation( float interpolatedTime, Transformation t ){
-//                if( interpolatedTime == 1 ){
-//                    wrapperGaugeMin.setVisibility( View.GONE );
-//                    wrapperGaugeMax.setVisibility( View.GONE );
-//                }else{
-//                    wrapperGaugeMin.getLayoutParams().height = initialHeightMin - (int)( initialHeightMin * interpolatedTime );
-//                    wrapperGaugeMax.getLayoutParams().height = initialHeightMax - (int)( initialHeightMax * interpolatedTime );
-//                    wrapperGaugeMin.requestLayout();
-//                    wrapperGaugeMax.requestLayout();
-//                }
-//            }
-//
-//            @Override
-//            public boolean willChangeBounds(){
-//                return true;
-//            }
-//        };
-//
-//        // 1dp/ms
-//        a.setDuration( (int)( initialHeightMin / wrapperGaugeMin.getContext().getResources().getDisplayMetrics().density ) );
-//        a.setDuration( (int)( initialHeightMax / wrapperGaugeMax.getContext().getResources().getDisplayMetrics().density ) );
-//        wrapperGaugeMin.startAnimation( a );
-//        wrapperGaugeMax.startAnimation( a );
-//    }
+    private int viewHeight;
 
+    public CollapseAnimation( View view, CollapseAnimationAction action ){
+        super();
+        this.view = view;
+        this.action = action;
+
+        view.measure( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+        viewHeight = view.getMeasuredHeight();
+
+        this.setDuration( (int)( viewHeight / view.getContext().getResources().getDisplayMetrics().density ) * 3 );
+    }
+
+    @Override
+    protected void applyTransformation( float interpolatedTime, Transformation t ){
+        switch( action ){
+            case EXPAND:
+                view.setVisibility( View.VISIBLE );
+                view.getLayoutParams().height = 1;
+                view.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int)( viewHeight * interpolatedTime );
+                view.requestLayout();
+                break;
+            case COLLAPSE:
+                if( interpolatedTime == 1 ){
+                    view.setVisibility( View.GONE );
+                }else{
+                    view.getLayoutParams().height = viewHeight - (int)( viewHeight * interpolatedTime );
+                    view.requestLayout();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public boolean willChangeBounds(){
+        return true;
+    }
 }

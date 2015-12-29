@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed(){
-        if( mToolbar.getTitle().toString().equals( app.getHomeScreen() ) )
+        if( mToolbar.getTitle().toString().equals( getString( app.getHomeScreen().getId() ) ) )
             finish();
         else
             setFragment( app.getHomeScreen() );
