@@ -94,7 +94,7 @@
     <!-- SETTINGS -->
 
     <string name="show_credit_gauge">Show credit gauge</string>
-    <string name="visualy_display_your_current_credit">Visually display your current credit</string>
+    <string name="visualy_display_your_current_credit">Graphically display your current credit</string>
     <string name="set_minimum">Set minimum</string>
     <string name="setting_minimum_message">This will be used as the gauge\'s minimum value.</string>
     <string name="set_maximum">Set maximum</string>
@@ -105,8 +105,11 @@
 
     <string name="set_home_screen">Set home screen</string>
     <string name="set_home_screen_message">Choose which window the application should start up with.</string>
-    <string name="set_language">Set language</string>
-    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "</string>
+    <string name="set_language">Override language</string>
+    <string name="set_language_message">
+        Some stored data will only be translated after updating your language preferences on Intranet and erasing
+        Plutus\' database.
+    </string>
 
     <string name="reset_application">Reset application</string>
     <string name="reset_database">Reset database</string>

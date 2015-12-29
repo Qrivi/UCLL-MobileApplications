@@ -4,132 +4,136 @@
 
     <string name="app_name">Plutus</string>
 
-    <string name="credit">Credit</string>
-    <string name="transactions">Transactions</string>
-    <string name="transaction_detail">Transaction details</string>
-    <string name="settings">Settings</string>
+    <string name="credit">Crédit</string>
+    <string name="transactions">Opérations</string>
+    <string name="transaction_detail">Détails</string>
+    <string name="settings">Paramètres</string>
     <string name="notifications">Notifications</string>
     <string name="application">Application</string>
 
-    <string name="close_drawer">Close</string>
-    <string name="open_drawer">Open</string>
-    <string name="filters">Filters</string>
-    <string name="search">Search</string>
-    <string name="find_a_transaction">Find a transaction</string>
+    <string name="close_drawer">Fermer</string>
+    <string name="open_drawer">Ouvrir</string>
+    <string name="filters">Filtres</string>
+    <string name="search">Recherche</string>
+    <string name="find_a_transaction">Retrouver une opération</string>
 
-    <string name="not_applicable_short">n/a</string>
-    <string name="not_applicable_full">not applicable</string>
-    <string name="not_in_beta">Not available in this beta</string>
-    <string name="beta_feature">Beta feature - might be buggy</string>
+    <string name="not_applicable_short">s. o.</string>
+    <string name="not_applicable_full">sans objet</string>
+    <string name="not_in_beta">Non disponible dans cette bêta</string>
+    <string name="beta_feature">Attention: fonction alpha</string>
 
-    <string name="language_system">System default</string>
-    <string name="language_english">English</string>
-    <string name="language_dutch">Dutch</string>
-    <string name="language_french">French</string>
+    <string name="language_system">Langue du téléphone</string>
+    <string name="language_english">Anglais</string>
+    <string name="language_dutch">Néerlandais</string>
+    <string name="language_french">Français</string>
 
     <!-- DATE AND TIME -->
 
-    <string name="on_date">on %1$s</string>
-    <string name="at_time">at %1$s</string>
-    <string name="on_timestamp">on %1$s at %2$s</string>
+    <string name="on_date">le %1$s</string>
+    <string name="at_time">à %1$s</string>
+    <string name="on_timestamp">le %1$s à %2$s</string>
 
-    <string name="january_short">Jan</string>
-    <string name="february_short">Feb</string>
-    <string name="march_short">Mar</string>
-    <string name="april_short">Apr</string>
-    <string name="may_short">May</string>
-    <string name="june_short">Jun</string>
-    <string name="july_short">Jul</string>
-    <string name="august_short">Aug</string>
-    <string name="september_short">Sep</string>
-    <string name="october_short">Oct</string>
-    <string name="november_short">Nov</string>
-    <string name="december_short">Dec</string>
-    <string name="january_full">January</string>
-    <string name="february_full">February</string>
-    <string name="march_full">March</string>
-    <string name="april_full">April</string>
-    <string name="may_full">May</string>
-    <string name="june_full">June</string>
-    <string name="july_full">July</string>
-    <string name="august_full">August</string>
-    <string name="september_full">September</string>
-    <string name="october_full">October</string>
-    <string name="november_full">November</string>
-    <string name="december_full">December</string>
+    <string name="january_short">jan</string>
+    <string name="february_short">fév</string>
+    <string name="march_short">mars</string>
+    <string name="april_short">avr</string>
+    <string name="may_short">mai</string>
+    <string name="june_short">juin</string>
+    <string name="july_short">juil</string>
+    <string name="august_short">août</string>
+    <string name="september_short">sept</string>
+    <string name="october_short">oct</string>
+    <string name="november_short">nov</string>
+    <string name="december_short">déc</string>
+    <string name="january_full">janvier</string>
+    <string name="february_full">février</string>
+    <string name="march_full">mars</string>
+    <string name="april_full">avril</string>
+    <string name="may_full">mai</string>
+    <string name="june_full">juin</string>
+    <string name="july_full">juillet</string>
+    <string name="august_full">août</string>
+    <string name="september_full">septembre</string>
+    <string name="october_full">octobre</string>
+    <string name="november_full">novembre</string>
+    <string name="december_full">décembre</string>
 
     <!-- IDENTIFICATION -->
 
-    <string name="student_id">Student ID</string>
-    <string name="password">Password</string>
-    <string name="remember_me">Remember me</string>
-    <string name="sign_in">Sign in</string>
-    <string name="sign_out">Sign out</string>
-    <string name="try_again">Retry</string>
+    <string name="student_id">Numéro d\'étudiant</string>
+    <string name="password">Mot de passe</string>
+    <string name="remember_me">Garder ma session active</string>
+    <string name="sign_in">Connexion</string>
+    <string name="sign_out">Déconnexion</string>
+    <string name="try_again">Réessayer</string>
 
-    <string name="sign_in_using_your_student_credentials">Sign in using your student credentials</string>
-    <string name="read_our_privacy_policy">Read our privacy policy</string>
-    <string name="verifying_credentials">Verifying credentials…</string>
-    <string name="populating_database">Populating database…</string>
+    <string name="sign_in_using_your_student_credentials">Introduisez vos données d\'étudiant</string>
+    <string name="read_our_privacy_policy">Notre politique de confidentialité</string>
+    <string name="verifying_credentials">Validation des données…</string>
+    <string name="populating_database">Chargement de la base de données…</string>
 
-    <string name="this_field_is_required">This field is required</string>
-    <string name="this_id_is_too_short">This ID is too short</string>
-    <string name="this_id_does_not_exist">This ID does not exist</string>
-    <string name="password_is_incorrect">Password is incorrect</string>
+    <string name="this_field_is_required">Champ obligatoire</string>
+    <string name="this_id_is_too_short">Ce numéro est trop court</string>
+    <string name="this_id_does_not_exist">Ce numéro n\'existe pas</string>
+    <string name="password_is_incorrect">Mot de pas invalide</string>
 
     <!-- INTERACTION -->
 
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="cancel">Annuler</string>
+    <string name="dismiss">OK</string>
     <string name="reset">Reset</string>
-    <string name="pull_down_to_refresh">Pull down to refresh</string>
+    <string name="pull_down_to_refresh">Tirer pour rafraîchir</string>
 
-    <string name="database_setting_up">Setting up the database can take a while</string>
-    <string name="database_updated">The database has been updated</string>
-    <string name="plutus_has_not_yet_checked_your_credit">Plutus has not yet checked your current credit</string>
-    <string name="no_internet_connection">You are working offline</string>
-    <string name="there_is_no_active_internet_connection">There is no active internet connection</string>
+    <string name="database_setting_up">L\'initialisation peut prendre un certain temps</string>
+    <string name="database_updated">Base de données mise à jour</string>
+    <string name="plutus_has_not_yet_checked_your_credit">Plutus n\'a pas encore vérifié votre crédit</string>
+    <string name="no_internet_connexion">Vous travaillez hors ligne</string>
+    <string name="there_is_no_active_internet_connexion">Pas de connexion internet active</string>
 
     <!-- SETTINGS -->
 
-    <string name="show_credit_gauge">Show credit gauge</string>
-    <string name="visualy_display_your_current_credit">Visually display your current credit</string>
-    <string name="set_minimum">Set minimum</string>
-    <string name="setting_minimum_message">This will be used as the gauge\'s minimum value.</string>
-    <string name="set_maximum">Set maximum</string>
-    <string name="settings_maximum_message">This will be used as the gauge\'s maximum value.</string>
+    <string name="show_credit_gauge">Afficher compteur de crédit</string>
+    <string name="visualy_display_your_current_credit">Consultez votre crédit de façon graphique</string>
+    <string name="set_minimum">Limite minimum</string>
+    <string name="setting_minimum_message">Ce montant sera utilisé comme valeur minimum du compteur.</string>
+    <string name="set_maximum">Limite maximum</string>
+    <string name="settings_maximum_message">Ce montant sera utilisée comme valeur maximum du compteur.</string>
 
-    <string name="enable_notifications">Enable notifications</string>
-    <string name="get_notified_about_your_credit">Get notified about your credit</string>
+    <string name="enable_notifications">Activer les notifications</string>
+    <string name="get_notified_about_your_credit">Recevez des notifications concernant votre crédit</string>
 
-    <string name="set_home_screen">Set home screen</string>
-    <string name="set_home_screen_message">Choose which window the application should start up with.</string>
-    <string name="set_language">Set language</string>
-    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "</string>
+    <string name="set_home_screen">Définir l\'écran d\'acceuil</string>
+    <string name="set_home_screen_message">Choississez l\'écran de départ de l\'application.</string>
+    <string name="set_language">Forcer le language</string>
+    <string name="set_language_message">
+        Certaines informations stockées ne seront traduit qu\'après altération du language sur Intranet et la
+        réinitialisation de la base de données de Plutus.
+    </string>
 
-    <string name="reset_application">Reset application</string>
-    <string name="reset_database">Reset database</string>
-    <string name="reset_info_application">The application has been reset</string>
-    <string name="reset_info_database">The database has been reset</string>
+    <string name="reset_application">Réinitialiser l\'application</string>
+    <string name="reset_database">Réinitialiser la base de données</string>
+    <string name="reset_info_application">L\'application a été réinitialisée</string>
+    <string name="reset_info_database">La base de données a été réinitialisée</string>
     <string name="reset_description">
-        If Plutus seems malfunctioning or displays incorrect data, you can reset it here.
+        Si Plutus semble ne pas fonctionner correctement ou affiche des données incorrectes, vous pouvez réinitialliser
+        ici.
     </string>
     <string name="reset_warning">
-        Resetting Plutus will remove all locally stored files such as databases and preferences.
+        La réinitialisation de Plutus effacera toutes données locales telles que base de données et préférences.
     </string>
-    <string name="reset_info">Plutus will now close.</string>
+    <string name="reset_info">Vous devez relanceer Plutus.</string>
 
     <!-- ERROR MESSAGES -->
 
     <string name="something_went_wrong">
-        Oops, something went wrong!
+        Oups, une erreur s\'est produite!
     </string>
     <string name="error_fetching_credit">
-        Error fetching credit:\n\n
+        Erreur lors de la récupeération du crédit :\n\n
     </string>
     <string name="error_fetching_transactions">
-        Error fetching transactions:\n\n
+        Erreur lors de la récupeération des opérations :\n\n
     </string>
     <string name="error_loading_data_into_app">
         Error loading data from API into application:\n\n
