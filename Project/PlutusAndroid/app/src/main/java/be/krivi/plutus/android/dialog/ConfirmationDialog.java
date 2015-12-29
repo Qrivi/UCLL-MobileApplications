@@ -12,7 +12,6 @@ import be.krivi.plutus.android.R;
  */
 public class ConfirmationDialog extends BaseDialog{
 
-    private String message;
     private boolean isReset;
 
     public static ConfirmationDialog newInstance( String type, String message) {
@@ -22,7 +21,7 @@ public class ConfirmationDialog extends BaseDialog{
     public static ConfirmationDialog newInstance( String type, String message, boolean isReset) {
         ConfirmationDialog dialog = new ConfirmationDialog();
         dialog.setDialogType( type );
-        dialog.setMessage( message );
+        dialog.initializeMessage( message );
         dialog.isReset = isReset;
         return dialog;
     }
@@ -55,11 +54,4 @@ public class ConfirmationDialog extends BaseDialog{
         }
         return dialog;
     }
-
-
-    public void setMessage( String message ){
-        this.message = message;
-    }
-
-
 }

@@ -15,12 +15,10 @@ import be.krivi.plutus.android.R;
  */
 public class EditTextDialog extends BaseDialog{
 
-    private String message;
-
     public static EditTextDialog newInstance(String type, String message) {
         EditTextDialog dialog = new EditTextDialog();
         dialog.setDialogType( type );
-        dialog.setMessage( message );
+        dialog.initializeMessage( message );
         return dialog;
     }
 
@@ -41,10 +39,5 @@ public class EditTextDialog extends BaseDialog{
 
         return builder.create();
     }
-
-    public void setMessage( String message ){
-        this.message = message;
-    }
-
 
 }

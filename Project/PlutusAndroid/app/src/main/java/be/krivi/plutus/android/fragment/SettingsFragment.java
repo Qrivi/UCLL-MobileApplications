@@ -5,6 +5,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import be.krivi.plutus.android.dialog.BaseDialog;
 import be.krivi.plutus.android.dialog.ConfirmationDialog;
 import be.krivi.plutus.android.dialog.EditTextDialog;
 import be.krivi.plutus.android.dialog.RadioButtonDialog;
+import be.krivi.plutus.android.view.CollapseAnimation;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,11 +56,16 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     List<Integer> languages;
     List<Integer> windows;
 
+    private Animation collapse, expand;
+
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
 
         final View view = inflater.inflate( R.layout.fragment_settings, container, false );
         ButterKnife.bind( this, view );
+
+        collapse = new CollapseAnimation(mCreditMinMaxWrapper, CollapseAnimation.CollapseAnimationAction.COLLAPSE);
+        expand = new CollapseAnimation(mCreditMinMaxWrapper, CollapseAnimation.CollapseAnimationAction.EXPAND);
 
         languages = new LinkedList<>();
         windows = new LinkedList<>();
@@ -75,10 +82,10 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     private void updateView(){
 
-        // collapse();
+        mCreditMinMaxWrapper.startAnimation( collapse );
         if( app.getCreditRepresentation() ){
-            //expand();
             mCreditGaugeSwitch.setChecked( true );
+            mCreditMinMaxWrapper.startAnimation( expand );
         }
 
         mApplicationHomeScreenHint.setText( getString( app.getHomeScreen().getId() ) );
@@ -199,8 +206,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
             dialog.getDialog().cancel();
         }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
             app.resetApp();
-            createConfirmationDialog( getString( R.string.application_has_been_reset ), getString( R.string.reset_info ), false );
-        }else if( dialog.getType().equals( getString( R.string.application_has_been_reset ) ) ){
+            createConfirmationDialog( getString( R.string.reset_info ), getString( R.string.reset_info ), false );
+        }else if( dialog.getType().equals( getString( R.string.reset_info ) ) ){
             main.finish();
             System.exit( 0 );
         }

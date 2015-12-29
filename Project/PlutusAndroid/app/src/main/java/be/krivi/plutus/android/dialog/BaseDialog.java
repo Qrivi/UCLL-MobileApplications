@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class BaseDialog extends android.support.v4.app.DialogFragment implements DialogInterface.OnClickListener{
 
-    private String type;
+    protected String type;
+    protected String message;
 
     public interface NoticeDialogListener{
         void onDialogPositiveClick( BaseDialog dialog, int id );
@@ -57,4 +58,10 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
     protected void setMessage( AlertDialog.Builder builder, String message ){
         builder.setMessage( message );
     }
+
+    protected void initializeMessage( String message ){
+        this.message = message;
+    }
+
+
 }
