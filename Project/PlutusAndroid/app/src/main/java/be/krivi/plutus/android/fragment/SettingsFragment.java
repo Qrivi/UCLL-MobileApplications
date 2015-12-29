@@ -203,6 +203,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
                     break;
             }
             dialog.getDialog().cancel();
+            main.finish();
+            main.startActivity( main.getIntent() );
         }else if( dialog.getType().equals( getString( R.string.set_home_screen ) ) ){
             switch( id ){
                 case 0:
