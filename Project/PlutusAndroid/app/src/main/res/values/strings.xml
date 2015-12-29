@@ -104,16 +104,23 @@
     <string name="set_home_screen">Set home screen</string>
     <string name="set_language">Set language</string>
 
-    <string name="reset">Reset</string>
     <string name="reset_description">
         If Plutus seems malfunctioning or displays incorrect data, you can reset it here.
     </string>
+    <string name="reset_application">Reset application</string>
     <string name="reset_warning">
         Resetting Plutus will remove all locally stored files such as databases and preferences.
     </string>
     <string name="reset_info">
-        Plutus has been reset and will now close.
+        Plutus will now close.
     </string>
+    <string name="reset_info_application">
+       Plutus has been reset
+    </string>
+    <string name="reset_info_database">
+        Database has been reset
+    </string>
+    <string name="reset_database">Reset database</string>
 
     <!-- ERROR MESSAGES -->
 
@@ -164,6 +171,7 @@
     <string name="set_home_screen_message">Choose which window the application should start up with.</string>
     <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "
     </string>
+    <string name="reset">Reset</string>
 
 
 </resources>

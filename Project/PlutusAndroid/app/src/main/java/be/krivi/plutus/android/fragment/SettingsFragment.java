@@ -82,10 +82,10 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     private void updateView(){
 
-        mCreditMinMaxWrapper.startAnimation( collapse );
+        mCreditMinMaxWrapper.setVisibility( View.GONE );
         if( app.getCreditRepresentation() ){
             mCreditGaugeSwitch.setChecked( true );
-            mCreditMinMaxWrapper.startAnimation( expand );
+            mCreditMinMaxWrapper.setVisibility( View.VISIBLE );
         }
 
         mApplicationHomeScreenHint.setText( getString( app.getHomeScreen().getId() ) );
@@ -109,7 +109,10 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     @OnCheckedChanged( R.id.pref_credit_gaugeSwitch )
     public void onGaugeSwitchChanged(){
         app.setCreditRepresentation( mCreditGaugeSwitch.isChecked() );
-        updateView();
+        if( mCreditGaugeSwitch.isChecked() )
+            mCreditMinMaxWrapper.startAnimation( expand );
+        else
+            mCreditMinMaxWrapper.startAnimation( collapse );
     }
 
     @OnClick( R.id.pref_credit_gaugeMinWrapper )
@@ -161,9 +164,14 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         createRadioButtonDialog( getString( R.string.set_home_screen ), getString( R.string.set_home_screen_message ), app.getHomeScreen().getPos(), windows );
     }
 
-    @OnClick( R.id.pref_application_buttonReset )
-    public void onResetButtonCliced(){
-        createConfirmationDialog( getString( R.string.reset ), getString( R.string.reset_warning ), true );
+    @OnClick( R.id.pref_application_buttonResetApplication )
+    public void onResetApplicationButtonClicked(){
+        createConfirmationDialog( getString( R.string.reset_application ), getString( R.string.reset_warning ), true );
+    }
+
+    @OnClick( R.id.pref_application_buttonResetDatabase )
+    public void onResetDatabaseButtonClicked(){
+        createConfirmationDialog( getString( R.string.reset_info_database ), getString( R.string.reset_info ), false );
     }
 
 
@@ -204,10 +212,10 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
                     break;
             }
             dialog.getDialog().cancel();
-        }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
+        }else if( dialog.getType().equals( getString( R.string.reset_application ) ) ){
             app.resetApp();
-            createConfirmationDialog( getString( R.string.reset_info ), getString( R.string.reset_info ), false );
-        }else if( dialog.getType().equals( getString( R.string.reset_info ) ) ){
+            createConfirmationDialog( getString( R.string.reset_info_application ), getString( R.string.reset_info ), false );
+        }else if( dialog.getType().equals( getString( R.string.reset_info_application ) ) ){
             main.finish();
             System.exit( 0 );
         }

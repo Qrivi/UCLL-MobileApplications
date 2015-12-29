@@ -35,10 +35,10 @@ public class RadioButtonDialog extends BaseDialog{
 
         AlertDialog.Builder builder = new AlertDialog.Builder( getActivity(), R.style.Plutus_Dialog );
 
+        setTitle( builder, getType() );
+       // setMessage( builder, message ); TODO Find a way to implement this.
         builder.setSingleChoiceItems( options, current, this );
         setNegativeButton( builder, getString( R.string.cancel ) );
-        setTitle( builder, getType() );
-        //setMessage( builder, message );
 
         return builder.create();
     }

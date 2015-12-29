@@ -2,6 +2,7 @@
 
     <dimen name="padding_activity_default">16dp</dimen><!-- material -->
     <dimen name="padding_activity_extra">48dp</dimen>
+    <dimen name="padding_dialog_default">20dp</dimen>
     <dimen name="padding_activity_none">0dp</dimen>
 
     <dimen name="padding_form">32dp</dimen>

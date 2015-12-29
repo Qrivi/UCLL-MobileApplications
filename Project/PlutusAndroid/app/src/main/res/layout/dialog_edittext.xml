@@ -5,8 +5,7 @@
               android:layout_height="match_parent"
               android:descendantFocusability="beforeDescendants"
               android:focusableInTouchMode="true"
-              android:paddingLeft="@dimen/padding_activity_default"
-              android:paddingRight="@dimen/padding_activity_default">
+              android:padding="@dimen/padding_dialog_default">
 
     <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
