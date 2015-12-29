@@ -13,10 +13,6 @@ import java.util.List;
 public class BaseDialog extends android.support.v4.app.DialogFragment implements DialogInterface.OnClickListener{
 
     private String type;
-    protected String message;
-
-    protected int current;
-    protected String[] options;
 
     public interface NoticeDialogListener{
         void onDialogPositiveClick( BaseDialog dialog, int id );
@@ -34,7 +30,7 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
         }
     }
 
-    public void setDialogEditInfo( String type ){
+    public void setDialogType( String type ){
         this.type = type;
     }
 
@@ -42,23 +38,8 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
         return this.type;
     }
 
-    public void setCurrent( int current ){
-        this.current = current;
-    }
-
     public void closeDialog(){
         this.closeDialog();
-    }
-
-    public void setOptions(int[] options){
-
-
-
-        //this.options = options;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     protected void setTitle( AlertDialog.Builder builder, String title ){
@@ -71,5 +52,9 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
 
     protected void setNegativeButton( AlertDialog.Builder builder, String text ){
         builder.setNegativeButton( text, this );
+    }
+
+    protected void setMessage( AlertDialog.Builder builder, String message ){
+        builder.setMessage( message );
     }
 }

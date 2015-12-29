@@ -5,10 +5,13 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
+import be.krivi.plutus.android.application.Language;
+import be.krivi.plutus.android.application.Window;
 import be.krivi.plutus.android.dialog.BaseDialog;
 import be.krivi.plutus.android.dialog.ConfirmationDialog;
 import be.krivi.plutus.android.dialog.EditTextDialog;
@@ -18,6 +21,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Jan on 27/12/2015.
@@ -45,11 +51,23 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     @Bind( R.id.pref_application_homeScreenHint )
     TextView mApplicationHomeScreenHint;
 
+    List<Integer> languages;
+    List<Integer> windows;
+
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
 
         final View view = inflater.inflate( R.layout.fragment_settings, container, false );
         ButterKnife.bind( this, view );
+
+        languages = new LinkedList<>();
+        windows = new LinkedList<>();
+
+        for( Language l : Language.values() )
+            languages.add( l.getId() );
+
+        for( Window w : Window.values() )
+            windows.add( w.getId() );
 
         updateView();
         return view;
@@ -89,12 +107,12 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     @OnClick( R.id.pref_credit_gaugeMinWrapper )
     public void onWrapperGaugeMinClicked(){
-        //createEditTextDialog( getString( R.string.minimum ), getString( R.string.setting_minimum_message ) );
+        createEditTextDialog( getString( R.string.set_minimum ), getString( R.string.setting_minimum_message ) );
     }
 
     @OnClick( R.id.pref_credit_gaugeMaxWrapper )
     public void onWrapperGaugeMaxClicked(){
-        //createEditTextDialog( getString( R.string.maximum ), getString( R.string.settings_maximum_message ) );
+        createEditTextDialog( getString( R.string.set_maximum ), getString( R.string.settings_maximum_message ) );
     }
 
     ////////////////////////////////////////
@@ -122,7 +140,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     @OnClick( R.id.pref_application_languageWrapper )
     public void onLanguageWrapperClicked(){
-        //createListDialog( getString( R.string.language ), languages.indexOf( app.getLanguage().toString() ), (int[])languages.toArray() );
+        createRadioButtonDialog( getString( R.string.set_language ), app.getLanguage().getPos(), languages );
     }
 
     ////////////////////////////////////////
@@ -133,46 +151,60 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
 
     @OnClick( R.id.pref_application_homeScreenWrapper )
     public void onHomeScreenClicked(){
-        //createListDialog( getString( R.string.home_screen ), screens.indexOf( app.getHomeScreen() ), (Integer[])screens.toArray() );
+        createRadioButtonDialog( getString( R.string.set_home_screen ), app.getHomeScreen().getPos(), windows );
     }
 
     @OnClick( R.id.pref_application_buttonReset )
     public void onResetButtonCliced(){
-        //createConfirmationDialog( getString( R.string.reset ), getString( R.string.reset_message ) );
+        createConfirmationDialog( getString( R.string.reset ), getString( R.string.reset_warning ), true );
     }
 
 
     @Override
     public void onDialogPositiveClick( BaseDialog dialog, int id ){
-        //        if( dialog.getType().equals( getString( R.string.minimum ) ) ){
-        //            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
-        //            app.setCreditRepresentationMin( Integer.parseInt( edit.getText().toString() ) );
-        //        }else if( dialog.getType().equals( getString( R.string.maximum ) ) ){
-        //            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
-        //            app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
-        //        }else if( dialog.getType().equals( getString( R.string.language ) ) ){
-        //            app.setLanguage( Language.DEFAULT );
-        //            dialog.getDialog().cancel();
-        //        }else if( dialog.getType().equals( getString( R.string.home_screen ) ) ){
-        //
-        //            switch( screens.get( id ) ){
-        //                case 0:
-        //                    app.setHomeScreen( Window.CREDIT );
-        //                    break;
-        //                case 1:
-        //                    app.setHomeScreen( Window.TRANSACTIONS );
-        //                    break;
-        //                case 2:
-        //                    app.setHomeScreen( Window.SETTINGS );
-        //                    break;
-        //            }
-        //            dialog.getDialog().cancel();
-        //        }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
-        //            app.resetApp();
-        //            main.finish();
-        //            System.exit( 0 );
-        //        }
-        //        updateView();
+        if( dialog.getType().equals( getString( R.string.set_minimum ) ) ){
+            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
+            app.setCreditRepresentationMin( Integer.parseInt( edit.getText().toString() ) );
+        }else if( dialog.getType().equals( getString( R.string.set_maximum ) ) ){
+            EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
+            app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
+        }else if( dialog.getType().equals( getString( R.string.set_language ) ) ){
+            switch( id ){
+                case 0:
+                    app.setLanguage( Language.DEFAULT );
+                    break;
+                case 1:
+                    app.setLanguage( Language.ENGLISH );
+                    break;
+                case 2:
+                    app.setLanguage( Language.DUTCH );
+                    break;
+                case 3:
+                    app.setLanguage( Language.FRENCH );
+                    break;
+            }
+            dialog.getDialog().cancel();
+        }else if( dialog.getType().equals( getString( R.string.set_home_screen ) ) ){
+            switch( id ){
+                case 0:
+                    app.setHomeScreen( Window.CREDIT );
+                    break;
+                case 1:
+                    app.setHomeScreen( Window.TRANSACTIONS );
+                    break;
+                case 2:
+                    app.setHomeScreen( Window.SETTINGS );
+                    break;
+            }
+            dialog.getDialog().cancel();
+        }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
+            app.resetApp();
+            createConfirmationDialog( getString( R.string.application_has_been_reset ), getString( R.string.reset_info ), false );
+        }else if( dialog.getType().equals( getString( R.string.application_has_been_reset ) ) ){
+            main.finish();
+            System.exit( 0 );
+        }
+        updateView();
     }
 
     @Override
@@ -181,27 +213,24 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     }
 
     private void createEditTextDialog( String type, String message ){
-        BaseDialog dialog = new EditTextDialog();
-        dialog.setDialogEditInfo( type );
-        dialog.setMessage( message );
+        EditTextDialog dialog = EditTextDialog.newInstance( type, message );
         dialog.setTargetFragment( this, 1 );
         dialog.show( getFragmentManager(), type );
     }
 
-    private void createConfirmationDialog( String type, String message ){
-        BaseDialog dialog = new ConfirmationDialog();
-        dialog.setDialogEditInfo( type );
-        dialog.setMessage( message );
+    private void createConfirmationDialog( String type, String message, boolean isReset ){
+        ConfirmationDialog dialog;
+        if( isReset )
+            dialog = ConfirmationDialog.newInstance( type, message, isReset );
+        else
+            dialog = ConfirmationDialog.newInstance( type, message );
         dialog.setTargetFragment( this, 1 );
         dialog.show( getFragmentManager(), type );
     }
 
-    private void createListDialog( String type, int currentId, int[] options ){
-        RadioButtonDialog dialog = new RadioButtonDialog();
-        dialog.setOptions( options );
-        dialog.setCurrent( currentId );
+    private void createRadioButtonDialog( String type, int currentId, List<Integer> options ){
+        RadioButtonDialog dialog = RadioButtonDialog.newInstance( getContext(), type, currentId, options );
         dialog.setTargetFragment( this, 1 );
-        dialog.setDialogEditInfo( type );
         dialog.show( getFragmentManager(), type );
     }
 

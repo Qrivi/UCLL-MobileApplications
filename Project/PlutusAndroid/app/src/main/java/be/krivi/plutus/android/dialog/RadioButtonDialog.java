@@ -2,15 +2,33 @@ package be.krivi.plutus.android.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import be.krivi.plutus.android.R;
+
+import java.util.List;
 
 /**
  * Created by Jan on 28/12/2015.
  */
 public class RadioButtonDialog extends BaseDialog{
 
+    private int current;
+    private String[] options;
+    private Context context;
 
+    public static RadioButtonDialog newInstance( Context context, String type, int current, List<Integer> optionsList ){
+        RadioButtonDialog dialog = new RadioButtonDialog();
+        dialog.context = context;
+        dialog.setDialogType( type );
+        dialog.setCurrent( current );
+        dialog.setOptions( optionsList );
+        return dialog;
+    }
+
+    @NonNull
+    @Override
     public Dialog onCreateDialog( Bundle savedInstanceState ){
 
         AlertDialog.Builder builder = new AlertDialog.Builder( getActivity(), R.style.Plutus_Dialog );
@@ -22,4 +40,19 @@ public class RadioButtonDialog extends BaseDialog{
         return builder.create();
     }
 
+    public void setCurrent( int current ){
+        this.current = current;
+    }
+
+    public void setOptions( List<Integer> optionsList ){
+        this.options = listToArray( optionsList );
+    }
+
+    private String[] listToArray( List<Integer> optionsList ){
+        String[] results = new String[optionsList.size()];
+        for( int i = 0; i < optionsList.size(); i++ )
+            results[i] = context.getResources().getString( optionsList.get( i ) );
+
+        return results;
+    }
 }
