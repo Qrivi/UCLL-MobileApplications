@@ -3,8 +3,10 @@ package be.krivi.plutus.android.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.view.Message;
 
@@ -40,7 +42,16 @@ public class RadioButtonDialog extends BaseDialog{
         builder.setSingleChoiceItems( options, current, this );
         setNegativeButton( builder, getString( R.string.cancel ) );
 
-        return builder.create();
+        final AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener( new DialogInterface.OnShowListener(){
+            @Override
+            public void onShow( DialogInterface dialogInterface ){
+                dialog.getButton( AlertDialog.BUTTON_NEGATIVE ).setTextColor( ContextCompat.getColor( getActivity(), R.color.text_clickable ) );
+            }
+        } );
+
+        return dialog;
     }
 
     public void setCurrent( int current ){

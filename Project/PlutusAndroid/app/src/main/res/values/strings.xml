@@ -20,6 +20,7 @@
     <string name="not_applicable_short">n/a</string>
     <string name="not_applicable_full">not applicable</string>
     <string name="not_in_beta">Not available in this beta</string>
+    <string name="beta_feature">Beta feature - might be buggy</string>
 
     <string name="language_system">System default</string>
     <string name="language_english">English</string>
@@ -81,6 +82,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="dismiss">Dismiss</string>
+    <string name="reset">Reset</string>
     <string name="pull_down_to_refresh">Pull down to refresh</string>
 
     <string name="database_setting_up">Setting up the database can take a while</string>
@@ -102,25 +104,21 @@
     <string name="get_notified_about_your_credit">Get notified about your credit</string>
 
     <string name="set_home_screen">Set home screen</string>
+    <string name="set_home_screen_message">Choose which window the application should start up with.</string>
     <string name="set_language">Set language</string>
+    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "</string>
 
+    <string name="reset_application">Reset application</string>
+    <string name="reset_database">Reset database</string>
+    <string name="reset_info_application">The application has been reset</string>
+    <string name="reset_info_database">The database has been reset</string>
     <string name="reset_description">
         If Plutus seems malfunctioning or displays incorrect data, you can reset it here.
     </string>
-    <string name="reset_application">Reset application</string>
     <string name="reset_warning">
         Resetting Plutus will remove all locally stored files such as databases and preferences.
     </string>
-    <string name="reset_info">
-        Plutus will now close.
-    </string>
-    <string name="reset_info_application">
-       Plutus has been reset
-    </string>
-    <string name="reset_info_database">
-        Database has been reset
-    </string>
-    <string name="reset_database">Reset database</string>
+    <string name="reset_info">Plutus will now close.</string>
 
     <!-- ERROR MESSAGES -->
 
@@ -167,11 +165,5 @@
     <!-- NOT YET LOCALIZED -->
 
     <string name="placeholder">placeholder — do not translate this</string>
-    <string name="application_has_been_reset">Application has been reset</string>
-    <string name="set_home_screen_message">Choose which window the application should start up with.</string>
-    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "
-    </string>
-    <string name="reset">Reset</string>
-
 
 </resources>

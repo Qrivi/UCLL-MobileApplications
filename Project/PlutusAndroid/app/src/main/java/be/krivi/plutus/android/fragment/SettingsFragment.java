@@ -151,6 +151,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     @OnClick( R.id.pref_application_languageWrapper )
     public void onLanguageWrapperClicked(){
         createRadioButtonDialog( getString( R.string.set_language ), getString( R.string.set_language_message ), app.getLanguage().getPos(), languages );
+        //TODO remove this!
+        Message.toast( getActivity() , getString( R.string.beta_feature) );
     }
 
     ////////////////////////////////////////
@@ -216,8 +218,9 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
             app.resetApp();
             createConfirmationDialog( getString( R.string.reset_info_application ), getString( R.string.reset_info ), false );
         }else if( dialog.getType().equals( getString( R.string.reset_info_application ) ) ){
-            main.finish();
-            System.exit( 0 );
+            exitApplication();
+        }else if( dialog.getType().equals( getString( R.string.reset_info_database  ) )){
+            exitApplication();
         }
         updateView();
     }
@@ -247,6 +250,11 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         RadioButtonDialog dialog = RadioButtonDialog.newInstance( getContext(), type, message, currentId, options );
         dialog.setTargetFragment( this, 1 );
         dialog.show( getFragmentManager(), type );
+    }
+
+    private void exitApplication() {
+        main.finish();
+        System.exit( 0 );
     }
 
 

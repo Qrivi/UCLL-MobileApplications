@@ -2,8 +2,10 @@ package be.krivi.plutus.android.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -29,15 +31,24 @@ public class EditTextDialog extends BaseDialog{
 
         AlertDialog.Builder builder = new AlertDialog.Builder( getActivity(), R.style.Plutus_Dialog );
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View dialog = inflater.inflate( R.layout.dialog_edittext, null );
+        final View dialogView = inflater.inflate( R.layout.dialog_edittext, null );
 
-        builder.setView( dialog );
+        builder.setView( dialogView );
         setTitle( builder, getType() );
         builder.setMessage( message );
         setPositiveButton( builder, getString( R.string.ok) );
         setNegativeButton( builder, getString( R.string.cancel) );
 
-        return builder.create();
+        final AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener( new DialogInterface.OnShowListener(){
+            @Override
+            public void onShow( DialogInterface dialogInterface ){
+                dialog.getButton( AlertDialog.BUTTON_NEGATIVE ).setTextColor( ContextCompat.getColor( getActivity(), R.color.text_clickable ) );
+            }
+        } );
+
+        return dialog;
     }
 
 }

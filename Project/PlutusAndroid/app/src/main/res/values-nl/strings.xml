@@ -4,7 +4,7 @@
 
     <string name="app_name">Plutus</string>
 
-    <string name="credit">Credit</string>
+    <string name="credit">Balance</string>
     <string name="transactions">Transactions</string>
     <string name="transaction_detail">Transaction details</string>
     <string name="settings">Settings</string>
