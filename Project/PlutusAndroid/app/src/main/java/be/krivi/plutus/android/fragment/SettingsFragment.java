@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.MainActivity;
+import be.krivi.plutus.android.application.Language;
 import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.dialog.BaseDialog;
 import be.krivi.plutus.android.dialog.ConfirmationDialog;
@@ -82,8 +83,8 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
         switchCreditGauge.setChecked( app.getCreditRepresentation() );
         hintGaugeMin.setText( "€ " + app.getCreditRepresentationMin() );
         hintGaugeMax.setText( "€ " + app.getCreditRepresentationMax() );
-        hintLanguage.setText( app.getLanguage() );
-        hintHomescreen.setText( app.getHomeScreen() );
+        hintLanguage.setText( app.getLanguage().toString() );
+        //hintHomescreen.setText( app.getHomeScreen() );
     }
 
     @OnClick( R.id.pref_wrapperCredit_gaugeSwitch )
@@ -127,7 +128,7 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
 
     @OnClick( R.id.pref_wrapperNotifications_language )
     public void onLanguageWrapperClicked(){
-        createListDialog( getString( R.string.language ), languages.indexOf( app.getLanguage() ), (String[])languages.toArray() );
+        createListDialog( getString( R.string.language ), languages.indexOf( app.getLanguage().toString() ), (String[])languages.toArray() );
     }
 
     @OnClick( R.id.pref_wrapperHomeScreen )
@@ -149,11 +150,11 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
             EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
             app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
         }else if( dialog.getType().equals( getString( R.string.language ) ) ){
-            app.setLanguage( languages.get( id ) );
+            app.setLanguage( Language.DEFAULT );
             dialog.getDialog().cancel();
-        }else if( dialog.getType().equals( getString( R.string.home_screen ) ) ){
-            app.setHomeScreen( screens.get( id ) );
-            dialog.getDialog().cancel();
+//        }else if( dialog.getType().equals( getString( R.string.home_screen ) ) ){
+//            app.setHomeScreen( screens.get( id ) );
+//            dialog.getDialog().cancel();
         }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
             app.resetApp();
             main.finish();

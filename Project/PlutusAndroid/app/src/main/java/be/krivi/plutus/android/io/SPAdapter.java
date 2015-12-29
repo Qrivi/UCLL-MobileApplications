@@ -49,8 +49,8 @@ public class SPAdapter{
         editor.commit();
     }
 
-    public void saveLanguage( String language ){
-        editor.putString( "language", language );
+    public void saveLanguageTag( String tag ){
+        editor.putString( "language_tag", tag );
         editor.commit();
     }
 
@@ -74,8 +74,8 @@ public class SPAdapter{
         return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX );
     }
 
-    public String getLanguage(){
-        return sharedPreferences.getString( "language", "Nederlands" );
+    public String getLanguageTag(){
+        return sharedPreferences.getString( "language_tag", "" );
     }
 
 

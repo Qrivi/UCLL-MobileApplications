@@ -27,7 +27,7 @@ import java.util.Locale;
  */
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.TransactionViewHolder>{
 
-    private static TransactionsOnClickListener clickListener;
+    private  TransactionsOnClickListener clickListener;
     private Context context;
     private LayoutInflater inflater;
     private List<RowData> rowData;

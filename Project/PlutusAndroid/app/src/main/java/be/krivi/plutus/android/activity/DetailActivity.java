@@ -172,7 +172,7 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
                 //TODO add user pref for 24H or AM/PM
                 sdfTime = new SimpleDateFormat( "HH:mm", Locale.getDefault() );
                 sdfDate = new SimpleDateFormat( "EEEE d MMMM yyyy", Locale.getDefault() );
-                if( Locale.getDefault().toLanguageTag().equals( "en-US" ) )
+                if( Locale.getDefault().toString().equals( "en_US" ) )
                     sdfDate = new SimpleDateFormat( "EEEE MMMM d, yyyy", Locale.US );
                 // in US English day is usually put after month
 
@@ -235,7 +235,7 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
                 colorCurrent,
                 color
         );
-        colorFade.setDuration( 400 );
+        colorFade.setDuration( 500 );
         colorFade.start();
         colorCurrent = color;
     }
