@@ -67,69 +67,73 @@
     <string name="sign_out">Déconnexion</string>
     <string name="try_again">Réessayer</string>
 
-    <string name="sign_in_using_your_student_credentials">Identifiez-vous avec vos données d\'étudiant</string>
+    <string name="sign_in_using_your_student_credentials">Introduisez vos données d\'étudiant</string>
     <string name="read_our_privacy_policy">Notre politique de confidentialité</string>
-    <string name="verifying_credentials">Valider les données…</string>
-    <string name="populating_database">XX la base de données…</string>
+    <string name="verifying_credentials">Validation des données…</string>
+    <string name="populating_database">Chargement de la base de données…</string>
 
-    <string name="this_field_is_required">This field is required</string>
-    <string name="this_id_is_too_short">This ID is too short</string>
-    <string name="this_id_does_not_exist">This ID does not exist</string>
-    <string name="password_is_incorrect">Password is incorrect</string>
+    <string name="this_field_is_required">Champ obligatoire</string>
+    <string name="this_id_is_too_short">Ce numéro est trop court</string>
+    <string name="this_id_does_not_exist">Ce numéro n\'existe pas</string>
+    <string name="password_is_incorrect">Mot de pas invalide</string>
 
     <!-- INTERACTION -->
 
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="cancel">Annuler</string>
+    <string name="dismiss">OK</string>
     <string name="reset">Reset</string>
     <string name="pull_down_to_refresh">Tirer pour rafraîchir</string>
 
-    <string name="database_setting_up">Setting up the database can take a while</string>
-    <string name="database_updated">The database has been updated</string>
-    <string name="plutus_has_not_yet_checked_your_credit">Plutus has not yet checked your current credit</string>
-    <string name="no_internet_connection">You are working offline</string>
-    <string name="there_is_no_active_internet_connection">There is no active internet connection</string>
+    <string name="database_setting_up">L\'initialisation peut prendre un certain temps</string>
+    <string name="database_updated">Base de données mise à jour</string>
+    <string name="plutus_has_not_yet_checked_your_credit">Plutus n\'a pas encore vérifié votre crédit</string>
+    <string name="no_internet_connexion">Vous travaillez hors ligne</string>
+    <string name="there_is_no_active_internet_connexion">Pas de connexion internet active</string>
 
     <!-- SETTINGS -->
 
-    <string name="show_credit_gauge">Show credit gauge</string>
-    <string name="visualy_display_your_current_credit">Visually display your current credit</string>
-    <string name="set_minimum">Set minimum</string>
-    <string name="setting_minimum_message">This will be used as the gauge\'s minimum value.</string>
-    <string name="set_maximum">Set maximum</string>
-    <string name="settings_maximum_message">This will be used as the gauge\'s maximum value.</string>
+    <string name="show_credit_gauge">Afficher compteur de crédit</string>
+    <string name="visualy_display_your_current_credit">Consultez votre crédit de façon graphique</string>
+    <string name="set_minimum">Limite minimum</string>
+    <string name="setting_minimum_message">Ce montant sera utilisé comme valeur minimum du compteur.</string>
+    <string name="set_maximum">Limite maximum</string>
+    <string name="settings_maximum_message">Ce montant sera utilisée comme valeur maximum du compteur.</string>
 
-    <string name="enable_notifications">Enable notifications</string>
-    <string name="get_notified_about_your_credit">Get notified about your credit</string>
+    <string name="enable_notifications">Activer les notifications</string>
+    <string name="get_notified_about_your_credit">Recevez des notifications concernant votre crédit</string>
 
-    <string name="set_home_screen">Set home screen</string>
-    <string name="set_home_screen_message">Choose which window the application should start up with.</string>
-    <string name="set_language">Set language</string>
-    <string name="set_language_message">"Some stored data won't be localized until the application will be reset. "</string>
+    <string name="set_home_screen">Définir l\'écran d\'acceuil</string>
+    <string name="set_home_screen_message">Choississez l\'écran de départ de l\'application.</string>
+    <string name="set_language">Forcer le language</string>
+    <string name="set_language_message">
+        Certaines informations stockées ne seront traduit qu\'après altération du language sur Intranet et la
+        réinitialisation de la base de données de Plutus.
+    </string>
 
-    <string name="reset_application">Reset application</string>
-    <string name="reset_database">Reset database</string>
-    <string name="reset_info_application">The application has been reset</string>
-    <string name="reset_info_database">The database has been reset</string>
+    <string name="reset_application">Réinitialiser l\'application</string>
+    <string name="reset_database">Réinitialiser la base de données</string>
+    <string name="reset_info_application">L\'application a été réinitialisée</string>
+    <string name="reset_info_database">La base de données a été réinitialisée</string>
     <string name="reset_description">
-        If Plutus seems malfunctioning or displays incorrect data, you can reset it here.
+        Si Plutus semble ne pas fonctionner correctement ou affiche des données incorrectes, vous pouvez réinitialliser
+        ici.
     </string>
     <string name="reset_warning">
-        Resetting Plutus will remove all locally stored files such as databases and preferences.
+        La réinitialisation de Plutus effacera toutes données locales telles que base de données et préférences.
     </string>
-    <string name="reset_info">Plutus will now close.</string>
+    <string name="reset_info">Vous devez relanceer Plutus.</string>
 
     <!-- ERROR MESSAGES -->
 
     <string name="something_went_wrong">
-        Oops, something went wrong!
+        Oups, une erreur s\'est produite!
     </string>
     <string name="error_fetching_credit">
-        Error fetching credit:\n\n
+        Erreur lors de la récupeération du crédit :\n\n
     </string>
     <string name="error_fetching_transactions">
-        Error fetching transactions:\n\n
+        Erreur lors de la récupeération des opérations :\n\n
     </string>
     <string name="error_loading_data_into_app">
         Error loading data from API into application:\n\n
