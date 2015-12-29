@@ -243,9 +243,7 @@
             android:id="@+id/pref_wrapper_reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/padding_header"
-            android:paddingBottom="@dimen/padding_header">
+            android:orientation="vertical">
 
         <TextView
                 android:layout_width="match_parent"

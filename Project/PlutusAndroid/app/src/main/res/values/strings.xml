@@ -112,6 +112,11 @@
         gets reset
     </string>
     <string name="language">Language</string>
-    <string name="home_screen">homeScreen</string>
+    <string name="home_screen">Homescreen</string>
+    <string name="reset_message">Resetting the application will remove all locally stored files such as databases and
+        preferences
+    </string>
+    <string name="setting_minimum_message">This will be used as the gauge\'s minimum value.</string>
+    <string name="settings_maximum_message">This will be used as the gauge\'s maximum value.</string>
 
 </resources>

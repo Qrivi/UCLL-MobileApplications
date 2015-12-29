@@ -26,6 +26,11 @@
         <item name="android:background">@color/ucll_pink</item>
     </style>
 
+    <style name="Plutus.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/ucll_dark_blue</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
     <style name="Plutus.NavUserName">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/drawer_text</item>

@@ -13,6 +13,8 @@ import java.util.List;
 public class BaseDialog extends android.support.v4.app.DialogFragment implements DialogInterface.OnClickListener{
 
     private String type;
+    protected String message;
+
     protected int current;
     protected String[] options;
 
@@ -21,14 +23,8 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
         void onDialogNegativeClick( BaseDialog dialog );
     }
 
-    public void setOptions(String[] options){
-
-        this.options = options;
-    }
-
     @Override
     public void onClick( DialogInterface dialogInterface, int id ){
-        Log.v("HIER  ", dialogInterface + " "  + id);
         NoticeDialogListener callback = (NoticeDialogListener)getTargetFragment();
         if( id >= -1 ){
             callback.onDialogPositiveClick( this, id );
@@ -52,6 +48,15 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
 
     public void closeDialog(){
         this.closeDialog();
+    }
+
+    public void setOptions(String[] options){
+
+        this.options = options;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     protected void setTitle( AlertDialog.Builder builder, String title ){

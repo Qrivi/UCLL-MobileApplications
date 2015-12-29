@@ -6,6 +6,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -79,7 +81,14 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
     }
 
     private void updateView(){
-        switchCreditGauge.setChecked( app.getCreditRepresentation() );
+        boolean gaugeChecked = app.getCreditRepresentation();
+
+        if(gaugeChecked)
+            expand();
+        else
+            collapse();
+
+        switchCreditGauge.setChecked( gaugeChecked );
         hintGaugeMin.setText( "€ " + app.getCreditRepresentationMin() );
         hintGaugeMax.setText( "€ " + app.getCreditRepresentationMax() );
         hintLanguage.setText( app.getLanguage() );
@@ -95,13 +104,7 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
     @OnCheckedChanged( R.id.pref_switchCreditGauge )
     public void onGaugeSwitchChanged(){
         app.setCreditRepresentation( switchCreditGauge.isChecked() );
-        if( switchCreditGauge.isChecked() ){
-            wrapperGaugeMin.setClickable( true );
-            wrapperGaugeMax.setClickable( true );
-        }else{
-            wrapperGaugeMin.setClickable( false );
-            wrapperGaugeMax.setClickable( false );
-        }
+        updateView();
     }
 
     @OnClick( R.id.pref_wrapperNotifications_notificationSwitch )
@@ -117,12 +120,12 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
 
     @OnClick( R.id.pef_wrapperCredit_gaugeMin )
     public void onWrapperGaugeMinClicked(){
-        createEditTextDialog( getString( R.string.minimum ) );
+        createEditTextDialog( getString( R.string.minimum ) , getString( R.string.setting_minimum_message) );
     }
 
     @OnClick( R.id.pef_wrapperCredit_gaugeMax )
     public void onWrapperGaugeMaxClicked(){
-        createEditTextDialog( getString( R.string.maximum ) );
+        createEditTextDialog( getString( R.string.maximum ),  getString( R.string.settings_maximum_message)  );
     }
 
     @OnClick( R.id.pref_wrapperNotifications_language )
@@ -137,7 +140,7 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
 
     @OnClick( R.id.pref_btnResetApplication )
     public void onResetButtonCliced(){
-        createConfirmationDialog( getString( R.string.reset ));
+        createConfirmationDialog( getString( R.string.reset ) , getString( R.string.reset_message));
     }
 
     @Override
@@ -157,7 +160,6 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
         }else if( dialog.getType().equals( getString( R.string.reset ) ) ){
             app.resetApp();
             main.finish();
-            createConfirmationDialog( "App is reset" );
             System.exit( 0 );
         }
         updateView();
@@ -168,16 +170,18 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
         dialog.getDialog().cancel();
     }
 
-    private void createEditTextDialog( String type ){
+    private void createEditTextDialog( String type, String message ){
         BaseDialog dialog = new EditTextDialog();
         dialog.setDialogEditInfo( type );
+        dialog.setMessage( message );
         dialog.setTargetFragment( this, 1 );
         dialog.show( getFragmentManager(), type );
     }
 
-    private void createConfirmationDialog( String type ){
+    private void createConfirmationDialog( String type, String message ){
         BaseDialog dialog = new ConfirmationDialog();
         dialog.setDialogEditInfo( type );
+        dialog.setMessage( message );
         dialog.setTargetFragment( this, 1 );
         dialog.show( getFragmentManager(), type );
     }
@@ -190,4 +194,80 @@ public class SettingsFragment extends Fragment implements EditTextDialog.NoticeD
         dialog.setDialogEditInfo( type );
         dialog.show( getFragmentManager(), type );
     }
+
+    public  void expand() {
+
+        wrapperGaugeMin.measure( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+        wrapperGaugeMin.measure( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+
+        final int targetHeigtMin = wrapperGaugeMin.getMeasuredHeight();
+        final int targetHeigtMax = wrapperGaugeMin.getMeasuredHeight();
+
+        wrapperGaugeMin.getLayoutParams().height = 1;
+        wrapperGaugeMin.setVisibility( View.VISIBLE );
+
+        wrapperGaugeMax.getLayoutParams().height = 1;
+        wrapperGaugeMax.setVisibility( View.VISIBLE );
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                wrapperGaugeMin.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeigtMin * interpolatedTime);
+                wrapperGaugeMin.requestLayout();
+
+                wrapperGaugeMax.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeigtMax * interpolatedTime);
+                wrapperGaugeMax.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeigtMin / wrapperGaugeMin.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration((int)(targetHeigtMax / wrapperGaugeMax.getContext().getResources().getDisplayMetrics().density));
+        wrapperGaugeMin.startAnimation(a);
+        wrapperGaugeMax.startAnimation(a);
+    }
+
+    public void collapse() {
+
+        final int initialHeightMin = wrapperGaugeMin.getMeasuredHeight();
+        final int initialHeightMax = wrapperGaugeMax.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    wrapperGaugeMin.setVisibility(View.GONE);
+                    wrapperGaugeMax.setVisibility(View.GONE);
+                }else{
+                    wrapperGaugeMin.getLayoutParams().height = initialHeightMin - (int)(initialHeightMin * interpolatedTime);
+                    wrapperGaugeMax.getLayoutParams().height = initialHeightMax - (int)(initialHeightMax * interpolatedTime);
+                    wrapperGaugeMin.requestLayout();
+                    wrapperGaugeMax.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeightMin /wrapperGaugeMin.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration((int)(initialHeightMax /wrapperGaugeMax.getContext().getResources().getDisplayMetrics().density));
+        wrapperGaugeMin.startAnimation(a);
+        wrapperGaugeMax.startAnimation(a);
+    }
+
 }
