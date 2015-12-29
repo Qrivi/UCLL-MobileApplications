@@ -20,7 +20,7 @@
     <string name="not_applicable_short">n.v.t.</string>
     <string name="not_applicable_full">niet van toepassing</string>
     <string name="not_in_beta">Niet aanwezig in deze beta</string>
-    <string name="beta_feature">Betafeature - kan buggy zijn</string>
+    <string name="alpha_feature">Opgelet: alphafeature</string>
 
     <string name="language_system">Taal van toestel</string>
     <string name="language_english">Engels</string>
@@ -159,7 +159,7 @@
         over dit probleem.
     </string>
     <string name="error_no_maps_app_installed">
-        Ziet er naar uit dat je geen applicatie hebt geïnstalleerd dat je kan helpen met de weg naar deze campus.
+        Ziet ernaar uit dat je geen applicatie hebt geïnstalleerd dat je kan helpen met de weg naar deze campus.
         Ga er snel eentje halen en kom terug duwen op deze knop!
     </string>
 

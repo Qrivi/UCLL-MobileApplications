@@ -273,11 +273,7 @@
                 android:paddingTop="@dimen/app_settings_list_container_button_padding"
                 android:paddingRight="@dimen/padding_activity_default"
                 android:paddingLeft="@dimen/padding_activity_default"
-                android:orientation="vertical"
-                android:focusable="true"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="?android:attr/selectableItemBackground">
+                android:orientation="vertical">
 
             <TextView
                     android:layout_width="wrap_content"

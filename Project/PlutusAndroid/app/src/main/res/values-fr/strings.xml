@@ -20,7 +20,7 @@
     <string name="not_applicable_short">s. o.</string>
     <string name="not_applicable_full">sans objet</string>
     <string name="not_in_beta">Non disponible dans cette bêta</string>
-    <string name="beta_feature">Attention: fonction alpha</string>
+    <string name="alpha_feature">Attention: fonction alpha</string>
 
     <string name="language_system">Langue du téléphone</string>
     <string name="language_english">Anglais</string>
@@ -88,8 +88,8 @@
     <string name="database_setting_up">L\'initialisation peut prendre un certain temps</string>
     <string name="database_updated">Base de données mise à jour</string>
     <string name="plutus_has_not_yet_checked_your_credit">Plutus n\'a pas encore vérifié votre crédit</string>
-    <string name="no_internet_connexion">Vous travaillez hors ligne</string>
-    <string name="there_is_no_active_internet_connexion">Pas de connexion internet active</string>
+    <string name="no_internet_connection">Vous travaillez hors ligne</string>
+    <string name="there_is_no_active_internet_connection">Pas de connexion internet active</string>
 
     <!-- SETTINGS -->
 
@@ -136,34 +136,34 @@
         Erreur lors de la récupeération des opérations :\n\n
     </string>
     <string name="error_loading_data_into_app">
-        Error loading data from API into application:\n\n
+        Erreur lors du chargement du données :\n\n
     </string>
     <string name="error_endpoint_verify">
-        Plutus was unable to verify your credentials. Make sure that you are using the latest version of Plutus. If this
-        problem persist, our servers might temporarily be down. Please try again later or consider contacting us about
-        this issue.
+        Plutus n\'a pas pu valider vos données. Contrôlez si vous utilisez la dernière version de l\'application. Si
+        cette erreur persiste, nos serveurs peuvent être temporairement indisponible. Réessayez plus tard ou
+        contactez-nousconcernant ce problème.
     </string>
     <string name="error_endpoint_credit">
-        Plutus was unable to check your remaining credit. The current data might be outdated.\n\nMake sure that you are
-        using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try
-        again later or consider contacting us about this issue.
+        Plutus n\'a pas pu récuperer votre crédit actuel. Contrôlez si vous utilisez la dernière version de
+        l\'application. Si cette erreur persiste, nos serveurs peuvent être temporairement indisponible. Réessayez plus
+        tard ou contactez-nous concernant ce problème.
     </string>
     <string name="error_endpoint_transactions">
-        Plutus was unable to check for new transactions. The current data might be outdated.\n\nMake sure that you are
-        using the latest version of Plutus. If this problem persist, our servers might temporarily be down. Please try
-        again later or consider contacting us about this issue.
+        Plutus n\'a pas pu récuperer les opérations les plus écentes. Contrôlez si vous utilisez la dernière version de
+        l\'application. Si cette erreur persiste, nos serveurs peuvent être temporairement indisponible. Réessayez plus
+        tard ou contactez-nous concernant ce problème.
     </string>
     <string name="error_loading_map">
-        There was an error loading the map for this transaction. This should not prevent Plutus from working correctly,
-        however.
+        Une erreur est survenue lors du chargement de la carte. Ceci ne devrait pas influencer le bon fonctionnement de
+        Plutus.
     </string>
     <string name="error_loading_transaction">
-        There was an error loading the details for this transaction. Make sure that you are using the latest version of
-        Plutus. If this problem persist, please consider contacting us about thisissue.
+        Une erreur est survenue lors du chargement du détail. Contrôlez si vous utilisez la dernière version de
+        l\'application. Si cette erreur persiste, n\'hésitez pas de nous contacter concernant ce problème.
     </string>
     <string name="error_no_maps_app_installed">
-        Looks like you don\'t have an app installed that could help you with directions to this campus. Go grab one
-        quickly then come press our button again!
+        Il paraît qu\'il n\'y a pas d\'application installée pouvant vous indiquer la voie vers ce campus. Installez une
+        application adequate et revenez appuyer sur notre bouton!
     </string>
 
     <!-- NOT YET LOCALIZED -->

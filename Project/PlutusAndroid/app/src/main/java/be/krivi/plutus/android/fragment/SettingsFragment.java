@@ -152,7 +152,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     public void onLanguageWrapperClicked(){
         createRadioButtonDialog( getString( R.string.set_language ), getString( R.string.set_language_message ), app.getLanguage().getPos(), languages );
         // TODO remove this!
-        Message.toast( getActivity(), getString( R.string.beta_feature ) );
+        Message.toast( getActivity(), getString( R.string.alpha_feature ) );
     }
 
     ////////////////////////////////////////
