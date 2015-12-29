@@ -151,8 +151,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     @OnClick( R.id.pref_application_languageWrapper )
     public void onLanguageWrapperClicked(){
         createRadioButtonDialog( getString( R.string.set_language ), getString( R.string.set_language_message ), app.getLanguage().getPos(), languages );
-        //TODO remove this!
-        Message.toast( getActivity() , getString( R.string.beta_feature) );
+        // TODO remove this!
+        Message.toast( getActivity(), getString( R.string.beta_feature ) );
     }
 
     ////////////////////////////////////////
@@ -181,10 +181,12 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     public void onDialogPositiveClick( BaseDialog dialog, int id ){
         if( dialog.getType().equals( getString( R.string.set_minimum ) ) ){
             EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
-            app.setCreditRepresentationMin( Integer.parseInt( edit.getText().toString() ) );
+            if( !edit.getText().toString().equals( "" ) )
+                app.setCreditRepresentationMin( Integer.parseInt( edit.getText().toString() ) );
         }else if( dialog.getType().equals( getString( R.string.set_maximum ) ) ){
             EditText edit = (EditText)dialog.getDialog().findViewById( R.id.dialog_edit );
-            app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
+            if( !edit.getText().toString().equals( "" ) )
+                app.setCreditRepresentationMax( Integer.parseInt( edit.getText().toString() ) );
         }else if( dialog.getType().equals( getString( R.string.set_language ) ) ){
             switch( id ){
                 case 0:
@@ -219,7 +221,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
             createConfirmationDialog( getString( R.string.reset_info_application ), getString( R.string.reset_info ), false );
         }else if( dialog.getType().equals( getString( R.string.reset_info_application ) ) ){
             exitApplication();
-        }else if( dialog.getType().equals( getString( R.string.reset_info_database  ) )){
+        }else if( dialog.getType().equals( getString( R.string.reset_info_database ) ) ){
             exitApplication();
         }
         updateView();
@@ -252,7 +254,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         dialog.show( getFragmentManager(), type );
     }
 
-    private void exitApplication() {
+    private void exitApplication(){
         main.finish();
         System.exit( 0 );
     }
