@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Plutus FR</string>
+
+    
+    <string name="action_settings">Paramètres</string>
+    <string name="student_id">Numéro d\'étudiant</string>
+    <string name="password">Mot de passe</string>
+    <string name="remember_me">Remember me</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_using_your_student_credentials">Sign in using your student credentials</string>
+    <string name="read_our_privacy_policy">Read our privacy policy</string>
+    <string name="verifying_credentials">Verifying credentials…</string>
+    <string name="populating_database">Populating database…</string>
+    <string name="this_field_is_required">This field is required</string>
+    <string name="this_id_is_too_short">This ID is too short</string>
+    <string name="this_id_does_not_exist">This ID does not exist</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="credit">Crédit</string>
+    <string name="transactions">Transactions</string>
+    <string name="transaction_detail">Transaction details</string>
+    <string name="settings">Settings</string>
+    <string name="password_is_incorrect">Password is incorrect</string>
+    <string name="sign_out">Sign out</string>
+    <string name="close_drawer">Close</string>
+    <string name="open_drawer">Open</string>
+    
+    <string name="home_screen">homeScreen</string>
+
+</resources>

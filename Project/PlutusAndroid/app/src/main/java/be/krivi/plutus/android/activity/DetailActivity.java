@@ -235,7 +235,7 @@ public class DetailActivity extends BaseActivity implements OnMapReadyCallback{
                 colorCurrent,
                 color
         );
-        colorFade.setDuration( 400 );
+        colorFade.setDuration( 500 );
         colorFade.start();
         colorCurrent = color;
     }

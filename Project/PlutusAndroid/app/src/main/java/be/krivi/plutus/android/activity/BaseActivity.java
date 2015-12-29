@@ -2,13 +2,17 @@ package be.krivi.plutus.android.activity;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.view.inputmethod.InputMethodManager;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.application.Language;
 import be.krivi.plutus.android.application.PlutusAndroid;
+
+import java.util.Locale;
 
 /**
  * Created by Krivi on 14/12/15.
@@ -25,10 +29,18 @@ public class BaseActivity extends AppCompatActivity{
         app = (PlutusAndroid)getApplicationContext();
         imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
 
-        Transition slide = new Slide(  );
-        slide.excludeTarget(android.R.id.statusBarBackground, true);
-        slide.excludeTarget( R.id.toolbar, true);
-        slide.excludeTarget(android.R.id.navigationBarBackground, true);
+        Language language = app.getLanguage();
+        if( language != Language.DEFAULT ){
+            Locale.setDefault( language.toLocale() );
+            Configuration config = new Configuration();
+            config.locale = language.toLocale();
+            this.getBaseContext().getResources().updateConfiguration( config, null );
+        }
+
+        Transition slide = new Slide();
+        slide.excludeTarget( android.R.id.statusBarBackground, true );
+        slide.excludeTarget( R.id.toolbar, true );
+        slide.excludeTarget( android.R.id.navigationBarBackground, true );
         getWindow().setEnterTransition( slide );
     }
 

@@ -33,6 +33,7 @@ public class PlutusAndroid extends Application{
 
     private User user;
     private List<Transaction> transactions;
+    private Language language;
 
     private Transaction transactionDetail;
 
@@ -42,7 +43,7 @@ public class PlutusAndroid extends Application{
 
     boolean databaseIncomplete;
 
-    private String homeScreen;
+    private Window homeScreen;
     private float gaugeValue;
 
     private boolean creditRepresentation;
@@ -59,25 +60,51 @@ public class PlutusAndroid extends Application{
 
         // get defaults
         loadConfiguration();
-        Log.v("APP HAS BEEN INIT", "EN IS DB INCOMPLETE: "+databaseIncomplete);
+        Log.v( "APP HAS BEEN INIT", "EN IS DB INCOMPLETE: " + databaseIncomplete );
     }
 
     private void loadConfiguration(){
-        homeScreen = ioService.getHomeScreen();
         gaugeValue = ioService.getGaugeValue();
         creditRepresentation = ioService.getCreditRepresentation();
         creditRepresentationMin = ioService.getCreditRepresentationMin();
         creditRepresentationMax = ioService.getCreditRepresentationMax();
         databaseIncomplete = ioService.isDatabaseIncomplete();
+
+        switch( ioService.getLanguageTag() ){
+            case "en":
+                language = Language.ENGLISH;
+                break;
+            case "nl":
+                language = Language.DUTCH;
+                break;
+            case "fr":
+                language = Language.FRENCH;
+                break;
+            default:
+                language = Language.FRENCH;
+        }
+
+        switch( ioService.getHomeScreen() ){
+            case "settings":
+                homeScreen = Window.SETTINGS;
+                break;
+            case "transactions":
+                homeScreen = Window.TRANSACTIONS;
+                break;
+            case "credit":
+            default:
+                homeScreen = Window.CREDIT;
+        }
+
     }
 
     public static Context getAppContext(){
         return instance.getApplicationContext();
     }
 
-    public void setHomeScreen( String homeScreen ){
-        this.homeScreen = homeScreen;
-        ioService.saveHomeScreen( homeScreen );
+    public void setHomeScreen( Window window ){
+        this.homeScreen = window;
+        ioService.saveHomeScreen( window.getOrigin() );
     }
 
     public void setGaugeValue( float value ){
@@ -104,11 +131,12 @@ public class PlutusAndroid extends Application{
         ioService.saveCreditRepresentationMax( value );
     }
 
-    public void setLanguage(String language) {
-        ioService.saveLanguage( language );
+    public void setLanguage( Language language ){
+        this.language = language;
+        ioService.saveLanguageTag( language.toLanguageTag() );
     }
 
-    public String getHomeScreen(){
+    public Window getHomeScreen(){
         return homeScreen;
     }
 
@@ -128,8 +156,8 @@ public class PlutusAndroid extends Application{
         return creditRepresentationMax;
     }
 
-    public String getLanguage() {
-        return ioService.getLanguage();
+    public Language getLanguage(){
+        return language;
     }
 
 
@@ -235,7 +263,7 @@ public class PlutusAndroid extends Application{
         loadConfiguration();
     }
 
-    public void resetApp() {
+    public void resetApp(){
         ioService.clearDatabase();
         ioService.clearSharedPreferences();
         loadConfiguration();

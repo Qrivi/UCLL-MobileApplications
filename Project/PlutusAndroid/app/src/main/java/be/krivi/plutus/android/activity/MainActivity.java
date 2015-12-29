@@ -19,7 +19,10 @@ import android.view.View;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
-import be.krivi.plutus.android.fragment.*;
+import be.krivi.plutus.android.application.Window;
+import be.krivi.plutus.android.fragment.CreditFragment;
+import be.krivi.plutus.android.fragment.SettingsFragment;
+import be.krivi.plutus.android.fragment.TransactionsFragment;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -139,7 +142,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         } );
 
-        setMenuOptions( mToolbar.getTitle().toString() );
+        setMenuOptions( app.getHomeScreen() );
         return true;
     }
 
@@ -147,7 +150,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected( MenuItem item ){
         if( item.getItemId() == R.id.menu_filter ){
             // TODO filters
-            Message.toast( this, getString( R.string.not_in_beta) );
+            Message.toast( this, getString( R.string.not_in_beta ) );
         }
 
         return super.onOptionsItemSelected( item );
@@ -165,56 +168,67 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected( MenuItem item ){
 
         // if user taps active item, no new fragments need to load
-        if( item.getItemId() == R.id.navigation_signout ){
-            logout();
-            return true;
-        }else if( !item.isChecked() ){
-            setFragment( item.getTitle().toString() );
+        if( !item.isChecked() ){
+            switch( item.getItemId() ){
+                case R.id.navigation_signout:
+                    logout();
+                    return true;
+                case R.id.navigation_settings:
+                    setFragment( Window.SETTINGS );
+                    break;
+                case R.id.navigation_transactions:
+                    setFragment( Window.TRANSACTIONS );
+                    break;
+                case R.id.navigation_credit:
+                    setFragment( Window.CREDIT );
+                    break;
+
+            }
         }
         mDrawerLayout.closeDrawers();
         return true;
     }
 
-    public void setFragment( String fragmentTitle ){
+    public void setFragment( Window window ){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction switcher = manager.beginTransaction();
         int nav = 0;
 
-        switch( fragmentTitle ){
-            case "Credit":
+        switch( window.getId() ){
+            case 0:
                 nav = R.id.navigation_credit;
                 currentFragment = new CreditFragment();
                 break;
-            case "Transactions":
+            case 1:
                 nav = R.id.navigation_transactions;
                 currentFragment = new TransactionsFragment();
                 break;
-            case "Settings":
+            case 2:
                 nav = R.id.navigation_settings;
                 currentFragment = new SettingsFragment();
                 break;
         }
 
-        setMenuOptions( fragmentTitle );
+        setMenuOptions( window );
         switcher.replace( R.id.wrapperFragment, currentFragment );
 
         if( nav != 0 )
             mNavigationView.getMenu().findItem( nav ).setChecked( true );
         if( getSupportActionBar() != null )
-            getSupportActionBar().setTitle( fragmentTitle );
+            getSupportActionBar().setTitle( getString( window.getReference() ) );
 
-        mToolbar.setTitle( fragmentTitle );
+        mToolbar.setTitle( getString( window.getReference() ) );
         switcher.commit();
     }
 
-    private void setMenuOptions( String fragmentTitle ){
+    private void setMenuOptions( Window window ){
 
         if( mToolbarMenu != null ){
             MenuItem search = mToolbarMenu.findItem( R.id.menu_filter );
             MenuItem filter = mToolbarMenu.findItem( R.id.menu_search );
 
-            switch( fragmentTitle ){
-                case "Transactions":
+            switch( window.getId() ){
+                case 1:
                     search.setVisible( true );
                     filter.setVisible( true );
                     break;
@@ -327,5 +341,4 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
 }
-
 
