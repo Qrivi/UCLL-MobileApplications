@@ -62,7 +62,7 @@
 
     <string name="student_id">Student ID</string>
     <string name="password">Password</string>
-    <string name="remember_me">Remember me</string>
+    <string name="remember_me">Keep my session active</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
     <string name="try_again">Retry</string>
@@ -107,7 +107,7 @@
     <string name="set_home_screen_message">Choose which window the application should start up with.</string>
     <string name="set_language">Override language</string>
     <string name="set_language_message">
-        Some stored data will only be translated after updating your language preferences on Intranet and erasing
+        Some stored data will only be translated after updating your language preference on Intranet and erasing
         Plutus\' database.
     </string>
 

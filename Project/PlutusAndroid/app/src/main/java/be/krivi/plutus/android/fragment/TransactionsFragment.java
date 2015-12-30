@@ -114,6 +114,8 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
         }
     }
 
+
+    @Override
     public void updateView(){
         transactions = app.getTransactionsSet( set );
         adapter.setRowData( transactions );

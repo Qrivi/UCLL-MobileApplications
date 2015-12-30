@@ -82,7 +82,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         return view;
     }
 
-    private void updateView(){
+    @Override
+    public void updateView(){
 
         mCreditMinMaxWrapper.setVisibility( View.GONE );
         if( app.getCreditRepresentation() ){
@@ -153,8 +154,6 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     @OnClick( R.id.pref_application_languageWrapper )
     public void onLanguageWrapperClicked(){
         createRadioButtonDialog( getString( R.string.set_language ), getString( R.string.set_language_message ), app.getLanguage().getPos(), languages );
-        // TODO remove this!
-        Message.toast( getActivity(), getString( R.string.alpha_feature ) );
     }
 
     ////////////////////////////////////////
@@ -231,6 +230,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         }else if( dialog.getType().equals( getString( R.string.reset_info_application ) ) ){
             exitApplication();
         }else if( dialog.getType().equals( getString( R.string.reset_info_database ) ) ){
+            app.resetDatabase();
             exitApplication();
         }
         updateView();

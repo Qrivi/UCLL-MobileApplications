@@ -34,6 +34,7 @@ public class PlutusAndroid extends Application{
     private User user;
     private List<Transaction> transactions;
     private Language language;
+    private Locale defaultLocale;
 
     private Transaction transactionDetail;
 
@@ -59,8 +60,13 @@ public class PlutusAndroid extends Application{
         format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US );
 
         // get defaults
+        defaultLocale = Locale.getDefault();
         loadConfiguration();
         Log.v( "APP HAS BEEN INIT", "EN IS DB INCOMPLETE: " + databaseIncomplete );
+    }
+
+    public Locale getDefaultLocale(){
+        return defaultLocale;
     }
 
     private void loadConfiguration(){
@@ -252,6 +258,10 @@ public class PlutusAndroid extends Application{
                     ioService.getFirstName(), ioService.getLastName(),
                     ioService.getCredit(), ioService.getFetchDate() );
             transactions = ioService.getAllTransactions();
+            if( currentActivity instanceof MainActivity ){
+                MainActivity main = (MainActivity)currentActivity;
+                main.updateFragment();
+            }
         }catch( ParseException e ){
             Message.obtrusive( currentActivity, getString( R.string.error_loading_data_into_app ) + e.getMessage() );
         }
@@ -266,6 +276,13 @@ public class PlutusAndroid extends Application{
     public void resetApp(){
         ioService.clearDatabase();
         ioService.clearSharedPreferences();
+        loadConfiguration();
+    }
+
+    public void resetDatabase(){
+        ioService.cleanDatabase();
+        ioService.saveDatabaseIncomplete( true );
+        ioService.saveFetchDate( null );
         loadConfiguration();
     }
 

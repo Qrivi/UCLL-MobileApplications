@@ -8,7 +8,7 @@ import be.krivi.plutus.android.application.PlutusAndroid;
 /**
  * Created by Krivi on 29/12/15.
  */
-public class BaseFragment extends Fragment{
+public abstract class BaseFragment extends Fragment{
 
     PlutusAndroid app;
     MainActivity main;
@@ -21,4 +21,5 @@ public class BaseFragment extends Fragment{
         app = (PlutusAndroid)main.getApplication();
     }
 
+    public abstract void updateView();
 }

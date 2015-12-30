@@ -115,7 +115,10 @@ public class SPAdapter{
     }
 
     public void saveFetchDate( Date fetchDate ){
-        editor.putLong( "fetch_date", fetchDate.getTime() );
+        if( fetchDate == null )
+            editor.remove( "fetch_date" );
+        else
+            editor.putLong( "fetch_date", fetchDate.getTime() );
         editor.commit();
     }
 

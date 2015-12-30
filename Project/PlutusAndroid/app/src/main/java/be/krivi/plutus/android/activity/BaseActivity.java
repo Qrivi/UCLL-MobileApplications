@@ -17,7 +17,7 @@ import java.util.Locale;
 /**
  * Created by Krivi on 14/12/15.
  */
-public class BaseActivity extends AppCompatActivity{
+public abstract class BaseActivity extends AppCompatActivity{
 
     PlutusAndroid app;
     InputMethodManager imm;
@@ -30,12 +30,12 @@ public class BaseActivity extends AppCompatActivity{
         imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE );
 
         Language language = app.getLanguage();
-        if( language != Language.DEFAULT ){
-            Locale.setDefault( language.getLocale() );
-            Configuration config = new Configuration();
-            config.locale = language.getLocale();
-            this.getBaseContext().getResources().updateConfiguration( config, null );
-        }
+        Locale locale = language == Language.DEFAULT ? app.getDefaultLocale() : language.getLocale();
+
+        Locale.setDefault( locale );
+        Configuration config = new Configuration();
+        config.locale = locale;
+        this.getBaseContext().getResources().updateConfiguration( config, null );
 
         Transition slide = new Slide();
         slide.excludeTarget( android.R.id.statusBarBackground, true );

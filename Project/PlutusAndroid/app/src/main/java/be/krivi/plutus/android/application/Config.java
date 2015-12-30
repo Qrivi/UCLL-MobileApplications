@@ -33,4 +33,6 @@ public abstract class Config{
     public static boolean SETTINGS_DEFAULT_NOTIFICATIONS = false;
     public static String SETTINGS_DEFAULT_HOMESCREEN = "credit";
 
+    public static boolean APP_IS_BETA = true;
+
 }
