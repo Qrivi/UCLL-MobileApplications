@@ -35,6 +35,7 @@ public class PlutusAndroid extends Application{
     private List<Transaction> transactions;
     private Language language;
     private Locale defaultLocale;
+    private int androidApiVersion;
 
     private Transaction transactionDetail;
 
@@ -61,12 +62,20 @@ public class PlutusAndroid extends Application{
 
         // get defaults
         defaultLocale = Locale.getDefault();
+        androidApiVersion = android.os.Build.VERSION.SDK_INT;
         loadConfiguration();
-        Log.v( "APP HAS BEEN INIT", "EN IS DB INCOMPLETE: " + databaseIncomplete );
     }
 
     public Locale getDefaultLocale(){
         return defaultLocale;
+    }
+
+    public int getAndroidApiVersion(){
+        // TODO use this :)
+        // in order to make the app work on 4.4.4 and below (our own code supports a wide variation of API levels and so
+        // do the embedded libs) alternative layouts need to be inflated that don't use vector drawables (vectors are
+        // not supported pre-Lollipop). Thos layouts do not exist as for now.
+        return androidApiVersion;
     }
 
     private void loadConfiguration(){

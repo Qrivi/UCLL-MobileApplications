@@ -165,6 +165,8 @@
         <item name="android:navigationBarColor">@color/ucll_pink</item>
         <item name="android:actionModeBackground">@color/ucll_pink</item>
 
+        <item name="android:colorButtonNormal">@color/ucll_dark_blue</item>
+
         <item name="editTextStyle">@style/Plutus.Login.EditText</item>
         <item name="android:buttonStyle">@style/Plutus.Login.Button</item>
     </style>
