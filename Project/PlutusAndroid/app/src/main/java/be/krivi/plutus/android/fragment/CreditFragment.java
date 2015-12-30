@@ -108,6 +108,7 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
 
             float newValue = (float)dividend / divider * 75;
             if( newValue < 1 ) newValue = 1;
+            else if( newValue > 75 ) newValue = 75;
 
             GaugeAnimation animation = new GaugeAnimation( mGauge, gaugeValue, newValue );
             animation.setDuration( 1000 );
