@@ -28,6 +28,7 @@
 
     <style name="Plutus.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/ucll_dark_blue</item>
+        <item name="android:textColor">@color/plutus_dark_gray</item>
         <item name="android:windowFullscreen">false</item>
     </style>
 

@@ -15,7 +15,7 @@ public abstract class Config{
     public static String API_LOGIN = "Plutus";
     public static String API_PASSWORD = "6298e5dbc7c0475c2273a8e2371695d4756b8f45";
 
-    public static String API_ENDPOINT_VERIFY = "/verify";
+    public static String API_ENDPOINT_VERIFY = "/verifyxxx";
     public static String API_ENDPOINT_CREDIT = "/credit";
     public static String API_ENDPOINT_TRANSACTIONS = "/transactions";
 

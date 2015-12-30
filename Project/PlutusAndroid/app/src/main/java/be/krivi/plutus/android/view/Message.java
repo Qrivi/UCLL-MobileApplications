@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.dialog.ConfirmationDialog;
 
 /**
  * Created by Jan on 30/11/2015.
@@ -33,7 +34,7 @@ public abstract class Message{
     }
 
     public static void obtrusive( Context context, String message ){
-        new AlertDialog.Builder( context )
+        new AlertDialog.Builder( context, R.style.Plutus_Dialog )
                 .setTitle( context.getString( R.string.something_went_wrong ) )
                 .setMessage( message )
                 .setPositiveButton( R.string.ok, new DialogInterface.OnClickListener(){

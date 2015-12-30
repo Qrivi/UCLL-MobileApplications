@@ -82,7 +82,9 @@ public class LoginActivity extends BaseActivity{
         }else{
             initializeLoginWindow();
             if( !app.isNetworkAvailable() ){
-                showRetryWindow();
+                mBtn_tryAgain.setVisibility( View.VISIBLE );
+                mWrapperInput.setVisibility( View.INVISIBLE );
+                mTitle.setText( R.string.there_is_no_active_internet_connection );
             }
         }
 
@@ -152,7 +154,8 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onFailure( VolleyError error ){
                 Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_verify ) );
-                showRetryWindow();
+                mWrapperInput.startAnimation( aFadeIn );
+                busy = false;
             }
         } );
     }
@@ -179,12 +182,6 @@ public class LoginActivity extends BaseActivity{
             mPasswordStyle.setError( errorPassword );
 
         busy = false;
-    }
-
-    private void showRetryWindow(){
-        mBtn_tryAgain.setVisibility( View.VISIBLE );
-        mWrapperInput.setVisibility( View.INVISIBLE );
-        mTitle.setText( R.string.there_is_no_active_internet_connection );
     }
 
     private void initializeMainWindow(){
