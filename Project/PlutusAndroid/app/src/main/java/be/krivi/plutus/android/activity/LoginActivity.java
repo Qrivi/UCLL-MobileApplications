@@ -77,9 +77,7 @@ public class LoginActivity extends BaseActivity{
         }else{
             initializeLoginWindow();
             if( !app.isNetworkAvailable() ){
-                mBtn_tryAgain.setVisibility( View.VISIBLE );
-                mWrapperInput.setVisibility( View.INVISIBLE );
-                mTitle.setText( R.string.there_is_no_active_internet_connection );
+                showRetryWindow();
             }
         }
 
@@ -88,6 +86,7 @@ public class LoginActivity extends BaseActivity{
     @OnClick( R.id.btn_tryAgain )
     public void tryAgainClickHandler(){
         if( app.isNetworkAvailable() ){
+            mWrapperInput.startAnimation( aFadeIn );
             mBtn_tryAgain.setVisibility( View.INVISIBLE );
             mWrapperInput.setVisibility( View.VISIBLE );
             mTitle.setText( R.string.sign_in_using_your_student_credentials );
@@ -148,14 +147,13 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onFailure( VolleyError error ){
                 Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_verify ) );
+                showRetryWindow();
             }
         } );
     }
 
     private void showFadeOut( String text ){
         mWrapperInput.startAnimation( aFadeOut );
-
-
         imm.toggleSoftInput( InputMethodManager.HIDE_IMPLICIT_ONLY, 0 );
 
         mTitle.setText( text );
@@ -176,6 +174,12 @@ public class LoginActivity extends BaseActivity{
             mPasswordStyle.setError( errorPassword );
 
         busy = false;
+    }
+
+    private void showRetryWindow(){
+        mBtn_tryAgain.setVisibility( View.VISIBLE );
+        mWrapperInput.setVisibility( View.INVISIBLE );
+        mTitle.setText( R.string.there_is_no_active_internet_connection );
     }
 
     private void initializeMainWindow(){
