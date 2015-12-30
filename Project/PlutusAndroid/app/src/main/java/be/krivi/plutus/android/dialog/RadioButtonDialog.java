@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import be.krivi.plutus.android.R;
-import be.krivi.plutus.android.view.Message;
 
 import java.util.List;
 

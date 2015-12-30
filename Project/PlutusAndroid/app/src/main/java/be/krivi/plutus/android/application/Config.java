@@ -27,11 +27,11 @@ public abstract class Config{
     public static LatLng APP_DEFAULT_MAP_LATLNG = new LatLng( 50.711243,4.768066 ); // center of BE
     public static int APP_DEFAULT_MAP_ZOOM = 20;
 
-    public static boolean SETTINGS_DEFAULT_CREDIT_REPRESENTATION = true;
-    public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN = 10;
-    public static int SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX = 50;
+    public static boolean SETTINGS_DEFAULT_CREDIT_GAUGE = true;
+    public static int SETTINGS_DEFAULT_CREDIT_GAUGE_MIN = 10;
+    public static int SETTINGS_DEFAULT_CREDIT_GAUGE_MAX = 50;
     public static boolean SETTINGS_DEFAULT_NOTIFICATIONS = false;
-    public static String SETTINGS_DEFAULT_HOMESCREEN = "credit";
+    public static String SETTINGS_DEFAULT_HOME_SCREEN = "credit";
 
     public static boolean APP_IS_BETA = true;
 

@@ -2,10 +2,6 @@ package be.krivi.plutus.android.dialog;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
-import be.krivi.plutus.android.R;
-
-import java.util.List;
 
 /**
  * Created by Jan on 28/12/2015.
@@ -37,10 +33,6 @@ public class BaseDialog extends android.support.v4.app.DialogFragment implements
 
     public String getType(){
         return this.type;
-    }
-
-    public void closeDialog(){
-        this.closeDialog();
     }
 
     protected void setTitle( AlertDialog.Builder builder, String title ){
