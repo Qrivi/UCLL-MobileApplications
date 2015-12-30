@@ -3,7 +3,6 @@ package be.krivi.plutus.android.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.application.Window;
+import be.krivi.plutus.android.fragment.BaseFragment;
 import be.krivi.plutus.android.fragment.CreditFragment;
 import be.krivi.plutus.android.fragment.SettingsFragment;
 import be.krivi.plutus.android.fragment.TransactionsFragment;
@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     Menu mToolbarMenu;
     ActionBarDrawerToggle mDrawerToggle;
 
-    Fragment currentFragment;
+    BaseFragment currentFragment;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
@@ -93,6 +93,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onResume(){
         super.onResume();
+
+        if( getIntent().getStringExtra( "localization" ) != null ){
+            Log.i( "Localization", "Application Locale was updated" );
+            setFragment( Window.SETTINGS );
+        }
 
         if( app.fetchRequired() ){
             fetchAllData();
@@ -310,18 +315,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    private void updateFragment(){
+    public void updateFragment(){
 
-        switch( mToolbar.getTitle().toString() ){
-            case "Credit":
-                CreditFragment bf = (CreditFragment)currentFragment;
-                bf.updateView();
-                break;
-            case "Transactions":
-                TransactionsFragment tf = (TransactionsFragment)currentFragment;
-                tf.updateView();
-                break;
-        }
+        currentFragment.updateView();
     }
 
     private boolean canConnectToInternet(){

@@ -29,7 +29,7 @@
 
     <!-- DATE AND TIME -->
 
-    <string name="on_date">le %1$s</string>
+    <string name="on_date">%1$s</string>
     <string name="at_time">à %1$s</string>
     <string name="on_timestamp">le %1$s à %2$s</string>
 
@@ -144,12 +144,12 @@
         contactez-nousconcernant ce problème.
     </string>
     <string name="error_endpoint_credit">
-        Plutus n\'a pas pu récuperer votre crédit actuel. Contrôlez si vous utilisez la dernière version de
+        Plutus n\'a pas pu récuperer votre crédit actuel.\n\nContrôlez si vous utilisez la dernière version de
         l\'application. Si cette erreur persiste, nos serveurs peuvent être temporairement indisponible. Réessayez plus
         tard ou contactez-nous concernant ce problème.
     </string>
     <string name="error_endpoint_transactions">
-        Plutus n\'a pas pu récuperer les opérations les plus écentes. Contrôlez si vous utilisez la dernière version de
+        Plutus n\'a pas pu récuperer les opérations les plus écentes.\n\nContrôlez si vous utilisez la dernière version de
         l\'application. Si cette erreur persiste, nos serveurs peuvent être temporairement indisponible. Réessayez plus
         tard ou contactez-nous concernant ce problème.
     </string>

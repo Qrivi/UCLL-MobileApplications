@@ -1,10 +1,7 @@
 package be.krivi.plutus.android.network.volley;
 
 import android.util.Base64;
-import android.util.Log;
 import be.krivi.plutus.android.application.Config;
-import be.krivi.plutus.android.application.PlutusAndroid;
-import be.krivi.plutus.android.view.Message;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 

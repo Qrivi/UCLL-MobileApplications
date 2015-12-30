@@ -10,14 +10,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.activity.DetailActivity;
-import be.krivi.plutus.android.activity.MainActivity;
-import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.view.Message;
 import be.krivi.plutus.android.view.TransactionsAdapter;
@@ -114,6 +111,8 @@ public class TransactionsFragment extends BaseFragment implements SwipeRefreshLa
         }
     }
 
+
+    @Override
     public void updateView(){
         transactions = app.getTransactionsSet( set );
         adapter.setRowData( transactions );

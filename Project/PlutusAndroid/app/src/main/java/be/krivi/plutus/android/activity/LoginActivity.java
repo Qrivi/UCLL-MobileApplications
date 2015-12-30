@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+import be.krivi.plutus.android.BuildConfig;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.network.volley.VolleyCallback;
@@ -71,6 +72,10 @@ public class LoginActivity extends BaseActivity{
         setContentView( R.layout.activity_login );
 
         ButterKnife.bind( this );
+
+        if( app.isNewInstallation() && Config.APP_IS_BETA )
+            Message.toast( this, BuildConfig.VERSION_NAME );
+
 
         if( app.isUserSaved() ){
             initializeMainWindow();

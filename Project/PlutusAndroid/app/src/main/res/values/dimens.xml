@@ -21,7 +21,7 @@
     <dimen name="link_buttonSize">32dp</dimen>
 
     <dimen name="app_detail_title">22sp</dimen>
-    <dimen name="app_list_separator">1dp</dimen>
+    <dimen name="app_list_separator">1sp</dimen>
     <dimen name="app_list_item">10dp</dimen>
     <dimen name="app_list_header">14sp</dimen>
     <dimen name="app_list_title">14sp</dimen><!-- material body -->

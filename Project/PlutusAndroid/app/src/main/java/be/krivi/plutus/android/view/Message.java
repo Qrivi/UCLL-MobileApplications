@@ -36,7 +36,7 @@ public abstract class Message{
         new AlertDialog.Builder( context )
                 .setTitle( context.getString( R.string.something_went_wrong ) )
                 .setMessage( message )
-                .setPositiveButton( android.R.string.yes, new DialogInterface.OnClickListener(){
+                .setPositiveButton( R.string.ok, new DialogInterface.OnClickListener(){
                     public void onClick( DialogInterface dialog, int which ){
                         // empty dismisses dialog
                     }

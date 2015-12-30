@@ -55,7 +55,7 @@ public class SPAdapter{
     }
 
     public String getHomeScreen(){
-        return sharedPreferences.getString( "home_screen", Config.SETTINGS_DEFAULT_HOMESCREEN );
+        return sharedPreferences.getString( "home_screen", Config.SETTINGS_DEFAULT_HOME_SCREEN );
     }
 
     public float getGaugeValue(){
@@ -63,15 +63,15 @@ public class SPAdapter{
     }
 
     public boolean getCreditRepresentation(){
-        return Boolean.parseBoolean( sharedPreferences.getString( "credit_rep", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION + "" ) );
+        return Boolean.parseBoolean( sharedPreferences.getString( "credit_rep", Config.SETTINGS_DEFAULT_CREDIT_GAUGE + "" ) );
     }
 
     public int getCreditRepresentationMin(){
-        return sharedPreferences.getInt( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MIN );
+        return sharedPreferences.getInt( "credit_rep_min", Config.SETTINGS_DEFAULT_CREDIT_GAUGE_MIN );
     }
 
     public int getCreditRepresentationMax(){
-        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_REPRESENTATION_MAX );
+        return sharedPreferences.getInt( "credit_rep_max", Config.SETTINGS_DEFAULT_CREDIT_GAUGE_MAX );
     }
 
     public String getLanguageTag(){
@@ -115,7 +115,10 @@ public class SPAdapter{
     }
 
     public void saveFetchDate( Date fetchDate ){
-        editor.putLong( "fetch_date", fetchDate.getTime() );
+        if( fetchDate == null )
+            editor.remove( "fetch_date" );
+        else
+            editor.putLong( "fetch_date", fetchDate.getTime() );
         editor.commit();
     }
 

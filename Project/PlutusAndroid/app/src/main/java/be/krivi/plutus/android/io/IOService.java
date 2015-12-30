@@ -1,7 +1,6 @@
 package be.krivi.plutus.android.io;
 
 import android.content.Context;
-import android.util.Log;
 import be.krivi.plutus.android.model.Location;
 import be.krivi.plutus.android.model.Transaction;
 import be.krivi.plutus.android.model.User;

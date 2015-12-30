@@ -1,7 +1,6 @@
 package be.krivi.plutus.android.fragment;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
-import be.krivi.plutus.android.activity.MainActivity;
 import be.krivi.plutus.android.application.Config;
-import be.krivi.plutus.android.application.PlutusAndroid;
 import be.krivi.plutus.android.view.GaugeAnimation;
 import be.krivi.plutus.android.view.Message;
 import butterknife.Bind;
@@ -86,6 +83,7 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
     }
 
 
+    @Override
     public void updateView(){
         mSwipeRefresh.setRefreshing( false );
 

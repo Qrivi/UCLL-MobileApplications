@@ -1,5 +1,6 @@
 package be.krivi.plutus.android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.krivi.plutus.android.R;
+import be.krivi.plutus.android.activity.MainActivity;
 import be.krivi.plutus.android.application.Config;
 import be.krivi.plutus.android.application.Language;
 import be.krivi.plutus.android.application.Window;
@@ -80,7 +82,8 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         return view;
     }
 
-    private void updateView(){
+    @Override
+    public void updateView(){
 
         mCreditMinMaxWrapper.setVisibility( View.GONE );
         if( app.getCreditRepresentation() ){
@@ -151,8 +154,6 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
     @OnClick( R.id.pref_application_languageWrapper )
     public void onLanguageWrapperClicked(){
         createRadioButtonDialog( getString( R.string.set_language ), getString( R.string.set_language_message ), app.getLanguage().getPos(), languages );
-        // TODO remove this!
-        Message.toast( getActivity(), getString( R.string.alpha_feature ) );
     }
 
     ////////////////////////////////////////
@@ -203,8 +204,13 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
                     break;
             }
             dialog.getDialog().cancel();
+
+            Intent intent = new Intent( main, MainActivity.class );
+            intent.putExtra( "localization", "updated" );
+            intent.addFlags( Intent.FLAG_ACTIVITY_NO_ANIMATION );
+            startActivity( intent );
             main.finish();
-            main.startActivity( main.getIntent() );
+
         }else if( dialog.getType().equals( getString( R.string.set_home_screen ) ) ){
             switch( id ){
                 case 0:
@@ -224,6 +230,7 @@ public class SettingsFragment extends BaseFragment implements EditTextDialog.Not
         }else if( dialog.getType().equals( getString( R.string.reset_info_application ) ) ){
             exitApplication();
         }else if( dialog.getType().equals( getString( R.string.reset_info_database ) ) ){
+            app.resetDatabase();
             exitApplication();
         }
         updateView();

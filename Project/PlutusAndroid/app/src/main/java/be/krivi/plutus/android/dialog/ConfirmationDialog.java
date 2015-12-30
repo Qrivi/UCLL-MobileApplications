@@ -2,7 +2,6 @@ package be.krivi.plutus.android.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,11 +15,11 @@ public class ConfirmationDialog extends BaseDialog{
 
     private boolean isReset;
 
-    public static ConfirmationDialog newInstance( String type, String message) {
-       return newInstance( type, message, false );
+    public static ConfirmationDialog newInstance( String type, String message ){
+        return newInstance( type, message, false );
     }
 
-    public static ConfirmationDialog newInstance( String type, String message, boolean isReset) {
+    public static ConfirmationDialog newInstance( String type, String message, boolean isReset ){
         ConfirmationDialog dialog = new ConfirmationDialog();
         dialog.setDialogType( type );
         dialog.initializeMessage( message );
@@ -34,11 +33,12 @@ public class ConfirmationDialog extends BaseDialog{
 
         AlertDialog.Builder builder = new AlertDialog.Builder( getActivity(), R.style.Plutus_Dialog );
 
-        if(isReset) {
-            setPositiveButton( builder, getString( R.string.reset) );
+        if( isReset ){
+            setPositiveButton( builder, getString( R.string.reset ) );
             setNegativeButton( builder, getString( R.string.cancel ) );
-        } else {
+        }else{
             setPositiveButton( builder, getString( R.string.ok ) );
+            setCancelable( false );
         }
 
         setTitle( builder, getType() );
@@ -46,7 +46,7 @@ public class ConfirmationDialog extends BaseDialog{
 
         final AlertDialog dialog = builder.create();
 
-        if(isReset) {
+        if( isReset ){
             dialog.setOnShowListener( new DialogInterface.OnShowListener(){
                 @Override
                 public void onShow( DialogInterface dialogInterface ){
