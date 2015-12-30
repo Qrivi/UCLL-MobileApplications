@@ -69,6 +69,8 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
 
         df = new DecimalFormat( "#0.00", DecimalFormatSymbols.getInstance( Locale.getDefault() ) );
 
+        mGaugeBg.setMax(100);
+        mGauge.setMax(100);
         mGaugeBg.setVisibility( View.INVISIBLE );
         mGauge.setVisibility( View.INVISIBLE );
 
@@ -106,7 +108,6 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
 
             float newValue = (float)dividend / divider * 75;
             if( newValue < 1 ) newValue = 1;
-            if( newValue > 75 ) newValue = 75;
 
             GaugeAnimation animation = new GaugeAnimation( mGauge, gaugeValue, newValue );
             animation.setDuration( 1000 );

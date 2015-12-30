@@ -37,11 +37,13 @@ public abstract class BaseActivity extends AppCompatActivity{
         config.locale = locale;
         this.getBaseContext().getResources().updateConfiguration( config, null );
 
-        Transition slide = new Slide();
-        slide.excludeTarget( android.R.id.statusBarBackground, true );
-        slide.excludeTarget( R.id.toolbar, true );
-        slide.excludeTarget( android.R.id.navigationBarBackground, true );
-        getWindow().setEnterTransition( slide );
+        //if( app.getAndroidApiVersion() >= android.os.Build.VERSION_CODES.LOLLIPOP ){
+            Transition slide = new Slide();
+            slide.excludeTarget( android.R.id.statusBarBackground, true );
+            slide.excludeTarget( R.id.toolbar, true );
+            slide.excludeTarget( android.R.id.navigationBarBackground, true );
+            getWindow().setEnterTransition( slide );
+        //}
     }
 
     @Override
