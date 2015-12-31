@@ -166,6 +166,9 @@
         <item name="android:actionModeBackground">@color/ucll_pink</item>
 
         <item name="android:colorButtonNormal">@color/ucll_dark_blue</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
         <item name="editTextStyle">@style/Plutus.Login.EditText</item>
         <item name="android:buttonStyle">@style/Plutus.Login.Button</item>
@@ -190,6 +193,20 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/app_list_separator</item>
         <item name="android:background">@color/plutus_light_gray</item>
+    </style>
+
+    <style name="Plutus.BigTitle">
+        <item name="android:textSize">@dimen/app_big_title</item>
+        <item name="android:textColor">@color/ucll_light</item>
+        <item name="android:paddingBottom">@dimen/padding_border</item>
+    </style>
+
+    <style name="Plutus.Link">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/link_textSize</item>
+        <item name="android:textColor">@color/ucll_light_blue</item>
+        <item name="android:minHeight">@dimen/link_buttonSize</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

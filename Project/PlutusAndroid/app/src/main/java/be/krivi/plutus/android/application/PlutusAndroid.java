@@ -211,7 +211,7 @@ public class PlutusAndroid extends Application{
     }
 
     public String getProjectUrl(){
-        return Config.PROJECT_URL;
+        return Config.APP_URL_REPO;
     }
 
 

@@ -7,9 +7,12 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public abstract class Config{
 
-    public static String PROJECT_URL = "https://qrivi.github.io/Plutus";
+    public static String APP_URL_REPO = "https://qrivi.github.io/Plutus";
 
-    public static String API_URL = "http://labs.krivi.be/plutus/api"; // will of course be https in the future!
+    public static String APP_URL = "http://www.plutus.be";
+    public static String APP_PRIVACY_POLICY = "/";
+
+    public static String API_URL = "http://plutus.be/api"; // will of course be https in the future!
     public static String API_VERSION = "/v1";
 
     public static String API_LOGIN = "Plutus";

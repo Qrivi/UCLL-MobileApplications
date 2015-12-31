@@ -84,7 +84,6 @@ public class CreditFragment extends BaseFragment implements SwipeRefreshLayout.O
         return view;
     }
 
-
     @Override
     public void updateView(){
         mSwipeRefresh.setRefreshing( false );

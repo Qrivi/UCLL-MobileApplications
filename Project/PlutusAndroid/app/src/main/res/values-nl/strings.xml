@@ -65,9 +65,9 @@
     <string name="remember_me">Hou mij ingelogd</string>
     <string name="sign_in">Aanmelden</string>
     <string name="sign_out">Afmelden</string>
-    <string name="try_again">Opnieuw</string>
+    <string name="try_again">Probeer opnieuw</string>
 
-    <string name="sign_in_using_your_student_credentials">Aanmelden met je studentengegevens</string>
+    <string name="sign_in_using_your_student_credentials">Meld je aan met je studentengegevens</string>
     <string name="read_our_privacy_policy">Lees ons privacybeleid</string>
     <string name="verifying_credentials">Aanmeldgegevens controleren…</string>
     <string name="populating_database">Database initialiseren…</string>
@@ -138,7 +138,7 @@
         Fout tijdens inladen van gegevens van de API:\n\n
     </string>
     <string name="error_endpoint_verify">
-        Plutus kan je gebruikersgegevens niet verifiëren. Zorg ervoor dat je de laatste versie van Plutus gebruikt. Als
+        Plutus kan je studentengegevens niet verifiëren. Zorg ervoor dat je de laatste versie van Plutus gebruikt. Als
         dit probleem zich blijft voordoen, zijn mogelijk onze servers tijdelijk buiten dienst. Probeer het later opnieuw
         of overweeg ons te contacteren omtrent dit probleem.
     </string>

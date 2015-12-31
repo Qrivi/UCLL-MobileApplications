@@ -65,7 +65,7 @@
     <string name="remember_me">Keep my session active</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
-    <string name="try_again">Retry</string>
+    <string name="try_again">Try again</string>
 
     <string name="sign_in_using_your_student_credentials">Sign in using your student credentials</string>
     <string name="read_our_privacy_policy">Read our privacy policy</string>

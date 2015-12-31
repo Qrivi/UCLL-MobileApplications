@@ -6,11 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import be.krivi.plutus.android.BuildConfig;
 import be.krivi.plutus.android.R;
 import be.krivi.plutus.android.application.Config;
@@ -28,23 +29,11 @@ import java.util.Map;
 
 public class LoginActivity extends BaseActivity{
 
-
-    Animation aFadeIn;
-    Animation aFadeOut;
-
-    boolean busy;
-
-    @Bind( R.id.wrapper )
-    RelativeLayout mWrapper;
-
     @Bind( R.id.wrapperInput )
     LinearLayout mWrapperInput;
 
-    @Bind( R.id.ucllLogo )
-    ImageView mUcllLogo;
-
-    @Bind( R.id.title )
-    TextView mTitle;
+    @Bind( R.id.txt_noInternet )
+    TextView mInfo;
 
     @Bind( R.id.txt_studentId )
     EditText mStudentId;
@@ -58,60 +47,58 @@ public class LoginActivity extends BaseActivity{
     @Bind( R.id.passwordStyle )
     TextInputLayout mPasswordStyle;
 
-    @Bind( R.id.btn_signIn )
-    Button mBtn_signIn;
+    @Bind( R.id.btn_submit )
+    Button mSubmit;
 
-    @Bind( R.id.btn_tryAgain )
-    Button mBtn_tryAgain;
+    Animation aFadeIn;
+    Animation aFadeOut;
 
+    boolean busy;
+    boolean connected;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ){
-
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_login );
-
         ButterKnife.bind( this );
 
         if( app.isNewInstallation() && Config.APP_IS_BETA )
             Message.toast( this, BuildConfig.VERSION_NAME );
 
-
         if( app.isUserSaved() ){
             initializeMainWindow();
         }else{
             initializeLoginWindow();
-            if( !app.isNetworkAvailable() ){
-                mBtn_tryAgain.setVisibility( View.VISIBLE );
-                mWrapperInput.setVisibility( View.INVISIBLE );
-                mTitle.setText( R.string.there_is_no_active_internet_connection );
-            }
+            checkConnectivity();
         }
-
     }
 
-    @OnClick( R.id.btn_tryAgain )
-    public void tryAgainClickHandler(){
+    private void checkConnectivity(){
         if( app.isNetworkAvailable() ){
-            mWrapperInput.startAnimation( aFadeIn );
-            mBtn_tryAgain.setVisibility( View.INVISIBLE );
-            mWrapperInput.setVisibility( View.VISIBLE );
-            mTitle.setText( R.string.sign_in_using_your_student_credentials );
+            connected = true;
+            mInfo.setText( "" );
+            mSubmit.setText( R.string.sign_in );
+            showError( "OK", "OK" );
+        }else{
+            connected = false;
+            mInfo.setText( R.string.there_is_no_active_internet_connection );
+            mSubmit.setText( R.string.try_again );
+            showError( "OK", "OK" );
         }
     }
 
     @OnClick( R.id.btn_info )
-    public void infoClickHandler(){
-        startActivity( new Intent( Intent.ACTION_VIEW ).setData( Uri.parse( app.getProjectUrl() ) ) );
+    public void launchWebsite(){
+        startActivity(
+                new Intent( Intent.ACTION_VIEW ).setData(
+                        Uri.parse( Config.APP_URL + Config.APP_PRIVACY_POLICY ) ) );
     }
 
-    @OnClick( R.id.btn_signIn )
-    public void signInClickHandler(){
-        verifyCredentials();
-    }
-
-    private void verifyCredentials(){
-        if( !busy ){
+    @OnClick( R.id.btn_submit )
+    public void verifyCredentials(){
+        if( !connected ){
+            checkConnectivity();
+        }else if( !busy ){
             busy = true;
 
             String studentId = mStudentId.getText().toString().toLowerCase();
@@ -128,8 +115,7 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void verifyCredentials( final String studentId, final String password ){
-
-        showFadeOut( getString( R.string.verifying_credentials ) );
+        showFadeOut();
 
         Map<String, String> params = new HashMap<>();
         params.put( "studentId", studentId );
@@ -154,17 +140,15 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onFailure( VolleyError error ){
                 Message.obtrusive( app.getCurrentActivity(), getString( R.string.error_endpoint_verify ) );
+                checkConnectivity();
                 mWrapperInput.startAnimation( aFadeIn );
                 busy = false;
             }
         } );
     }
 
-    private void showFadeOut( String text ){
+    private void showFadeOut(){
         mWrapperInput.startAnimation( aFadeOut );
-        imm.toggleSoftInput( InputMethodManager.HIDE_IMPLICIT_ONLY, 0 );
-
-        mTitle.setText( text );
     }
 
     private void showError( String errorStudentId, String errorPassword ){
@@ -174,7 +158,6 @@ public class LoginActivity extends BaseActivity{
         mStudentIdStyle.setError( "" );
         mPasswordStyle.setError( "" );
         mPassword.setText( "" );
-        mTitle.setText( getString( R.string.sign_in_using_your_student_credentials ) );
 
         if( !errorStudentId.equals( "OK" ) )
             mStudentIdStyle.setError( errorStudentId );
@@ -191,7 +174,6 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void initializeLoginWindow(){
-
         if( !app.getStudentId().equals( "" ) )
             mStudentId.setText( app.getStudentId() );
 

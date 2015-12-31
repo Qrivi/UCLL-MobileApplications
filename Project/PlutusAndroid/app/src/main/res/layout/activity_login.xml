@@ -4,117 +4,111 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/padding_activity_extra"
-        android:paddingRight="@dimen/padding_activity_extra"
         android:id="@+id/wrapper"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         tools:context=".LoginActivity">
 
-    <ImageView
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/title"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="@dimen/padding_activity_default"
-            android:paddingBottom="@dimen/padding_activity_default"
-            android:id="@+id/ucllLogo"
-            android:src="@drawable/ucll_logo"
-            android:scaleType="fitCenter"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/wrapperForm"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/title"
-            android:text="@string/sign_in_using_your_student_credentials"
-            android:gravity="center"/>
-
-    <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_activity_extra"
+            android:paddingRight="@dimen/padding_activity_extra"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/padding_form"
+            android:orientation="vertical"
             android:id="@+id/wrapperForm">
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                style="@style/Plutus.BigTitle"
+                android:gravity="left"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in_using_your_student_credentials"
+                android:gravity="left"/>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/btn_tryAgain"
-                android:text="@string/try_again"
-                android:visibility="invisible"
-                android:layout_marginTop="125dp"/>
+                android:id="@+id/btn_info"
+                style="@style/Plutus.Link"
+                android:text="@string/read_our_privacy_policy"/>
 
-        <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/padding_form"
-                android:id="@+id/progressBar"/>
-
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/ucll_pink"
-                android:id="@+id/wrapperInput">
+                android:layout_marginTop="@dimen/padding_activity_extra"
+                android:paddingTop="@dimen/padding_form">
+            <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/progressBar"/>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/studentIdStyle"
-                    app:errorTextAppearance="@style/Plutus.Login.Error">
-                <EditText
+                    android:orientation="vertical"
+                    android:background="@color/ucll_pink"
+                    android:id="@+id/wrapperInput">
+
+                <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txt_studentId"
-                        android:hint="@string/student_id"
-                        android:imeOptions="actionNext"
-                        android:maxLength="8"
-                        android:inputType="textFilter"/>
-            </android.support.design.widget.TextInputLayout>
+                        android:id="@+id/studentIdStyle"
+                        app:errorTextAppearance="@style/Plutus.Login.Error">
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_studentId"
+                            android:hint="@string/student_id"
+                            android:imeOptions="actionNext"
+                            android:maxLength="8"
+                            android:inputType="textFilter"/>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/passwordStyle"
-                    app:errorTextAppearance="@style/Plutus.Login.Error">
-                <EditText
+                <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txt_password"
-                        android:hint="@string/password"
-                        android:imeOptions="actionGo"
-                        android:inputType="textPassword"/>
-            </android.support.design.widget.TextInputLayout>
+                        android:id="@+id/passwordStyle"
+                        app:errorTextAppearance="@style/Plutus.Login.Error">
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_password"
+                            android:hint="@string/password"
+                            android:imeOptions="actionGo"
+                            android:inputType="textPassword"/>
+                </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
+                <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_border"
-                        android:orientation="vertical"
-                        android:id="@+id/wrapperButtons">
+                        android:id="@+id/txt_noInternet"
+                        android:gravity="center"/>
 
-                    <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btn_signIn"
-                            android:text="@string/sign_in"/>
-                    <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btn_info"
-                            android:text="@string/read_our_privacy_policy"
-                            android:background="@android:color/transparent"
-                            android:minHeight="@dimen/link_buttonSize"
-                            android:textSize="@dimen/link_textSize"/>
-                </LinearLayout>
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_border"
+                        android:id="@+id/btn_submit"
+                        android:text="@string/sign_in"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitStart"
+            android:src="@drawable/vector_app_header"/>
 
 </RelativeLayout>
